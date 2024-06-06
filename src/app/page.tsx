@@ -11,6 +11,7 @@ import {
   FormControl,
   FormLabel,
   HStack,
+  Image,
   Input,
   Select,
   Stack,
@@ -25,13 +26,17 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Box
-        w={["full"]}
-        p={[4, 8, 16]}
-        bgColor={"#ffe6e6"}
-        minH={["auto", "85vh"]}
-      >
-        <CustomContainer></CustomContainer>
+      <Box w={["full"]} px={[4, 8, 16]} bgColor={"#ffe6e6"}>
+        <CustomContainer>
+          <HStack
+            w={"full"}
+            h={["auto", "75vh"]}
+            alignItems={"flex-end"}
+            justifyContent={"center"}
+          >
+            <Image src="/hero.png" w={["full", "4xl"]} />
+          </HStack>
+        </CustomContainer>
       </Box>
 
       <Box w={["full"]} p={[4, 8, 16]} bgColor={"#fff"}>
@@ -97,7 +102,9 @@ export default function Home() {
       </Box>
 
       <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
-        <CustomContainer></CustomContainer>
+        <CustomContainer>
+        <Image src="/brands.png" w={["full", "full"]} objectFit={'contain'} />
+        </CustomContainer>
       </Box>
 
       <Box w={["full"]} p={[4, 8, 16]} bgColor={"#fff5c7"}>
@@ -273,7 +280,9 @@ export default function Home() {
       <Box w={"full"} p={[4, 8, 16]} bgColor={"#fcfbf5"}>
         <CustomContainer>
           <HStack justifyContent={"space-between"} gap={8}>
-            <Box></Box>
+            <Box>
+              <Image src="/inbox.png" w={["full", "lg"]} />
+            </Box>
             <Box maxW={["full", "45%"]}>
               <Text
                 maxW={["full", "90%"]}
@@ -312,7 +321,7 @@ export default function Home() {
           <Text fontSize={["2xl", "3xl", "5xl"]} fontWeight={"bold"} mb={8}>
             Get in touch
           </Text>
-          <HStack alignItems={'flex-start'}>
+          <HStack alignItems={"flex-start"}>
             <Box w={"full"} px={8} borderRight={["none", "1px solid #999"]}>
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 Send us a Message
@@ -377,9 +386,16 @@ export default function Home() {
                     resize={"none"}
                   />
                 </Box>
-<HStack justifyContent={'flex-end'}>
-  <Button colorScheme="teal" bgColor={'#000'} rounded={0} leftIcon={<FaArrowRight />}>Submit</Button>
-</HStack>
+                <HStack justifyContent={"flex-end"}>
+                  <Button
+                    colorScheme="teal"
+                    bgColor={"#000"}
+                    rounded={0}
+                    leftIcon={<FaArrowRight />}
+                  >
+                    Submit
+                  </Button>
+                </HStack>
               </FormControl>
               <br />
             </Box>
