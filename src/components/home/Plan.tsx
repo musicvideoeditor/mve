@@ -1,6 +1,7 @@
 import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import ZigzagBorder from "../extras/ZigzagBorder";
 
 interface PlanProps {
   name: string;
@@ -22,12 +23,14 @@ const Plan = ({
   return (
     <>
       <Box
+        pos={"relative"}
         p={10}
         w={["full", "64"]}
         roundedTop={"12"}
         border={"1px solid #000"}
-        className="zigzag-border"
+        // className="zigzag-border"
         bgColor={bgColor || "#FFF"}
+        borderBottom={"none"}
       >
         <Box minH={"80%"}>
           <Text fontSize={"sm"} fontWeight={"semibold"}>
@@ -71,10 +74,16 @@ const Plan = ({
             w={48}
             p={4}
             fontSize={"sm"}
+            _hover={{
+              bgColor: "#222",
+              color: "#FFF",
+            }}
           >
             Book Slot
           </Button>
         </HStack>
+
+        <ZigzagBorder fill={bgColor} />
       </Box>
     </>
   );

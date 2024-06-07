@@ -8,4 +8,6 @@
     50% / 30px 100%;
   -webkit-mask: var(--mask);
   mask: var(--mask);
+  stroke: #000;
+  border: 2px solid #000;
 }

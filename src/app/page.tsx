@@ -1,5 +1,4 @@
 "use client";
-
 import Navbar from "@/components/common/Navbar";
 import CustomContainer from "@/components/custom/CustomContainer";
 import FaqsContainer from "@/components/home/FaqsContainer";
@@ -21,6 +20,16 @@ import {
 } from "@chakra-ui/react";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  EffectCoverflow,
+} from "swiper/modules";
+import "swiper/swiper-bundle.css";
 
 export default function Home() {
   return (
@@ -98,12 +107,64 @@ export default function Home() {
           <Text textAlign={"center"} fontSize={"3xl"} fontWeight={"bold"}>
             Recent videos from our team
           </Text>
+          <br />
+          <br />
+          <Swiper
+            modules={[Navigation, A11y, EffectCoverflow]}
+            spaceBetween={50}
+            navigation
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+            effect={"coverflow"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: false,
+            }}
+            slidesPerView={2}
+            centeredSlides
+            loop
+            style={{ height: "420px" }}
+          >
+            <SwiperSlide>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+                <iframe
+                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
+                  width={"100%"}
+                  height={"100%"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                ></iframe>
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/xooLMR6sPxk?si=c9GduNGFGpp-MKJj"
+                  width={"100%"}
+                  height={"100%"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                ></iframe>
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/hxffnJIYbrE?si=BszJmN0rETEPpaog"
+                  width={"100%"}
+                  height={"100%"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                ></iframe>
+              </Box>
+            </SwiperSlide>
+          </Swiper>
         </CustomContainer>
       </Box>
 
       <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
         <CustomContainer>
-        <Image src="/brands.png" w={["full", "full"]} objectFit={'contain'} />
+          <Image src="/brands.png" w={["full", "full"]} objectFit={"contain"} />
         </CustomContainer>
       </Box>
 
