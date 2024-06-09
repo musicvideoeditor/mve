@@ -50,7 +50,7 @@ const Plan = ({
               </Text>
             ) : null}
             <HStack mb={2}>
-              <Text fontSize={"2xl"} fontWeight={"bold"}>
+              <Text fontSize={"2xl"} fontWeight={"bold"} className="mont-bold">
                 ₹{Number(price)?.toLocaleString("en-IN")}
               </Text>
               <Text fontSize={"sm"} fontWeight={"semibold"}>
