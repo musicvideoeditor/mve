@@ -28,6 +28,7 @@ import {
   Scrollbar,
   A11y,
   EffectCoverflow,
+  FreeMode,
 } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
@@ -38,12 +39,18 @@ export default function Home() {
       <Box w={["full"]} px={[4, 8, 16]} bgColor={"#ffe6e6"}>
         <CustomContainer>
           <HStack
+            pos={"relative"}
             w={"full"}
-            h={["auto", "75vh"]}
-            alignItems={"flex-end"}
+            h={["auto", "80vh", "80vh", "80vh", "80vh"]}
+            alignItems={"center"}
             justifyContent={"center"}
           >
-            <Image src="/hero.png" w={["full", "4xl"]} />
+            <Image
+              pos={"relative"}
+              src="/hero.png"
+              w={["full", "3xl", "3xl"]}
+              top={8}
+            />
           </HStack>
         </CustomContainer>
       </Box>
@@ -56,18 +63,32 @@ export default function Home() {
             justifyContent={"space-between"}
           >
             <VStack>
-              <Text fontSize={"xl"} fontWeight={"bold"}>
+              <Text
+                fontSize={"2xl"}
+                fontWeight={"bold"}
+                className="gothic-bold"
+              >
                 Get your Music Video Edited starting at just
               </Text>
               <HStack alignItems={"center"} justifyContent={"center"} gap={4}>
-                <Text fontSize={"xl"} fontWeight={"bold"} as={"s"}>
+                <Text
+                  fontSize={"xl"}
+                  fontWeight={"bold"}
+                  as={"s"}
+                  className="mont-bold"
+                >
                   ₹30,000
                 </Text>
-                <Text fontSize={"3xl"} fontWeight={"bold"} color={"red"}>
-                  ₹10,000
+                <Text
+                  fontSize={"3xl"}
+                  fontWeight={"bold"}
+                  color={"red"}
+                  className="mont-bold"
+                >
+                  ₹10,000*
                 </Text>
               </HStack>
-              <Text fontSize={"xs"} color={"gray.600"}>
+              <Text fontSize={"sm"} color={"red.600"}>
                 *Limited seats available for this offer, check yours!
               </Text>
             </VStack>
@@ -104,32 +125,38 @@ export default function Home() {
         minH={["auto", "85vh"]}
       >
         <CustomContainer>
-          <Text textAlign={"center"} fontSize={"3xl"} fontWeight={"bold"}>
+          <Text
+            textAlign={"center"}
+            fontSize={"3xl"}
+            fontWeight={"bold"}
+            className="mont-bold"
+          >
             Recent videos from our team
           </Text>
           <br />
           <br />
           <Swiper
-            modules={[Navigation, A11y, EffectCoverflow]}
+            modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
             spaceBetween={50}
             navigation
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
             effect={"coverflow"}
             coverflowEffect={{
-              rotate: 50,
+              rotate: 30,
               stretch: 0,
               depth: 100,
-              modifier: 1,
+              modifier: -1,
               slideShadows: false,
             }}
             slidesPerView={2}
             centeredSlides
+            freeMode
             loop
             style={{ height: "420px" }}
           >
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
                 <iframe
                   src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
@@ -139,7 +166,7 @@ export default function Home() {
               </Box>
             </SwiperSlide>
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
                 <iframe
                   src="https://www.youtube-nocookie.com/embed/xooLMR6sPxk?si=c9GduNGFGpp-MKJj"
                   width={"100%"}
@@ -149,7 +176,7 @@ export default function Home() {
               </Box>
             </SwiperSlide>
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={'hidden'}>
+              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
                 <iframe
                   src="https://www.youtube-nocookie.com/embed/hxffnJIYbrE?si=BszJmN0rETEPpaog"
                   width={"100%"}
@@ -170,7 +197,12 @@ export default function Home() {
 
       <Box w={["full"]} p={[4, 8, 16]} bgColor={"#fff5c7"}>
         <CustomContainer>
-          <Text textAlign={"center"} fontSize={"3xl"} fontWeight={"bold"}>
+          <Text
+            textAlign={"center"}
+            fontSize={"3xl"}
+            fontWeight={"bold"}
+            className="mont-bold"
+          >
             Plans & Pricing
           </Text>
           <br />
@@ -218,7 +250,7 @@ export default function Home() {
                 p={4}
                 w={"full"}
                 bgColor={"#fcd808"}
-                border={"1px solid #000"}
+                border={"2px solid #000"}
                 rounded={8}
               >
                 <Text
@@ -234,7 +266,7 @@ export default function Home() {
                 p={4}
                 w={"full"}
                 bgColor={"#ffef94"}
-                border={"1px solid #000"}
+                border={"2px solid #000"}
                 boxShadow={"-4px 4px 0px #333"}
                 rounded={8}
               >
@@ -250,7 +282,7 @@ export default function Home() {
                 mt={4}
                 w={"full"}
                 bgColor={"#fff"}
-                border={"1px solid #000"}
+                border={"2px solid #000"}
                 overflow={"hidden"}
                 rounded={8}
               >
@@ -275,10 +307,20 @@ export default function Home() {
 
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#fff"}>
         <CustomContainer>
-          <Text fontSize={"3xl"} fontWeight={"bold"} textAlign={"center"}>
+          <Text
+            fontSize={"3xl"}
+            fontWeight={"bold"}
+            textAlign={"center"}
+            className="allroundgothic-bold"
+          >
             MVE hires top talent quickly without any headaches
           </Text>
-          <Text fontSize={"xl"} textAlign={"center"} mt={2}>
+          <Text
+            fontSize={"xl"}
+            textAlign={"center"}
+            mt={2}
+            className="allroundgothic-medium"
+          >
             We hire top talent quickly without any headaches
           </Text>
         </CustomContainer>
@@ -286,13 +328,24 @@ export default function Home() {
       <Box p={2} bgColor={"#f5f5f5"}></Box>
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#e9e1fc"}>
         <CustomContainer>
-          <Text textAlign={"center"} fontSize={"3xl"} fontWeight={"bold"}>
+          <Text
+            textAlign={"center"}
+            fontSize={"3xl"}
+            fontWeight={"bold"}
+            className="mont-bold"
+          >
             How it works?
           </Text>
           <br />
           <br />
           <br />
-          <Stack direction={["column", "row"]} w={"full"} gap={8}>
+          <Stack
+            direction={["column", "row"]}
+            w={"full"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            gap={8}
+          >
             <Box w={["full", "64"]}>
               <VStack>
                 <StepButton step="1" />
@@ -308,7 +361,7 @@ export default function Home() {
                 w={"full"}
                 bgColor={"#6547de"}
                 color={"#fff"}
-                border={"1px solid #000"}
+                border={"2px solid #000"}
                 rounded={8}
                 cursor={"pointer"}
               >
@@ -321,6 +374,18 @@ export default function Home() {
                 </Text>
               </Box>
             </Box>
+            <Box>
+              <Box
+                w={["full", "lg"]}
+                h={"xs"}
+                border={"2px solid #000"}
+                rounded={16}
+                boxShadow={"-4px 4px 0px #333"}
+                bgColor={'#FFF'}
+              >
+
+              </Box>
+            </Box>
           </Stack>
         </CustomContainer>
       </Box>
@@ -328,10 +393,20 @@ export default function Home() {
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#b2fa5f"}>
         <CustomContainer>
           <HStack justifyContent={"center"} gap={4}>
-            <Text fontSize={"xl"} fontWeight={"bold"} textAlign={"center"}>
+            <Text
+              fontSize={"xl"}
+              fontWeight={"bold"}
+              textAlign={"center"}
+              className="allroundgothic-medium"
+            >
               Sign in to start your journey
             </Text>
-            <Button colorScheme="red" border={"1px solid #000"} px={8}>
+            <Button
+              colorScheme="red"
+              border={"1px solid #000"}
+              px={8}
+              className="mont-bold"
+            >
               Sign In
             </Button>
           </HStack>
@@ -349,6 +424,7 @@ export default function Home() {
                 maxW={["full", "90%"]}
                 fontWeight={"medium"}
                 fontSize={["2xl", "3xl", "5xl"]}
+                className="gothic-bold"
               >
                 Crafted your feedback conversation in One Inbox
               </Text>
@@ -379,7 +455,7 @@ export default function Home() {
 
       <Box w={"full"} p={[4, 8, 16]} bgColor={"#e1f7fc"}>
         <CustomContainer>
-          <Text fontSize={["2xl", "3xl", "5xl"]} fontWeight={"bold"} mb={8}>
+          <Text fontSize={["2xl", "3xl", "5xl"]} fontWeight={"bold"} mb={8} className="mont-bold">
             Get in touch
           </Text>
           <HStack alignItems={"flex-start"}>
@@ -400,7 +476,7 @@ export default function Home() {
                     </FormLabel>
                     <Input
                       variant={"flushed"}
-                      borderBottom={"1px solid #000"}
+                      borderBottom={"2px solid #000"}
                     />
                   </Box>
                   <Box w={"full"}>
@@ -409,7 +485,7 @@ export default function Home() {
                     </FormLabel>
                     <Input
                       variant={"flushed"}
-                      borderBottom={"1px solid #000"}
+                      borderBottom={"2px solid #000"}
                       type="email"
                     />
                   </Box>
@@ -422,7 +498,7 @@ export default function Home() {
                     <Select
                       placeholder="Please select"
                       variant={"flushed"}
-                      borderBottom={"1px solid #000"}
+                      borderBottom={"2px solid #000"}
                     ></Select>
                   </Box>
                   <Box w={"full"}>
@@ -431,7 +507,7 @@ export default function Home() {
                     </FormLabel>
                     <Input
                       variant={"flushed"}
-                      borderBottom={"1px solid #000"}
+                      borderBottom={"2px solid #000"}
                       type="email"
                     />
                   </Box>
@@ -442,7 +518,7 @@ export default function Home() {
                   </FormLabel>
                   <Textarea
                     variant={"flushed"}
-                    borderBottom={"1px solid #000"}
+                    borderBottom={"2px solid #000"}
                     h={28}
                     resize={"none"}
                   />

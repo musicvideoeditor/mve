@@ -24,32 +24,41 @@ const Plan = ({
     <>
       <Box
         pos={"relative"}
-        p={10}
+        p={10} px={8}
         w={["full", "64"]}
         roundedTop={"12"}
-        border={"1px solid #000"}
+        border={"2px solid #000"}
         // className="zigzag-border"
         bgColor={bgColor || "#FFF"}
         borderBottom={"none"}
       >
         <Box minH={"80%"}>
-          <Text fontSize={"sm"} fontWeight={"semibold"}>
+          <Text fontSize={"sm"} fontWeight={"semibold"} mb={2}>
             {name}
           </Text>
-          {cancelledPrice ? (
-            <Text as={"s"} fontWeight={"semibold"}>
-              ₹{Number(cancelledPrice)?.toLocaleString("en-IN")}
-            </Text>
-          ) : null}
-          <HStack mb={2}>
-            <Text fontSize={"2xl"} fontWeight={"bold"}>
-              ₹{Number(price)?.toLocaleString("en-IN")}
-            </Text>
-            <Text fontSize={"sm"} fontWeight={"semibold"}>
-              / project
-            </Text>
-          </HStack>
-          <Text fontSize={"sm"}>{description}</Text>
+          <Box pos={"relative"}>
+            {cancelledPrice ? (
+              <Text
+                pos={"absolute"}
+                as={"s"}
+                fontSize={"xs"}
+                top={-2}
+                left={4}
+                fontWeight={"semibold"}
+              >
+                ₹{Number(cancelledPrice)?.toLocaleString("en-IN")}
+              </Text>
+            ) : null}
+            <HStack mb={2}>
+              <Text fontSize={"2xl"} fontWeight={"bold"}>
+                ₹{Number(price)?.toLocaleString("en-IN")}
+              </Text>
+              <Text fontSize={"sm"} fontWeight={"semibold"}>
+                / project
+              </Text>
+            </HStack>
+          </Box>
+          <Text fontSize={"xs"}>{description}</Text>
           <br />
           <VStack
             w={"full"}
@@ -67,7 +76,7 @@ const Plan = ({
         </Box>
 
         <br />
-        <HStack w={"full"} justifyContent={"center"}>
+        <HStack w={"full"} justifyContent={"center"} zIndex={9}>
           <Button
             colorScheme="black"
             variant={"outline"}

@@ -1,5 +1,6 @@
+"use client";
 import { Box, Button, HStack, Spacer, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomContainer from "../custom/CustomContainer";
 import Logo from "./Logo";
 import Link from "next/link";
@@ -29,19 +30,52 @@ const links = [
 ];
 
 const Navbar = () => {
+  const [bgColor, setBgColor] = useState("transparent");
+  const [hasScrolledPast, setHasScrolledPast] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const threshold = viewportHeight * 0.1; // 10vh
+
+      if (scrollPosition > threshold && !hasScrolledPast) {
+        setHasScrolledPast(true);
+        setBgColor("#111");
+      } else if (scrollPosition <= threshold && hasScrolledPast) {
+        setHasScrolledPast(false);
+        setBgColor("transparent");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [hasScrolledPast]);
+
   return (
     <>
       <Box
         p={[4, 6]}
-        bgColor={"#ffe6e6"}
+        bgColor={bgColor}
         pos={"fixed"}
         top={0}
         left={0}
         right={0}
         zIndex={999}
+        transition={"all .3s ease"}
       >
         <CustomContainer>
-          <HStack w={"full"} gap={16} justifyContent={"flex-start"}>
+          <HStack
+            w={"full"}
+            gap={16}
+            justifyContent={"flex-start"}
+            className="allroundgothic-medium"
+            color={hasScrolledPast ? "#FFF" : "#000"}
+          >
             <Logo />
             <HStack gap={8}>
               {links?.map((item, i) => (
@@ -61,7 +95,7 @@ const Navbar = () => {
               </Link>
 
               <Button
-                colorScheme="black"
+                colorScheme={hasScrolledPast ? "white" : "black"}
                 variant={"outline"}
                 px={3}
                 py={5}

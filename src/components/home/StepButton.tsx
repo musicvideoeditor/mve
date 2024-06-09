@@ -16,7 +16,7 @@ const StepButton = ({ step, onClick, isActive }: StepButtonProps) => {
         px={6}
         w={"full"}
         bgColor={"#fff"}
-        border={"1px solid #000"}
+        border={"2px solid #000"}
         rounded={8}
         cursor={"pointer"}
       >
