@@ -18,18 +18,12 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import Marquee from "react-fast-marquee";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  EffectCoverflow,
-  FreeMode,
-} from "swiper/modules";
+import { Navigation, A11y, EffectCoverflow, FreeMode } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
 export default function Home() {
@@ -191,7 +185,14 @@ export default function Home() {
 
       <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
         <CustomContainer>
-          <Image src="/brands.png" w={["full", "full"]} objectFit={"contain"} />
+          <Marquee style={{height: '40px'}} delay={4}>
+            <Image
+              src="/brands.png"
+              w={["full", "full"]}
+              h={'40px'}
+              objectFit={"contain"}
+            />
+          </Marquee>
         </CustomContainer>
       </Box>
 
@@ -381,10 +382,8 @@ export default function Home() {
                 border={"2px solid #000"}
                 rounded={16}
                 boxShadow={"-4px 4px 0px #333"}
-                bgColor={'#FFF'}
-              >
-
-              </Box>
+                bgColor={"#FFF"}
+              ></Box>
             </Box>
           </Stack>
         </CustomContainer>
@@ -455,7 +454,12 @@ export default function Home() {
 
       <Box w={"full"} p={[4, 8, 16]} bgColor={"#e1f7fc"}>
         <CustomContainer>
-          <Text fontSize={["2xl", "3xl", "5xl"]} fontWeight={"bold"} mb={8} className="mont-bold">
+          <Text
+            fontSize={["2xl", "3xl", "5xl"]}
+            fontWeight={"bold"}
+            mb={8}
+            className="mont-bold"
+          >
             Get in touch
           </Text>
           <HStack alignItems={"flex-start"}>
