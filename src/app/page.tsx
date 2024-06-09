@@ -45,6 +45,12 @@ export default function Home() {
               w={["full", "3xl", "3xl"]}
               top={8}
             />
+            <Image
+              pos={"absolute"}
+              src="/hero_arrows.png"
+              w={["full", "3xl"]}
+              bottom={20}
+            />
           </HStack>
         </CustomContainer>
       </Box>
