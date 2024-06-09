@@ -17,12 +17,12 @@ import VideoFrame from "@/components/dashboard/video/VideoFrame";
 
 const ProjectUpdates = () => {
   const [intent, setIntent] = useState("");
-  const [showBookmarks, setShowBookmarks] = useState(false)
+  const [showBookmarks, setShowBookmarks] = useState(false);
 
   return (
     <>
       <HStack alignItems={"flex-start"} gap={4}>
-        <Box flex={4}>
+        <Box flex={5}>
           <Text fontSize={"xx-large"} fontWeight={"bold"}>
             Project Name
           </Text>
@@ -44,6 +44,8 @@ const ProjectUpdates = () => {
                   fontWeight="500"
                   size={"sm"}
                   rounded={"full"}
+                  colorScheme="facebook"
+                  bgColor={"#6420AA"}
                   onClick={() => setIntent("comment")}
                 >
                   Add Comment
@@ -170,77 +172,78 @@ const ProjectUpdates = () => {
             )}
           </HStack>
         </Box>
-        <Box flex={2} w={"full"} rounded={8}>
-          <HStack justifyContent={"space-between"} mb={4}>
-            <Text fontSize={"lg"} fontWeight={"bold"}>
-              Rececnt Activity
-            </Text>
-            <HStack justifyContent={"flex-end"}>
-              <Text fontSize={"xs"}>Bookmarks</Text>
-              <Switch onChange={e => setShowBookmarks(e.target.checked)} />
+        <Box flex={2} pos={'relative'}>
+          <Box pos={'sticky'} top={0} w={"full"} rounded={12} p={6} bgColor={"#070F2B"} color={"#FFF"}>
+            <HStack justifyContent={"space-between"} mb={4}>
+              <Text fontSize={"lg"} fontWeight={"bold"}>
+                Rececnt Activity
+              </Text>
+              <HStack justifyContent={"flex-end"}>
+                <Text fontSize={"xs"}>Bookmarks</Text>
+                <Switch onChange={(e) => setShowBookmarks(e.target.checked)} />
+              </HStack>
             </HStack>
-          </HStack>
-          <br />
-          <Box mb={8}>
-            <HStack alignItems={"flex-start"}>
-              <Avatar name="Krunal Mali" size={"sm"} />
-              <Box w={"full"}>
-                <Text fontWeight={"medium"} fontSize={"sm"}>
-                  Krunal Mali (12 May, 2024)
-                </Text>
-                <Text color={"purple.400"} fontSize={"xs"}>
-                  01:37-04:22
-                </Text>
-                <Text fontSize={"xs"} mt={4}>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Aspernatur veniam minus sunt labore voluptate, delectus
-                  architecto neque repellendus hic id? Lorem ipsum dolor sit,
-                  amet consectetur adipisicing elit. Aspernatur veniam minus
-                  sunt labore voluptate, delectus architecto neque repellendus
-                  hic id?
-                </Text>
-              </Box>
-            </HStack>
-            <HStack w={"full"} justifyContent={"flex-end"} mt={4}>
-              <Button
-                colorScheme="facebook"
-                variant={"ghost"}
-                size={"sm"}
-                rounded={"full"}
-                leftIcon={<MdReply />}
-              >
-                Add Reply
-              </Button>
-            </HStack>
-          </Box>
-          <Box mb={8}>
-            <HStack alignItems={"flex-start"}>
-              <Avatar name="John Doe" size={"sm"} />
-              <Box w={"full"}>
-                <Text fontWeight={"medium"} fontSize={"sm"}>
-                  John Doe (14 May, 2024)
-                </Text>
-                <Text color={"purple.400"} fontSize={"xs"}>
-                  03:58-06:33
-                </Text>
-                <Text fontSize={"xs"} mt={4}>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Aspernatur veniam minus sunt labore voluptate, delectus
-                  architecto neque repellendus hic id?
-                </Text>
-                <HStack w={"full"} justifyContent={"flex-end"} mt={4}>
-                  <Button
-                    colorScheme="facebook"
-                    variant={"ghost"}
-                    size={"sm"}
-                    rounded={"full"}
-                    leftIcon={<MdReply />}
-                  >
-                    Add Reply
-                  </Button>
-                </HStack>
-              </Box>
-            </HStack>
+            <br />
+            <Box mb={8}>
+              <HStack alignItems={"flex-start"}>
+                <Avatar name="Krunal Mali" size={"sm"} />
+                <Box w={"full"}>
+                  <Text fontWeight={"medium"} fontSize={"sm"}>
+                    Krunal Mali (12 May, 2024)
+                  </Text>
+                  <Text color={"purple.400"} fontSize={"xs"}>
+                    01:37-04:22
+                  </Text>
+                </Box>
+              </HStack>
+              <Text fontSize={"xs"} mt={4}>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Aspernatur veniam minus sunt labore voluptate, delectus
+                architecto neque repellendus hic id? Lorem ipsum dolor sit, amet
+                consectetur adipisicing elit. Aspernatur veniam minus sunt
+                labore voluptate, delectus architecto neque repellendus hic id?
+              </Text>
+              <HStack w={"full"} justifyContent={"flex-end"} mt={1}>
+                <Button
+                  colorScheme="twitter"
+                  variant={"ghost"}
+                  size={"sm"}
+                  rounded={"full"}
+                  leftIcon={<MdReply />}
+                >
+                  Add Reply
+                </Button>
+              </HStack>
+            </Box>
+            <Box mb={8}>
+              <HStack alignItems={"flex-start"}>
+                <Avatar name="Sangam Kumar" size={"sm"} />
+                <Box w={"full"}>
+                  <Text fontWeight={"medium"} fontSize={"sm"}>
+                    Sangam Kumar (12 May, 2024)
+                  </Text>
+                  <Text color={"purple.400"} fontSize={"xs"}>
+                    03:51-04:22
+                  </Text>
+                </Box>
+              </HStack>
+              <Text fontSize={"xs"} mt={4}>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Aspernatur veniam minus sunt labore voluptate, delectus
+                architecto neque?
+              </Text>
+              <HStack w={"full"} justifyContent={"flex-end"} mt={1}>
+                <Button
+                  colorScheme="twitter"
+                  variant={"ghost"}
+                  size={"sm"}
+                  rounded={"full"}
+                  leftIcon={<MdReply />}
+                >
+                  Add Reply
+                </Button>
+              </HStack>
+            </Box>
           </Box>
         </Box>
       </HStack>

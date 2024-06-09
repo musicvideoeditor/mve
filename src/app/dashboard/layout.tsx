@@ -8,13 +8,12 @@ import React from "react";
 const layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Topbar />
-      <Box p={4}>
-        <HStack alignItems={'flex-start'} justifyContent={"space-between"} gap={4}>
-          <Box flex={1}>
+      <Box bgImage={'/bg.jpg'}>
+        <HStack alignItems={'flex-start'} justifyContent={"space-between"} gap={0}>
+          <Box flex={2} bgColor={'whiteAlpha.600'} filter={'auto'} backdropBlur={'10px'}>
             <Sidenav />
           </Box>
-          <Box flex={5} overflowY={'scroll'} h={'86vh'} className="no-scrollbar">{children}</Box>
+          <Box flex={8} overflowY={'scroll'} h={'100vh'} className="no-scrollbar" p={6}>{children}</Box>
         </HStack>
       </Box>
     </>
