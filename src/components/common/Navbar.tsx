@@ -100,6 +100,8 @@ const Navbar = () => {
                 px={3}
                 py={5}
                 leftIcon={<MdArrowOutward />}
+                as={'a'}
+                href="/dashboard"
               >
                 Log In
               </Button>

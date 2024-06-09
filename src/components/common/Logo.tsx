@@ -1,10 +1,13 @@
-import { Image, Text } from "@chakra-ui/react";
+import { Image, ImageProps, Text } from "@chakra-ui/react";
 import React from "react";
+interface LogoProps {
+  size?: ImageProps["height"];
+}
 
-const Logo = () => {
+const Logo = ({ size }: LogoProps) => {
   return (
     <>
-      <Image src="/logo.png" w={['28']} />
+      <Image src="/logo.png" h={size || ["12"]} />
     </>
   );
 };

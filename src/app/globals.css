@@ -1,70 +1,74 @@
 @font-face {
-  font-family: 'allroundgothic';
-  src: url('/fonts/allroundgothic.otf') format('opentype');
+  font-family: "allroundgothic";
+  src: url("/fonts/allroundgothic.otf") format("opentype");
 }
 @font-face {
-  font-family: 'allroundgothic-medium';
-  src: url('/fonts/allroundgothic-medium.otf') format('opentype');
+  font-family: "allroundgothic-medium";
+  src: url("/fonts/allroundgothic-medium.otf") format("opentype");
 }
 @font-face {
-  font-family: 'allroundgothic-semibold';
-  src: url('/fonts/allroundgothic-semibold.otf') format('opentype');
+  font-family: "allroundgothic-semibold";
+  src: url("/fonts/allroundgothic-semibold.otf") format("opentype");
 }
 @font-face {
-  font-family: 'allroundgothic-bold';
-  src: url('/fonts/allroundgothic-bold.otf') format('opentype');
+  font-family: "allroundgothic-bold";
+  src: url("/fonts/allroundgothic-bold.otf") format("opentype");
 }
 @font-face {
-  font-family: 'gothic';
-  src: url('/fonts/gothic.ttf');
+  font-family: "gothic";
+  src: url("/fonts/gothic.ttf");
 }
 @font-face {
-  font-family: 'gothic-bold';
-  src: url('/fonts/gothic-bold.ttf');
+  font-family: "gothic-bold";
+  src: url("/fonts/gothic-bold.ttf");
 }
 @font-face {
-  font-family: 'mont';
-  src: url('/fonts/mont.otf') format('opentype');
+  font-family: "mont";
+  src: url("/fonts/mont.otf") format("opentype");
 }
 @font-face {
-  font-family: 'mont-semibold';
-  src: url('/fonts/mont-semibold.otf') format('opentype');
+  font-family: "mont-semibold";
+  src: url("/fonts/mont-semibold.otf") format("opentype");
 }
 @font-face {
-  font-family: 'mont-bold';
-  src: url('/fonts/mont-bold.otf') format('opentype');
+  font-family: "mont-bold";
+  src: url("/fonts/mont-bold.otf") format("opentype");
 }
 
-.allroundgothic{
-  font-family: 'allroundgothic';
+.allroundgothic {
+  font-family: "allroundgothic";
 }
-.allroundgothic-medium{
-  font-family: 'allroundgothic-medium';
+.allroundgothic-medium {
+  font-family: "allroundgothic-medium";
 }
-.allroundgothic-semibold{
-  font-family: 'allroundgothic-semibold';
+.allroundgothic-semibold {
+  font-family: "allroundgothic-semibold";
 }
-.allroundgothic-bold{
-  font-family: 'allroundgothic-bold';
+.allroundgothic-bold {
+  font-family: "allroundgothic-bold";
 }
-.gothic{
-  font-family: 'gothic';
+.gothic {
+  font-family: "gothic";
 }
-.gothic-bold{
-  font-family: 'gothic-bold';
+.gothic-bold {
+  font-family: "gothic-bold";
 }
-.mont{
-  font-family: 'mont';
+.mont {
+  font-family: "mont";
 }
-.mont-semibold{
-  font-family: 'mont-semibold';
+.mont-semibold {
+  font-family: "mont-semibold";
 }
-.mont-bold{
-  font-family: 'mont-bold';
+.mont-bold {
+  font-family: "mont-bold";
 }
 
-p{
-  font-family: 'mont';
+p {
+  font-family: "mont";
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .zigzag-border {
