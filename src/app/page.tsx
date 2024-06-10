@@ -35,7 +35,7 @@ export default function Home() {
           <HStack
             pos={"relative"}
             w={"full"}
-            h={["auto", "80vh", "80vh", "80vh", "80vh"]}
+            h={["auto", "75vh", "75vh", "75vh", "75vh"]}
             alignItems={"center"}
             justifyContent={"center"}
           >
@@ -44,12 +44,6 @@ export default function Home() {
               src="/hero.png"
               w={["full", "3xl", "3xl"]}
               top={8}
-            />
-            <Image
-              pos={"absolute"}
-              src="/hero_arrows.png"
-              w={["full", "3xl"]}
-              bottom={20}
             />
           </HStack>
         </CustomContainer>
@@ -62,7 +56,7 @@ export default function Home() {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            <VStack>
+            <VStack gap={0}>
               <Text
                 fontSize={"2xl"}
                 fontWeight={"bold"}
@@ -82,7 +76,7 @@ export default function Home() {
                 <Text
                   fontSize={"3xl"}
                   fontWeight={"bold"}
-                  color={"red"}
+                  color={"red.600"}
                   className="mont-bold"
                 >
                   ₹10,000*
@@ -97,10 +91,12 @@ export default function Home() {
               <Button
                 w={56}
                 colorScheme="red"
+                bgColor={'#ff3b3b'}
                 variant={"solid"}
                 px={4}
                 py={6}
-                leftIcon={<MdArrowOutward />}
+                leftIcon={<MdArrowOutward fontSize={20} />}
+                className="gothic-bold"
               >
                 Get Started
               </Button>
@@ -251,6 +247,7 @@ export default function Home() {
                 "Motion Graphics",
                 "3 Revisions",
               ]}
+              badgeText="💥 Limited time offer"
             />
             <Box w={["full", "64"]} alignSelf={"flex-end"}>
               <Box
@@ -315,7 +312,7 @@ export default function Home() {
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#fff"}>
         <CustomContainer>
           <Text
-            fontSize={"3xl"}
+            fontSize={"4xl"}
             fontWeight={"bold"}
             textAlign={"center"}
             className="allroundgothic-bold"
@@ -426,7 +423,7 @@ export default function Home() {
             </Box>
             <Box maxW={["full", "45%"]}>
               <Text
-                maxW={["full", "90%"]}
+                maxW={["full", "95%"]}
                 fontWeight={"medium"}
                 fontSize={["2xl", "3xl", "5xl"]}
                 className="gothic-bold"
@@ -462,7 +459,7 @@ export default function Home() {
         <CustomContainer>
           <Text
             fontSize={["2xl", "3xl", "5xl"]}
-            fontWeight={"bold"}
+            fontWeight={"700"}
             mb={8}
             className="mont-bold"
           >

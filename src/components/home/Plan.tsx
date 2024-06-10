@@ -10,6 +10,7 @@ interface PlanProps {
   description?: string;
   features?: Array<string>;
   bgColor?: string;
+  badgeText?: string;
 }
 
 const Plan = ({
@@ -19,19 +20,34 @@ const Plan = ({
   description,
   features,
   bgColor,
+  badgeText,
 }: PlanProps) => {
   return (
     <>
       <Box
         pos={"relative"}
-        p={10} px={8}
+        p={10}
+        px={8}
         w={["full", "64"]}
         roundedTop={"12"}
         border={"2px solid #000"}
-        // className="zigzag-border"
         bgColor={bgColor || "#FFF"}
         borderBottom={"none"}
       >
+        {badgeText ? (
+          <Box
+            pos={"absolute"}
+            top={2}
+            right={2}
+            px={2}
+            py={1}
+            bgColor={"#FFF"}
+            boxShadow={"md"}
+            fontSize={"8"}
+          >
+            {badgeText}
+          </Box>
+        ) : null}
         <Box minH={"80%"}>
           <Text fontSize={"sm"} fontWeight={"semibold"} mb={2}>
             {name}
@@ -82,6 +98,7 @@ const Plan = ({
             variant={"outline"}
             w={48}
             p={4}
+            border={'2px'}
             fontSize={"sm"}
             _hover={{
               bgColor: "#222",

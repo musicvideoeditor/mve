@@ -5,6 +5,7 @@ import {
   Button,
   FormLabel,
   HStack,
+  IconButton,
   Input,
   Switch,
   Text,
@@ -14,234 +15,125 @@ import {
 import React, { useState } from "react";
 import { MdReply } from "react-icons/md";
 import VideoFrame from "@/components/dashboard/video/VideoFrame";
+import { FiDownload } from "react-icons/fi";
+import { FaDownload, FaShareSquare } from "react-icons/fa";
 
 const ProjectUpdates = () => {
   const [intent, setIntent] = useState("");
-  const [showBookmarks, setShowBookmarks] = useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(true);
 
   return (
     <>
-      <HStack alignItems={"flex-start"} gap={4}>
-        <Box flex={5}>
-          <Text fontSize={"xx-large"} fontWeight={"bold"}>
-            Project Name
-          </Text>
+      <Text fontSize={"xx-large"} fontWeight={"bold"}>
+        Project Name
+      </Text>
+      <HStack justifyContent={"space-between"} gap={4}>
+        <HStack justifyContent={"space-between"} flex={5}>
           <Text>ID: PROJ1234</Text>
-          <br />
+          <HStack justifyContent={"flex-end"} gap={0}>
+            <IconButton
+              icon={<FaDownload />}
+              variant={"ghost"}
+              aria-label="download"
+            />
+            <IconButton
+              icon={<FaShareSquare />}
+              variant={"ghost"}
+              aria-label="share"
+            />
+          </HStack>
+        </HStack>
+        <Box flex={2} w={"full"}></Box>
+      </HStack>
+      <br />
+      <HStack alignItems={"flex-start"} gap={4}>
+        <Box flex={6}>
           <VideoFrame
             src="https://www.youtube.com/embed/xooLMR6sPxk"
             title="Your Video Title"
             showBookmarks={showBookmarks}
           />
-          <HStack w={"full"} alignItems={"center"}>
-            {intent == "" ? (
-              <HStack w={"full"} justifyContent={"space-between"}>
-                <Text>
-                  Have something to say to the editor? Put your comments.
-                </Text>
-                <Button
-                  fontSize="xs"
-                  fontWeight="500"
-                  size={"sm"}
-                  rounded={"full"}
-                  colorScheme="facebook"
-                  bgColor={"#6420AA"}
-                  onClick={() => setIntent("comment")}
-                >
-                  Add Comment
-                </Button>
-              </HStack>
-            ) : (
-              <Box w={"full"}>
-                <HStack
-                  w={"full"}
-                  justifyContent={"space-between"}
-                  flexWrap={"wrap"}
-                >
-                  <Box>
-                    <FormLabel
-                      display="flex"
-                      ms="4px"
-                      fontSize="sm"
-                      fontWeight="500"
-                      mb="8px"
-                    >
-                      From
-                    </FormLabel>
-                    <HStack gap={6}>
-                      <HStack alignItems={"flex-end"}>
-                        <Input
-                          variant="auth"
-                          fontSize="sm"
-                          ms={{ base: "0px", md: "0px" }}
-                          type="number"
-                          placeholder="00"
-                          fontWeight="500"
-                          size="md"
-                          w={16}
-                        />
-                        <Text fontSize={"sm"}>min.</Text>
-                      </HStack>
-                      <HStack alignItems={"flex-end"}>
-                        <Input
-                          variant="auth"
-                          fontSize="sm"
-                          ms={{ base: "0px", md: "0px" }}
-                          type="number"
-                          placeholder="00"
-                          fontWeight="500"
-                          size="md"
-                          w={16}
-                        />
-                        <Text fontSize={"sm"}>sec.</Text>
-                      </HStack>
-                    </HStack>
-                  </Box>
-                  <Box>
-                    <FormLabel
-                      display="flex"
-                      ms="4px"
-                      fontSize="sm"
-                      fontWeight="500"
-                      mb="8px"
-                    >
-                      To
-                    </FormLabel>
-                    <HStack gap={6}>
-                      <HStack alignItems={"flex-end"}>
-                        <Input
-                          variant="auth"
-                          fontSize="sm"
-                          ms={{ base: "0px", md: "0px" }}
-                          type="number"
-                          placeholder="00"
-                          fontWeight="500"
-                          size="md"
-                          w={16}
-                        />
-                        <Text fontSize={"sm"}>min.</Text>
-                      </HStack>
-                      <HStack alignItems={"flex-end"}>
-                        <Input
-                          variant="auth"
-                          fontSize="sm"
-                          ms={{ base: "0px", md: "0px" }}
-                          type="number"
-                          placeholder="00"
-                          fontWeight="500"
-                          size="md"
-                          w={16}
-                        />
-                        <Text fontSize={"sm"}>sec.</Text>
-                      </HStack>
-                    </HStack>
-                  </Box>
-                </HStack>
-                <br />
-                <Box>
-                  <FormLabel
-                    display="flex"
-                    ms="4px"
-                    fontSize="sm"
-                    fontWeight="500"
-                    mb="8px"
-                  >
-                    Message
-                  </FormLabel>
-                  <Textarea
-                    w={"full"}
-                    h={"16"}
-                    ms={{ base: "0px", md: "0px" }}
-                    resize={"none"}
-                    mb={8}
-                  />
-                  <br />
-                  <HStack justifyContent={"flex-end"} pb={8}>
-                    <Button
-                      fontSize="xs"
-                      fontWeight="500"
-                      size={"sm"}
-                      rounded={"full"}
-                      onClick={() => setIntent("")}
-                    >
-                      Save Comment
-                    </Button>
-                  </HStack>
-                </Box>
-              </Box>
-            )}
-          </HStack>
         </Box>
-        <Box flex={2} pos={'relative'}>
-          <Box pos={'sticky'} top={0} w={"full"} rounded={12} p={6} bgColor={"#070F2B"} color={"#FFF"}>
-            <HStack justifyContent={"space-between"} mb={4}>
-              <Text fontSize={"lg"} fontWeight={"bold"}>
-                Rececnt Activity
-              </Text>
-              <HStack justifyContent={"flex-end"}>
-                <Text fontSize={"xs"}>Bookmarks</Text>
-                <Switch onChange={(e) => setShowBookmarks(e.target.checked)} />
-              </HStack>
-            </HStack>
-            <br />
+
+        <Box
+          flex={2}
+          rounded={12}
+          p={6}
+          bgColor={"#1d2729"}
+          color={"#FFF"}
+          h={"100%"}
+        >
+          <HStack justifyContent={"space-between"} mb={4}>
+            <Text fontSize={"md"} fontWeight={"bold"}>
+              Rececnt Activity
+            </Text>
+          </HStack>
+          <br />
+          <Box maxH={"xs"} overflowY={"scroll"}>
             <Box mb={8}>
-              <HStack alignItems={"flex-start"}>
+              <HStack alignItems={"center"}>
                 <Avatar name="Krunal Mali" size={"sm"} />
-                <Box w={"full"}>
-                  <Text fontWeight={"medium"} fontSize={"sm"}>
-                    Krunal Mali (12 May, 2024)
-                  </Text>
-                  <Text color={"purple.400"} fontSize={"xs"}>
-                    01:37-04:22
-                  </Text>
-                </Box>
+                <Text fontWeight={"medium"} fontSize={"sm"}>
+                  Krunal Mali (12 May, 2024)
+                </Text>
               </HStack>
               <Text fontSize={"xs"} mt={4}>
+                <Text as={"span"} color={"purple.400"} fontSize={"xs"} pr={2}>
+                  01:37
+                </Text>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Aspernatur veniam minus sunt labore voluptate, delectus
                 architecto neque repellendus hic id? Lorem ipsum dolor sit, amet
                 consectetur adipisicing elit. Aspernatur veniam minus sunt
                 labore voluptate, delectus architecto neque repellendus hic id?
               </Text>
-              <HStack w={"full"} justifyContent={"flex-end"} mt={1}>
-                <Button
+              <HStack w={"full"} justifyContent={"space-between"} mt={1}>
+                <IconButton
                   colorScheme="twitter"
                   variant={"ghost"}
                   size={"sm"}
                   rounded={"full"}
-                  leftIcon={<MdReply />}
-                >
-                  Add Reply
-                </Button>
+                  _hover={{
+                    bgColor: "blackAlpha.400",
+                  }}
+                  icon={<MdReply fontSize={16} />}
+                  aria-label="reply"
+                />
+                <Text fontSize={"xs"} color={"gray.500"}>
+                  5m ago
+                </Text>
               </HStack>
             </Box>
             <Box mb={8}>
-              <HStack alignItems={"flex-start"}>
-                <Avatar name="Sangam Kumar" size={"sm"} />
-                <Box w={"full"}>
-                  <Text fontWeight={"medium"} fontSize={"sm"}>
-                    Sangam Kumar (12 May, 2024)
-                  </Text>
-                  <Text color={"purple.400"} fontSize={"xs"}>
-                    03:51-04:22
-                  </Text>
-                </Box>
+              <HStack alignItems={"center"}>
+                <Avatar name="Krunal Mali" size={"sm"} />
+                <Text fontWeight={"medium"} fontSize={"sm"}>
+                  Krunal Mali (12 May, 2024)
+                </Text>
               </HStack>
               <Text fontSize={"xs"} mt={4}>
+                <Text as={"span"} color={"purple.400"} fontSize={"xs"} pr={2}>
+                  01:37
+                </Text>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Aspernatur veniam minus sunt labore voluptate, delectus
                 architecto neque?
               </Text>
-              <HStack w={"full"} justifyContent={"flex-end"} mt={1}>
-                <Button
+              <HStack w={"full"} justifyContent={"space-between"} mt={1}>
+                <IconButton
                   colorScheme="twitter"
                   variant={"ghost"}
                   size={"sm"}
                   rounded={"full"}
-                  leftIcon={<MdReply />}
-                >
-                  Add Reply
-                </Button>
+                  _hover={{
+                    bgColor: "blackAlpha.400",
+                  }}
+                  icon={<MdReply fontSize={16} />}
+                  aria-label="reply"
+                />
+                <Text fontSize={"xs"} color={"gray.500"}>
+                  5m ago
+                </Text>
               </HStack>
             </Box>
           </Box>

@@ -73,14 +73,17 @@ const Navbar = () => {
             w={"full"}
             gap={16}
             justifyContent={"flex-start"}
-            className="allroundgothic-medium"
             color={hasScrolledPast ? "#FFF" : "#000"}
           >
             <Logo />
             <HStack gap={8}>
               {links?.map((item, i) => (
                 <Link key={i} href={item?.href}>
-                  <Text fontSize={"sm"} fontWeight={"semibold"}>
+                  <Text
+                    fontSize={"sm"}
+                    fontWeight={"semibold"}
+                    className="allroundgothic"
+                  >
                     {item?.label}
                   </Text>
                 </Link>
@@ -100,7 +103,7 @@ const Navbar = () => {
                 px={3}
                 py={5}
                 leftIcon={<MdArrowOutward />}
-                as={'a'}
+                as={"a"}
                 href="/dashboard"
               >
                 Log In
