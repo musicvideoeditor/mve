@@ -8,6 +8,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import React from "react";
+import { FaPlusCircle } from "react-icons/fa";
 
 const FaqsContainer = () => {
   return (
@@ -19,7 +20,7 @@ const FaqsContainer = () => {
               <Box as="span" flex="1" textAlign="left">
                 Section 1 title
               </Box>
-              <AccordionIcon />
+              <AccordionIcon as={FaPlusCircle} />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
@@ -36,7 +37,7 @@ const FaqsContainer = () => {
               <Box as="span" flex="1" textAlign="left">
                 Section 2 title
               </Box>
-              <AccordionIcon />
+              <AccordionIcon as={FaPlusCircle} />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
