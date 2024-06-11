@@ -22,9 +22,10 @@ import Marquee from "react-fast-marquee";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, A11y, EffectCoverflow, FreeMode } from "swiper/modules";
-import "swiper/swiper-bundle.css";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, A11y, EffectCoverflow, FreeMode } from "swiper/modules";
+// import "swiper/swiper-bundle.css";
+import Carousel from "@/components/home/Carousel";
 
 export default function Home() {
   return (
@@ -91,7 +92,7 @@ export default function Home() {
               <Button
                 w={56}
                 colorScheme="red"
-                bgColor={'#ff3b3b'}
+                bgColor={"#ff3b3b"}
                 variant={"solid"}
                 px={4}
                 py={6}
@@ -131,7 +132,7 @@ export default function Home() {
           </Text>
           <br />
           <br />
-          <Swiper
+          {/* <Swiper
             modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
             spaceBetween={50}
             navigation
@@ -181,17 +182,20 @@ export default function Home() {
                 ></iframe>
               </Box>
             </SwiperSlide>
-          </Swiper>
+          </Swiper> */}
+          <HStack w={"full"} alignItems={"center"} justifyContent={"center"} mt={16}>
+            <Carousel />
+          </HStack>
         </CustomContainer>
       </Box>
 
       <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
         <CustomContainer>
-          <Marquee style={{height: '40px'}} delay={4}>
+          <Marquee style={{ height: "40px" }} delay={4}>
             <Image
               src="/brands.png"
               w={["full", "full"]}
-              h={'40px'}
+              h={"40px"}
               objectFit={"contain"}
             />
           </Marquee>
