@@ -396,7 +396,7 @@ export default function Home() {
         <CustomContainer>
           <HStack justifyContent={"center"} gap={4}>
             <Text
-              fontSize={"xl"}
+              fontSize={"2xl"}
               fontWeight={"bold"}
               textAlign={"center"}
               className="allroundgothic-medium"

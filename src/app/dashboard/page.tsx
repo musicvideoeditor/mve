@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Checkbox,
   FormLabel,
   HStack,
   IconButton,
@@ -17,6 +18,7 @@ import { MdReply } from "react-icons/md";
 import VideoFrame from "@/components/dashboard/video/VideoFrame";
 import { FiDownload } from "react-icons/fi";
 import { FaDownload, FaShareSquare } from "react-icons/fa";
+import { BsStopwatch } from "react-icons/bs";
 
 const ProjectUpdates = () => {
   const [intent, setIntent] = useState("");
@@ -58,17 +60,97 @@ const ProjectUpdates = () => {
         <Box
           flex={2}
           rounded={12}
-          p={6}
+          p={3}
           bgColor={"#1d2729"}
           color={"#FFF"}
           h={"100%"}
         >
-          <HStack justifyContent={"space-between"} mb={4}>
-            <Text fontSize={"md"} fontWeight={"bold"}>
-              Rececnt Activity
-            </Text>
+          <HStack
+            alignItems={"flex-start"}
+            justifyContent={"flex-start"}
+            mb={2}
+          >
+            <Avatar name="Krunal Mali" size={"xs"} />
+            <Box w={"full"}>
+              <Input
+                w={"full"}
+                variant={"unstyled"}
+                placeholder="Type your feedback here..."
+                fontSize={"xs"}
+              />
+              <HStack justifyContent={"space-between"} mt={4}>
+                <HStack
+                  p={"2px"}
+                  py={"1px"}
+                  fontSize={"xs"}
+                  bgColor={"gray.500"}
+                  rounded={4}
+                  gap={1}
+                >
+                  <BsStopwatch fontSize={"10"} fontWeight={"bold"} />
+                  <Input
+                    variant={"unstyled"}
+                    w={3}
+                    size={"xs"}
+                    fontSize={8}
+                    p={0}
+                    color={"#FFF"}
+                    placeholder="00"
+                    defaultValue={"00"}
+                  />
+                  <Text size={"xs"} color={"#FFF"}>
+                    :
+                  </Text>
+                  <Input
+                    variant={"unstyled"}
+                    w={3}
+                    size={"xs"}
+                    fontSize={8}
+                    p={0}
+                    color={"#FFF"}
+                    placeholder="00"
+                    defaultValue={"00"}
+                  />
+                  <Checkbox
+                    size={"sm"}
+                    colorScheme="white"
+                    bgColor={"#FFF"}
+                    iconColor="#000"
+                    rounded={2}
+                  />
+                </HStack>
+
+                <Button
+                  colorScheme="facebook"
+                  bgColor={"purple.500"}
+                  size={"xs"}
+                  fontSize={8}
+                >
+                  Add Feedback
+                </Button>
+              </HStack>
+            </Box>
           </HStack>
-          <br />
+          <Text
+            pl={2}
+            my={4}
+            fontSize={"xs"}
+            color={"gray.400"}
+            pos={"relative"}
+          >
+            Comments <span style={{ color: "#FFF" }}>2</span>{" "}
+            <span
+              style={{
+                position: "absolute",
+                bottom: '-2px',
+                left: '8px',
+                width: "32px",
+                padding: "1px",
+                backgroundColor: "#815ad6",
+              }}
+            ></span>
+          </Text>
+
           <Box maxH={"xs"} overflowY={"scroll"}>
             <Box mb={8}>
               <HStack alignItems={"center"}>
