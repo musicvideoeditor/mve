@@ -13,7 +13,7 @@ const layout = ({ children }: LayoutProps) => {
           <Box flex={2} bgColor={'whiteAlpha.600'} filter={'auto'} backdropBlur={'10px'}>
             <Sidenav />
           </Box>
-          <Box flex={8} overflowY={'scroll'} h={'100vh'} className="no-scrollbar" p={3}>{children}</Box>
+          <Box flex={8} overflowY={'scroll'} h={'100vh'} className="no-scrollbar" p={4} pt={6} pl={[4, 6]}>{children}</Box>
         </HStack>
       </Box>
     </>

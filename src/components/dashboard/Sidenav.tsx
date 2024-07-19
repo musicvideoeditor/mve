@@ -4,6 +4,7 @@ import Logo from "../common/Logo";
 import { CiFileOn, CiGrid42, CiMoneyCheck1 } from "react-icons/ci";
 import { IoVideocamOutline } from "react-icons/io5";
 import { PiVideoCameraThin } from "react-icons/pi";
+import Link from "next/link";
 
 const Sidenav = () => {
   return (
@@ -24,28 +25,33 @@ const Sidenav = () => {
         >
           <Logo size={"10"} />
           <br />
-          <HStack
-            w={"full"}
-            gap={3}
-            p={2}
-            cursor={"pointer"}
-            rounded={4}
-            _hover={{ bgColor: "gray.200" }}
-          >
-            <Icon as={CiGrid42} fontSize={24} />
-            <Text>Dashboard</Text>
-          </HStack>
-          <HStack
-            w={"full"}
-            gap={3}
-            p={2}
-            cursor={"pointer"}
-            rounded={4}
-            _hover={{ bgColor: "gray.200" }}
-          >
-            <Icon as={PiVideoCameraThin} fontSize={24} />
-            <Text>Projects</Text>
-          </HStack>
+          <Link href={"/dashboard/projects"} style={{ width: "100%" }}>
+            <HStack
+              w={"full"}
+              gap={3}
+              p={2}
+              cursor={"pointer"}
+              rounded={4}
+              _hover={{ bgColor: "gray.200" }}
+            >
+              <Icon as={CiGrid42} fontSize={24} />
+              <Text>Dashboard</Text>
+            </HStack>
+          </Link>
+
+          <Link href={"/dashboard/projects"} style={{ width: "100%" }}>
+            <HStack
+              w={"full"}
+              gap={3}
+              p={2}
+              cursor={"pointer"}
+              rounded={4}
+              _hover={{ bgColor: "gray.200" }}
+            >
+              <Icon as={PiVideoCameraThin} fontSize={24} />
+              <Text>Projects</Text>
+            </HStack>
+          </Link>
           <HStack
             w={"full"}
             gap={3}
