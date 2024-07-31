@@ -34,10 +34,6 @@ import { FiPlus, FiSearch, FiUpload } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { LuFile } from "react-icons/lu";
 
-interface NewProjectDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const ProjectTitle = ({ onSubmit }: { onSubmit: () => void }) => {
   return (
@@ -46,7 +42,8 @@ const ProjectTitle = ({ onSubmit }: { onSubmit: () => void }) => {
         w={["full", "80%"]}
         p={[4, 8]}
         border={"1px solid #333"}
-        rounded={12} mx={'auto'}
+        rounded={12}
+        mx={"auto"}
       >
         <VStack
           w={"full"}
@@ -329,75 +326,58 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
   );
 };
 
-const NewProjectDrawer = ({ isOpen, onClose }: NewProjectDrawerProps) => {
+const NewProjectDrawer = () => {
   const [step, setStep] = useState("title");
 
   return (
     <>
-      <Drawer isOpen={isOpen} onClose={onClose} placement="bottom" size={"xl"}>
-        <DrawerOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(10px) hue-rotate(90deg)"
-        />
-        <DrawerContent
-          bgColor={"#e8e8e6"}
-          w={["95%"]}
-          mx={"auto"}
-          roundedTop={12}
-        >
-          <DrawerHeader>New Project</DrawerHeader>
-          <DrawerBody minH={["80vh"]} pt={[4, 8]}>
-            <Container maxW={["full", "6xl"]}>
-              <HStack justifyContent={"space-between"} mb={16}>
-                <Box>
-                  <Text className="mont-bold" fontSize={"lg"}>
-                    {step == "title" ? "" : "Files and assets"}
-                  </Text>
-                  <Text fontWeight={"semibold"} fontSize={"10"}>
-                    {step == "assets"
-                      ? "Documents and attachments that have been uploaded as part of this project"
-                      : ""}
-                  </Text>
-                </Box>
-                <HStack>
-                  <Button
-                    leftIcon={<FiUpload />}
-                    size={"sm"}
-                    variant={"outline"}
-                    border={"1px solid #666"}
-                    fontSize={"xs"}
-                    w={24}
-                  >
-                    Share
-                  </Button>
-                  <Button
-                    leftIcon={<FiPlus />}
-                    size={"sm"}
-                    colorScheme="blackAlpha"
-                    bgColor={"#000"}
-                    _hover={{ bgColor: "#333" }}
-                    fontSize={"xs"}
-                    w={24}
-                  >
-                    Invite
-                  </Button>
-                </HStack>
-              </HStack>
+      <Container maxW={["full", "6xl"]}>
+        <HStack justifyContent={"space-between"} mb={16}>
+          <Box>
+            <Text className="mont-bold" fontSize={"lg"}>
+              {step == "title" ? "" : "Files and assets"}
+            </Text>
+            <Text fontWeight={"semibold"} fontSize={"10"}>
+              {step == "assets"
+                ? "Documents and attachments that have been uploaded as part of this project"
+                : ""}
+            </Text>
+          </Box>
+          <HStack>
+            <Button
+              leftIcon={<FiUpload />}
+              size={"sm"}
+              variant={"outline"}
+              border={"1px solid #666"}
+              fontSize={"xs"}
+              w={24}
+            >
+              Share
+            </Button>
+            <Button
+              leftIcon={<FiPlus />}
+              size={"sm"}
+              colorScheme="blackAlpha"
+              bgColor={"#000"}
+              _hover={{ bgColor: "#333" }}
+              fontSize={"xs"}
+              w={24}
+            >
+              Invite
+            </Button>
+          </HStack>
+        </HStack>
 
-              <Text fontSize={10} fontWeight={"semibold"} mb={6}>
-                Projects &nbsp;&nbsp; / &nbsp;&nbsp; Project Name &nbsp;&nbsp; /
-                &nbsp;&nbsp; Files and assets
-              </Text>
-              {step == "title" ? (
-                <ProjectTitle onSubmit={() => setStep("assets")} />
-              ) : (
-                <ProjectAssets onSubmit={onClose} />
-              )}
-            </Container>
-          </DrawerBody>
-          <DrawerFooter></DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+        <Text fontSize={10} fontWeight={"semibold"} mb={6}>
+          Projects &nbsp;&nbsp; / &nbsp;&nbsp; Project Name &nbsp;&nbsp; /
+          &nbsp;&nbsp; Files and assets
+        </Text>
+        {step == "title" ? (
+          <ProjectTitle onSubmit={() => setStep("assets")} />
+        ) : (
+          <ProjectAssets onSubmit={() => setStep("assets")} />
+        )}
+      </Container>
     </>
   );
 };

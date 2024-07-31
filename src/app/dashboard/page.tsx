@@ -26,12 +26,12 @@ const ProjectUpdates = () => {
 
   return (
     <>
-      <Text fontSize={"xx-large"} fontWeight={"bold"}>
+      <Text fontSize={"xl"} fontWeight={"bold"}>
         Project Name
       </Text>
       <HStack justifyContent={"space-between"} gap={4}>
         <HStack justifyContent={"space-between"} flex={5}>
-          <Text>ID: PROJ1234</Text>
+          <Text fontSize={'sm'}>ID: PROJ1234</Text>
           <HStack justifyContent={"flex-end"} gap={0}>
             <IconButton
               icon={<FaDownload />}
