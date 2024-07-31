@@ -34,7 +34,7 @@ const layout = ({ children }: LayoutProps) => {
               bgColor={"#e8e8e6"}
             >
               <Text fontSize={"md"} fontWeight={"bold"}>
-                Music Video Editor
+                Dashboard
               </Text>
             </Box>
             <HStack pos={"relative"} bottom={2}>
