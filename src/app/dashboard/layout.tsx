@@ -3,6 +3,7 @@ import Sidenav from "@/components/dashboard/Sidenav";
 import Topbar from "@/components/dashboard/Topbar";
 import { LayoutProps } from "@/lib/props/common";
 import { Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { BsClockHistory, BsCloudDownload } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -10,6 +11,41 @@ import { MdOutlineComment } from "react-icons/md";
 import { RiFolderUploadLine } from "react-icons/ri";
 
 const layout = ({ children }: LayoutProps) => {
+  const pathname = usePathname();
+  const tabs = [
+    {
+      label: "Upload Data",
+      icon: <RiFolderUploadLine fontSize={16} />,
+      url: "/dashboard/projects",
+      regex: /^\/dashboard\/projects$/
+    },
+    {
+      label: "Video Review",
+      icon: <MdOutlineComment fontSize={16} />,
+      url: "/dashboard/projects/csdejdt/videos/xdfg43t3",
+      regex: /^\/dashboard\/projects\/[^/]+\/videos\/[^/]+$/
+    },
+    {
+      label: "Review History",
+      icon: <BsClockHistory fontSize={16} />,
+      url: "#",
+      regex: /^\/dashboard\/projects\/review\/history$/
+    },
+    {
+      label: "Chat",
+      icon: <MdOutlineComment fontSize={16} />,
+      url: "#",
+      regex: /^\/dashboard\/projects\/chat$/
+    },
+    {
+      label: "Download",
+      icon: <BsCloudDownload fontSize={16} />,
+      url: "#",
+      regex: /^\/dashboard\/projects\/download$/
+    },
+  ];
+  
+
   return (
     <>
       <Box bgImage={"/bg.jpg"}>
@@ -26,64 +62,44 @@ const layout = ({ children }: LayoutProps) => {
         <Box zIndex={1} pos={"relative"} top={"5vh"}>
           <HStack w={"full"} px={[4, 8, 16]} justifyContent={"space-between"}>
             <Box
-              w={"max-content"}
-              px={6}
-              pb={2}
-              pt={4}
+              pos={"relative"}
+              top={2}
+              w={72}
+              px={2}
+              h={12}
               roundedTop={24}
-              bgColor={"#e8e8e6"}
+              bgImage={"url('/tab.png')"}
+              bgSize={"cover"}
+              bgRepeat={"no-repeat"}
+              bgPos={"top"}
             >
-              <Text fontSize={"md"} fontWeight={"bold"}>
+              <Text
+                pos={"relative"}
+                top={3}
+                left={16}
+                fontSize={"md"}
+                fontWeight={"bold"}
+              >
                 Dashboard
               </Text>
             </Box>
             <HStack pos={"relative"} bottom={2}>
-              <Button
-                rounded={"full"}
-                colorScheme="orange"
-                size={"lg"}
-                fontSize={"xs"}
-                bgColor={"#4ca336"}
-                leftIcon={<RiFolderUploadLine fontSize={16} />}
-                as={'a'}
-                href="/dashboard/projects"
-              >
-                Upload Data
-              </Button>
-              <Button
-                rounded={"full"}
-                size={"lg"}
-                fontSize={"xs"}
-                leftIcon={<MdOutlineComment fontSize={16} />}
-                as={'a'}
-                href="/dashboard"
-              >
-                Video Review
-              </Button>
-              <Button
-                rounded={"full"}
-                size={"lg"}
-                fontSize={"xs"}
-                leftIcon={<BsClockHistory fontSize={16} />}
-              >
-                Review History
-              </Button>
-              <Button
-                rounded={"full"}
-                size={"lg"}
-                fontSize={"xs"}
-                leftIcon={<MdOutlineComment fontSize={16} />}
-              >
-                Chat
-              </Button>
-              <Button
-                rounded={"full"}
-                size={"lg"}
-                fontSize={"xs"}
-                leftIcon={<BsCloudDownload fontSize={16} />}
-              >
-                Download
-              </Button>
+              {tabs.map((tab, i) => (
+                <Button
+                  key={i}
+                  rounded={"full"}
+                  size={"lg"}
+                  fontSize={"xs"}
+                  leftIcon={tab.icon}
+                  as={'a'}
+                  href={tab.url}
+                  colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
+                  bgColor={tab.regex.test(pathname) ? "#4ca336" : "#FFF"}
+                  color={tab.regex.test(pathname) ? "#fff" : "#000"}
+                >
+                  {tab.label}
+                </Button>
+              ))}
               <IconButton
                 rounded={"full"}
                 aria-label="account"
@@ -92,7 +108,7 @@ const layout = ({ children }: LayoutProps) => {
               />
             </HStack>
           </HStack>
-          <Box p={[4, 8, 16]} roundedTop={24} minH={"90vh"} bgColor={"#e8e8e6"}>
+          <Box p={[4, 8, 16]} roundedTop={24} minH={"90vh"} bgColor={"#fff"}>
             {children}
           </Box>
         </Box>
