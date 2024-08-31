@@ -1,10 +1,18 @@
 "use client";
-import { Box, Button, HStack, Spacer, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Spacer,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CustomContainer from "../custom/CustomContainer";
 import Logo from "./Logo";
 import Link from "next/link";
 import { MdArrowOutward } from "react-icons/md";
+import LoginModal from "../home/LoginModal";
 
 const links = [
   {
@@ -30,6 +38,7 @@ const links = [
 ];
 
 const Navbar = () => {
+  const { isOpen, onToggle } = useDisclosure();
   const [bgColor, setBgColor] = useState("transparent");
   const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
@@ -103,8 +112,7 @@ const Navbar = () => {
                 px={3}
                 py={5}
                 leftIcon={<MdArrowOutward />}
-                as={"a"}
-                href="/dashboard"
+                onClick={onToggle}
               >
                 Log In
               </Button>
@@ -112,6 +120,8 @@ const Navbar = () => {
           </HStack>
         </CustomContainer>
       </Box>
+
+      <LoginModal isOpen={isOpen} onClose={onToggle} />
     </>
   );
 };

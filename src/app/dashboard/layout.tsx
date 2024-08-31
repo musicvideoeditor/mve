@@ -1,8 +1,16 @@
 "use client";
 import Sidenav from "@/components/dashboard/Sidenav";
 import Topbar from "@/components/dashboard/Topbar";
+import { colors } from "@/lib/constants";
 import { LayoutProps } from "@/lib/props/common";
-import { Box, Button, HStack, IconButton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  HStack,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { BsClockHistory, BsCloudDownload } from "react-icons/bs";
@@ -17,38 +25,37 @@ const layout = ({ children }: LayoutProps) => {
       label: "Upload Data",
       icon: <RiFolderUploadLine fontSize={16} />,
       url: "/dashboard/projects",
-      regex: /^\/dashboard\/projects$/
+      regex: /^\/dashboard\/projects$/,
     },
     {
       label: "Video Review",
       icon: <MdOutlineComment fontSize={16} />,
       url: "/dashboard/projects/csdejdt/videos/xdfg43t3",
-      regex: /^\/dashboard\/projects\/[^/]+\/videos\/[^/]+$/
+      regex: /^\/dashboard\/projects\/[^/]+\/videos\/[^/]+$/,
     },
     {
       label: "Review History",
       icon: <BsClockHistory fontSize={16} />,
       url: "#",
-      regex: /^\/dashboard\/projects\/review\/history$/
+      regex: /^\/dashboard\/projects\/review\/history$/,
     },
     {
       label: "Chat",
       icon: <MdOutlineComment fontSize={16} />,
       url: "#",
-      regex: /^\/dashboard\/projects\/chat$/
+      regex: /^\/dashboard\/projects\/chat$/,
     },
     {
       label: "Download",
       icon: <BsCloudDownload fontSize={16} />,
       url: "#",
-      regex: /^\/dashboard\/projects\/download$/
+      regex: /^\/dashboard\/projects\/download$/,
     },
   ];
-  
 
   return (
     <>
-      <Box bgImage={"/bg.jpg"}>
+      <Box bgImage={"/bg.jpg"} bgSize={'cover'} h={'100vh'} overflow={'hidden'}>
         <Box
           pos={"absolute"}
           top={0}
@@ -59,7 +66,7 @@ const layout = ({ children }: LayoutProps) => {
           backdropFilter="blur(10px) hue-rotate(90deg)"
           zIndex={0}
         ></Box>
-        <Box zIndex={1} pos={"relative"} top={"5vh"}>
+        <Box zIndex={1} pos={"relative"} top={4}>
           <HStack w={"full"} px={[4, 8, 16]} justifyContent={"space-between"}>
             <Box
               pos={"relative"}
@@ -91,7 +98,7 @@ const layout = ({ children }: LayoutProps) => {
                   size={"lg"}
                   fontSize={"xs"}
                   leftIcon={tab.icon}
-                  as={'a'}
+                  as={"a"}
                   href={tab.url}
                   colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
                   bgColor={tab.regex.test(pathname) ? "#4ca336" : "#FFF"}
@@ -105,11 +112,20 @@ const layout = ({ children }: LayoutProps) => {
                 aria-label="account"
                 size={"lg"}
                 icon={<FaRegUserCircle fontSize={20} />}
+                as={"a"}
+                href="/dashboard/account"
               />
             </HStack>
           </HStack>
-          <Box p={[4, 8, 16]} roundedTop={24} minH={"90vh"} bgColor={"#fff"}>
-            {children}
+          <Box
+            w={"97.5%"}
+            mx={"auto"}
+            p={[4, 8, 8]}
+            roundedTop={24}
+            minH={"90vh"}
+            bgColor={colors.dashboardBgColor}
+          >
+            <Container maxW={["full", "5xl"]}>{children}</Container>
           </Box>
         </Box>
       </Box>
