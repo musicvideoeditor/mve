@@ -101,7 +101,7 @@ const layout = ({ children }: LayoutProps) => {
                   as={"a"}
                   href={tab.url}
                   colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
-                  bgColor={tab.regex.test(pathname) ? "#4ca336" : "#FFF"}
+                  bgColor={tab.regex.test(pathname) ? "#4ca336" : colors.dashboardBgColor}
                   color={tab.regex.test(pathname) ? "#fff" : "#000"}
                 >
                   {tab.label}

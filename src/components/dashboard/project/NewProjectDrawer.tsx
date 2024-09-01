@@ -13,12 +13,12 @@ const NewProjectDrawer = () => {
       <HStack justifyContent={"space-between"} mb={8}>
         <Box>
           <Text className="mont-bold" fontSize={"lg"}>
-            {step == "title" ? "" : "Files and assets"}
+            {step == "title" ? "New Project" : "Files and assets"}
           </Text>
           <Text fontWeight={"semibold"} fontSize={"10"}>
-            {step == "assets"
-              ? "Documents and attachments that have been uploaded as part of this project"
-              : ""}
+            {step == "title"
+              ? "Create a new project and upload files in next step"
+              : "Documents and attachments that have been uploaded as part of this project"}
           </Text>
         </Box>
         <HStack>
