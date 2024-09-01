@@ -1,12 +1,9 @@
-"use client";
-import NewProjectDrawer from "@/components/dashboard/project/NewProjectDrawer";
 import ProjectCard from "@/components/dashboard/project/ProjectCard";
 import { Box, Grid, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 const page = () => {
-  const [showNewProjectDrawer, setShowNewProjectDrawer] = useState(false);
 
   return (
     <>
