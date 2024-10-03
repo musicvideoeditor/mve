@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Hide, HStack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import ZigzagBorder from "../extras/ZigzagBorder";
@@ -26,13 +26,14 @@ const Plan = ({
     <>
       <Box
         pos={"relative"}
-        p={10}
-        px={8}
+        p={[6, 10]}
+        px={[6, 8]}
         w={["full", "64"]}
         roundedTop={"12"}
+        roundedBottomLeft={["12", "none"]}
         border={"2px solid #000"}
         bgColor={bgColor || "#FFF"}
-        borderBottom={"none"}
+        borderBottom={["2px solid #000", "none"]}
       >
         {badgeText ? (
           <Box
@@ -48,7 +49,7 @@ const Plan = ({
             {badgeText}
           </Box>
         ) : null}
-        <Box minH={"80%"}>
+        <Box minH={["auto", "80%"]}>
           <Text fontSize={"sm"} fontWeight={"semibold"} mb={2}>
             {name}
           </Text>
@@ -92,13 +93,20 @@ const Plan = ({
         </Box>
 
         <br />
-        <HStack w={"full"} justifyContent={"center"} zIndex={9}>
+        <HStack
+          px={10}
+          w={"full"}
+          zIndex={9}
+          bottom={[8, "unset"]}
+          justifyContent={["flex-end", "center"]}
+          pos={["absolute", "relative"]}
+        >
           <Button
             colorScheme="black"
             variant={"outline"}
-            w={48}
+            w={[28, 48]}
             p={4}
-            border={'2px'}
+            border={"2px"}
             fontSize={"sm"}
             _hover={{
               bgColor: "#222",
@@ -109,7 +117,9 @@ const Plan = ({
           </Button>
         </HStack>
 
-        <ZigzagBorder fill={bgColor} />
+        <Hide below="sm">
+          <ZigzagBorder fill={bgColor} />
+        </Hide>
       </Box>
     </>
   );

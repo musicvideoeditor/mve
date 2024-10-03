@@ -1,44 +1,11 @@
 "use client";
-import {
-  Box,
-  Button,
-  HStack,
-  Spacer,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CustomContainer from "../custom/CustomContainer";
-import Logo from "./Logo";
-import Link from "next/link";
-import { MdArrowOutward } from "react-icons/md";
-import LoginModal from "../home/LoginModal";
-
-const links = [
-  {
-    label: "How it works",
-    href: "#",
-  },
-  {
-    label: "Portfolio",
-    href: "#",
-  },
-  {
-    label: "Pricing",
-    href: "#",
-  },
-  {
-    label: "Blogs",
-    href: "#",
-  },
-  {
-    label: "FAQ",
-    href: "#",
-  },
-];
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 const Navbar = () => {
-  const { isOpen, onToggle } = useDisclosure();
   const [bgColor, setBgColor] = useState("transparent");
   const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
@@ -68,60 +35,22 @@ const Navbar = () => {
   return (
     <>
       <Box
-        p={[4, 6]}
+        w={"full"}
+        p={[0, 6]}
+        py={[4, 6]}
         bgColor={bgColor}
         pos={"fixed"}
         top={0}
         left={0}
-        right={0}
         zIndex={999}
         transition={"all .3s ease"}
       >
         <CustomContainer>
-          <HStack
-            w={"full"}
-            gap={16}
-            justifyContent={"flex-start"}
-            color={hasScrolledPast ? "#FFF" : "#000"}
-          >
-            <Logo />
-            <HStack gap={8}>
-              {links?.map((item, i) => (
-                <Link key={i} href={item?.href}>
-                  <Text
-                    fontSize={"sm"}
-                    fontWeight={"semibold"}
-                    className="allroundgothic"
-                  >
-                    {item?.label}
-                  </Text>
-                </Link>
-              ))}
-            </HStack>
-            <Spacer />
-            <HStack gap={4} justifyContent={"flex-end"}>
-              <Link href={"#"}>
-                <Text fontSize={"sm"} fontWeight={"semibold"}>
-                  Get Connected
-                </Text>
-              </Link>
+          <DesktopNav color={hasScrolledPast ? "white" : "black"} />
 
-              <Button
-                colorScheme={hasScrolledPast ? "white" : "black"}
-                variant={"outline"}
-                px={3}
-                py={5}
-                leftIcon={<MdArrowOutward />}
-                onClick={onToggle}
-              >
-                Log In
-              </Button>
-            </HStack>
-          </HStack>
+          <MobileNav color={hasScrolledPast ? "white" : "black"} />
         </CustomContainer>
       </Box>
-
-      <LoginModal isOpen={isOpen} onClose={onToggle} />
     </>
   );
 };

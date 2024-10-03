@@ -36,7 +36,7 @@ export default function Home() {
           <HStack
             pos={"relative"}
             w={"full"}
-            h={["auto", "75vh", "75vh", "75vh", "75vh"]}
+            h={["55vh", "75vh", "75vh", "75vh", "75vh"]}
             alignItems={"center"}
             justifyContent={"center"}
           >
@@ -62,10 +62,16 @@ export default function Home() {
                 fontSize={"2xl"}
                 fontWeight={"bold"}
                 className="gothic-bold"
+                textAlign={"center"}
               >
                 Get your Music Video Edited starting at just
               </Text>
-              <HStack alignItems={"center"} justifyContent={"center"} gap={4}>
+              <HStack
+                alignItems={"center"}
+                justifyContent={"center"}
+                gap={4}
+                mt={[4, 2]}
+              >
                 <Text
                   fontSize={"xl"}
                   fontWeight={"bold"}
@@ -83,14 +89,19 @@ export default function Home() {
                   ₹10,000*
                 </Text>
               </HStack>
-              <Text fontSize={"sm"} color={"red.600"}>
+              <Text
+                fontSize={["xs", "sm"]}
+                fontWeight={["semibold", "medium"]}
+                color={"red.600"}
+                textAlign={"center"}
+              >
                 *Limited seats available for this offer, check yours!
               </Text>
             </VStack>
 
-            <VStack>
+            <Stack direction={["row", "column"]} mt={[4, 2]}>
               <Button
-                w={56}
+                w={[48, 56]}
                 colorScheme="red"
                 bgColor={"#ff3b3b"}
                 variant={"solid"}
@@ -98,19 +109,21 @@ export default function Home() {
                 py={6}
                 leftIcon={<MdArrowOutward fontSize={20} />}
                 className="gothic-bold"
+                fontSize={["sm", "sm"]}
               >
                 Get Started
               </Button>
               <Button
-                w={56}
+                w={[48, 56]}
                 colorScheme="black"
                 variant={"outline"}
                 px={4}
                 py={6}
+                fontSize={["sm", "sm"]}
               >
                 Show me how it works
               </Button>
-            </VStack>
+            </Stack>
           </Stack>
         </CustomContainer>
       </Box>
@@ -119,7 +132,7 @@ export default function Home() {
         w={["full"]}
         p={[4, 8, 16]}
         bgColor={"#c2e6ff"}
-        minH={["auto", "85vh"]}
+        minH={["50vh", "85vh"]}
       >
         <CustomContainer>
           <Text
@@ -183,7 +196,13 @@ export default function Home() {
               </Box>
             </SwiperSlide>
           </Swiper> */}
-          <HStack w={"full"} alignItems={"center"} justifyContent={"center"} mt={16}>
+          <HStack
+            display={["none", "flex"]}
+            w={"full"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            mt={16}
+          >
             <Carousel />
           </HStack>
         </CustomContainer>
@@ -316,7 +335,7 @@ export default function Home() {
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#fff"}>
         <CustomContainer>
           <Text
-            fontSize={"4xl"}
+            fontSize={["2xl", "4xl"]}
             fontWeight={"bold"}
             textAlign={"center"}
             className="allroundgothic-bold"
@@ -324,7 +343,7 @@ export default function Home() {
             MVE hires top talent quickly without any headaches
           </Text>
           <Text
-            fontSize={"xl"}
+            fontSize={["md", "xl"]}
             textAlign={"center"}
             mt={2}
             className="allroundgothic-medium"
@@ -333,6 +352,7 @@ export default function Home() {
           </Text>
         </CustomContainer>
       </Box>
+
       <Box p={2} bgColor={"#f5f5f5"}></Box>
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#e9e1fc"}>
         <CustomContainer>
@@ -341,12 +361,11 @@ export default function Home() {
             fontSize={"3xl"}
             fontWeight={"bold"}
             className="mont-bold"
+            mb={[2, 16]}
           >
             How it works?
           </Text>
-          <br />
-          <br />
-          <br />
+
           <Stack
             direction={["column", "row"]}
             w={"full"}
@@ -355,13 +374,13 @@ export default function Home() {
             gap={8}
           >
             <Box w={["full", "64"]}>
-              <VStack>
+              <Stack direction={["row", "column"]}>
                 <StepButton step="1" />
                 <StepButton step="2" />
                 <StepButton step="3" />
                 <StepButton step="4" />
                 <StepButton step="5" />
-              </VStack>
+              </Stack>
               <br />
               <Box
                 p={4}
@@ -382,7 +401,7 @@ export default function Home() {
                 </Text>
               </Box>
             </Box>
-            <Box>
+            <Box w={["full", "auto"]}>
               <Box
                 w={["full", "lg"]}
                 h={"xs"}
@@ -398,7 +417,12 @@ export default function Home() {
 
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#b2fa5f"}>
         <CustomContainer>
-          <HStack justifyContent={"center"} gap={4}>
+          <Stack
+            direction={["column", "row"]}
+            alignItems={"center"}
+            justifyContent={"center"}
+            gap={4}
+          >
             <Text
               fontSize={"2xl"}
               fontWeight={"bold"}
@@ -408,28 +432,31 @@ export default function Home() {
               Sign in to start your journey
             </Text>
             <Button
+              px={8}
+              w={[48, "full"]}
               colorScheme="red"
               border={"1px solid #000"}
-              px={8}
               className="mont-bold"
             >
               Sign In
             </Button>
-          </HStack>
+          </Stack>
         </CustomContainer>
       </Box>
+
+
       <Box p={2} bgColor={"#f5f5f5"}></Box>
-      <Box w={"full"} p={[4, 8, 16]} bgColor={"#fcfbf5"}>
+      <Box w={"full"} p={[4, 8, 16]} bgColor={"#fcfbf5"} pb={[8, 16]}>
         <CustomContainer>
           <HStack justifyContent={"space-between"} gap={8}>
-            <Box>
+            <Box display={['none', 'block']}>
               <Image src="/inbox.png" w={["full", "lg"]} />
             </Box>
             <Box maxW={["full", "45%"]}>
               <Text
                 maxW={["full", "95%"]}
                 fontWeight={"medium"}
-                fontSize={["2xl", "3xl", "5xl"]}
+                fontSize={["3xl", "5xl"]}
                 className="gothic-bold"
               >
                 Crafted your feedback conversation in One Inbox
@@ -469,8 +496,8 @@ export default function Home() {
           >
             Get in touch
           </Text>
-          <HStack alignItems={"flex-start"}>
-            <Box w={"full"} px={8} borderRight={["none", "1px solid #999"]}>
+          <HStack alignItems={"flex-start"} flexWrap={"wrap"}>
+            <Box w={"full"} px={[0, 8]} borderRight={["none", "1px solid #999"]}>
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 Send us a Message
               </Text>
@@ -547,7 +574,7 @@ export default function Home() {
               </FormControl>
               <br />
             </Box>
-            <Box w={"full"} px={8}>
+            <Box w={"full"} px={[0, 8]}>
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 FAQ
               </Text>
