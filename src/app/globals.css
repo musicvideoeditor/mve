@@ -1,3 +1,8 @@
+html {
+  -webkit-text-size-adjust: 100%; /* Prevents text resizing in iOS */
+  text-size-adjust: 100%; /* Prevents text resizing in other browsers */
+}
+
 @font-face {
   font-family: "allroundgothic";
   src: url("/fonts/allroundgothic.otf") format("opentype");
