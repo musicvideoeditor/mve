@@ -9,6 +9,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Hide,
   HStack,
   Image,
   Input,
@@ -354,7 +355,7 @@ export default function Home() {
       </Box>
 
       <Box p={2} bgColor={"#f5f5f5"}></Box>
-      <Box w={["full"]} p={[0, 8, 8]} py={[8,8,8]} bgColor={"#e9e1fc"}>
+      <Box w={["full"]} p={[0, 8, 8]} py={[8, 8, 8]} bgColor={"#e9e1fc"}>
         <CustomContainer>
           <Text
             textAlign={"center"}
@@ -382,24 +383,26 @@ export default function Home() {
                 <StepButton step="5" />
               </Stack>
               <br />
-              <Box
-                p={4}
-                px={6}
-                w={"full"}
-                bgColor={"#6547de"}
-                color={"#fff"}
-                border={"2px solid #000"}
-                rounded={8}
-                cursor={"pointer"}
-              >
-                <Text
-                  fontSize={"sm"}
-                  fontWeight={"semibold"}
-                  textAlign={"center"}
+              <Hide below="sm">
+                <Box
+                  p={4}
+                  px={6}
+                  w={"full"}
+                  bgColor={"#6547de"}
+                  color={"#fff"}
+                  border={"2px solid #000"}
+                  rounded={8}
+                  cursor={"pointer"}
                 >
-                  Start your journey with us!
-                </Text>
-              </Box>
+                  <Text
+                    fontSize={"sm"}
+                    fontWeight={"semibold"}
+                    textAlign={"center"}
+                  >
+                    Start your journey with us!
+                  </Text>
+                </Box>
+              </Hide>
             </Box>
             <Box w={["full", "auto"]}>
               <Box
@@ -410,6 +413,27 @@ export default function Home() {
                 boxShadow={"-4px 4px 0px #333"}
                 bgColor={"#FFF"}
               ></Box>
+              <Hide above="sm">
+                <br />
+                <Box
+                  p={4}
+                  px={6}
+                  w={"full"}
+                  bgColor={"#6547de"}
+                  color={"#fff"}
+                  border={"2px solid #000"}
+                  rounded={8}
+                  cursor={"pointer"}
+                >
+                  <Text
+                    fontSize={"sm"}
+                    fontWeight={"semibold"}
+                    textAlign={"center"}
+                  >
+                    Start your journey with us!
+                  </Text>
+                </Box>
+              </Hide>
             </Box>
           </Stack>
         </CustomContainer>
@@ -444,12 +468,11 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-
       <Box p={2} bgColor={"#f5f5f5"}></Box>
       <Box w={"full"} p={[4, 8, 16]} bgColor={"#fcfbf5"} pb={[8, 16]}>
         <CustomContainer>
           <HStack justifyContent={"space-between"} gap={8}>
-            <Box display={['none', 'block']}>
+            <Box display={["none", "block"]}>
               <Image src="/inbox.png" w={["full", "lg"]} />
             </Box>
             <Box maxW={["full", "45%"]}>
@@ -497,7 +520,11 @@ export default function Home() {
             Get in touch
           </Text>
           <HStack alignItems={"flex-start"} flexWrap={"wrap"}>
-            <Box w={"full"} px={[0, 8]} borderRight={["none", "1px solid #999"]}>
+            <Box
+              w={"full"}
+              px={[0, 8]}
+              borderRight={["none", "1px solid #999"]}
+            >
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 Send us a Message
               </Text>
