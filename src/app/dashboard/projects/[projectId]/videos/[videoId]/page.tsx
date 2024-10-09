@@ -8,6 +8,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Stack,
   Switch,
   Text,
   Textarea,
@@ -26,10 +27,12 @@ const page = () => {
       <Text fontSize={"xl"} fontWeight={"bold"}>
         Project Name
       </Text>
-      <HStack justifyContent={"space-between"} gap={4}>
-        <HStack justifyContent={"space-between"} flex={5}>
-          <Text fontSize={"sm"}>ID: PROJ1234</Text>
-          <HStack justifyContent={"flex-end"} gap={0}>
+      <Stack w={"full"} justifyContent={"space-between"} gap={4}>
+        <HStack w={"full"} justifyContent={"space-between"} flex={5}>
+          <Text fontSize={"sm"} w={"full"}>
+            ID: PROJ1234
+          </Text>
+          <HStack w={"full"} justifyContent={"flex-end"} gap={0}>
             <IconButton
               icon={<FaDownload />}
               variant={"ghost"}
@@ -43,10 +46,15 @@ const page = () => {
           </HStack>
         </HStack>
         <Box flex={2} w={"full"}></Box>
-      </HStack>
+      </Stack>
       <br />
-      <HStack alignItems={"flex-start"} gap={4}>
-        <Box flex={6}>
+      <Stack
+        w={"full"}
+        direction={["column", "row"]}
+        alignItems={"flex-start"}
+        gap={[0, 4]}
+      >
+        <Box w={'full'} flex={['unset', 6]}>
           <VideoFrame
             src="https://www.youtube.com/embed/xooLMR6sPxk"
             title="Your Video Title"
@@ -55,7 +63,7 @@ const page = () => {
         </Box>
 
         <Box
-          flex={2}
+          flex={['unset', 2]}
           rounded={12}
           p={3}
           bgColor={"#1d2729"}
@@ -217,7 +225,7 @@ const page = () => {
             </Box>
           </Box>
         </Box>
-      </HStack>
+      </Stack>
     </>
   );
 };

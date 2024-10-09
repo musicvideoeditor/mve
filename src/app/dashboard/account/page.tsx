@@ -20,12 +20,12 @@ const page = () => {
         alignItems={"flex-start"}
         justifyContent={"center"}
         gap={6}
-        p={[4, 8]}
+        p={[0, 4, 8]}
         w={"full"}
       >
         <ProfileDetails />
         <Tabs variant="solid-rounded" colorScheme="gray" w={["full", "90%"]}>
-          <TabList px={6} gap={6}>
+          <TabList px={[0, 6]} gap={[0, 6]} justifyContent={['space-between', 'flex-start']}>
             <Tab fontSize={"xs"} py={1} px={2} rounded={4}>
               Settings
             </Tab>
@@ -41,8 +41,8 @@ const page = () => {
           </TabList>
           <TabPanels
             p={2}
-            mt={12}
-            h={"md"}
+            mt={8}
+            h={["auto", "md"]}
             w={"full"}
             rounded={20}
             border={"2px solid #AAA"}
@@ -54,7 +54,7 @@ const page = () => {
             <TabPanel>
               <Members />
             </TabPanel>
-            <TabPanel>
+            <TabPanel p={[0, 2]}>
               <Transactions />
             </TabPanel>
           </TabPanels>

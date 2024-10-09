@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Container,
+  Hide,
   HStack,
   IconButton,
   Text,
@@ -55,7 +56,7 @@ const layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Box bgImage={"/bg.jpg"} bgSize={'cover'} h={'100vh'} overflow={'hidden'}>
+      <Box bgImage={"/bg.jpg"} bgSize={"cover"} h={"100vh"} overflow={"scroll"}>
         <Box
           pos={"absolute"}
           top={0}
@@ -67,7 +68,7 @@ const layout = ({ children }: LayoutProps) => {
           zIndex={0}
         ></Box>
         <Box zIndex={1} pos={"relative"} top={4}>
-          <HStack w={"full"} px={[4, 8, 16]} justifyContent={"space-between"}>
+          <HStack w={"full"} px={[2, 8, 16]} justifyContent={"space-between"}>
             <Box
               pos={"relative"}
               top={2}
@@ -91,22 +92,29 @@ const layout = ({ children }: LayoutProps) => {
               </Text>
             </Box>
             <HStack pos={"relative"} bottom={2}>
-              {tabs.map((tab, i) => (
-                <Button
-                  key={i}
-                  rounded={"full"}
-                  size={"lg"}
-                  fontSize={"xs"}
-                  leftIcon={tab.icon}
-                  as={"a"}
-                  href={tab.url}
-                  colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
-                  bgColor={tab.regex.test(pathname) ? "#4ca336" : colors.dashboardBgColor}
-                  color={tab.regex.test(pathname) ? "#fff" : "#000"}
-                >
-                  {tab.label}
-                </Button>
-              ))}
+              <Hide below="sm">
+                {tabs.map((tab, i) => (
+                  <Button
+                    key={i}
+                    as={"a"}
+                    size={"lg"}
+                    href={tab.url}
+                    fontSize={"xs"}
+                    rounded={"full"}
+                    leftIcon={tab.icon}
+                    display={['none', 'flex']}
+                    colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
+                    bgColor={
+                      tab.regex.test(pathname)
+                        ? "#4ca336"
+                        : colors.dashboardBgColor
+                    }
+                    color={tab.regex.test(pathname) ? "#fff" : "#000"}
+                  >
+                    {tab.label}
+                  </Button>
+                ))}
+              </Hide>
               <IconButton
                 rounded={"full"}
                 aria-label="account"
@@ -118,12 +126,14 @@ const layout = ({ children }: LayoutProps) => {
             </HStack>
           </HStack>
           <Box
-            w={"97.5%"}
+            w={["97.5%", "97.5%"]}
             mx={"auto"}
             p={[4, 8, 8]}
+            py={[8]}
             roundedTop={24}
-            minH={"90vh"}
+            minH={["95vh", "90vh"]}
             bgColor={colors.dashboardBgColor}
+            overflow={'scroll'}
           >
             <Container maxW={["full", "5xl"]}>{children}</Container>
           </Box>

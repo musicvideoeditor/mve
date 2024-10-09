@@ -1,5 +1,7 @@
 export const colors = {
-    dashboardBgColor: "#e8e8e6"
+    dashboardBgColor: "#e8e8e6",
+    homeSidenavBgColor: "#f53d3d",
+    loginBtnColor: "#7e55d9"
 }
 
 export const NAVLINKS = [

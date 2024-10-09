@@ -11,6 +11,7 @@ const VideoFrame = ({ src, title, showBookmarks }: VideoFrameProps) => (
   <Box
     position="relative"
     width="100%"
+    h={['35vh', '65vh']}
     paddingBottom="56.25%"
     mb={8}
     rounded={12}
@@ -20,17 +21,11 @@ const VideoFrame = ({ src, title, showBookmarks }: VideoFrameProps) => (
       title={title || "No title"}
       src={src}
       allowFullScreen
-      style={{
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        top: 0,
-        left: 0,
-      }}
+      className="video-frame"
     />
 
     {showBookmarks ? (
-      <Box pos={"absolute"} bottom={12} width={"100%"}>
+      <Box pos={"absolute"} bottom={[14, 12]} width={"100%"}>
         <UserPin color="yellow" seek={"28"} message="Add flute music here..." />
         <UserPin color="red" seek={"280"} message="Add flute music here..." />
       </Box>

@@ -1,4 +1,5 @@
 "use client";
+import { colors } from "@/lib/constants";
 import {
   Box,
   Button,
@@ -46,12 +47,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                   </Text>
                   <Text fontSize={"xs"}>Please enter your details</Text>
                   <br />
-                  <FormControl mb={4}>
-                    <FormLabel fontSize={"xs"}>Email</FormLabel>
+                  <FormControl mb={6}>
+                    <FormLabel fontSize={"xs"} lineHeight={1}>Email</FormLabel>
                     <Input size={"sm"} placeholder="Enter your email" />
                   </FormControl>
                   <FormControl mb={4}>
-                    <FormLabel fontSize={"xs"}>Password</FormLabel>
+                    <FormLabel fontSize={"xs"} lineHeight={1}>Password</FormLabel>
                     <Input size={"sm"} type="password" />
                   </FormControl>
                   <HStack justifyContent={"space-between"} mb={4}>
@@ -77,6 +78,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                     colorScheme="blue"
                     fontSize={"sm"}
                     fontWeight={"medium"}
+                    bgColor={colors.loginBtnColor}
                   >
                     Sign in
                   </Button>

@@ -6,13 +6,13 @@ const ProjectCard = () => {
     <>
       <Box p={6} bgColor={"#FFF"} rounded={16}>
         <Box h={24}>
-          <Text fontWeight={"semibold"}>Project 1</Text>
-          <Text fontSize={"sm"} fontWeight={"semibold"}>
+          <Text fontWeight={"semibold"} fontSize={['sm', 'md']}>Project 1</Text>
+          <Text fontSize={['xs', "sm"]} fontWeight={"semibold"}>
             Sapne Re - Sonu Nigam
           </Text>
         </Box>
         <HStack justifyContent={'space-between'}>
-          <Text fontSize={"xs"}>20 July, 2024</Text>
+          <Text fontSize={[10, "xs"]}>20 July, 2024</Text>
           <Box
             boxSize={8}
             bgColor={"orange.500"}

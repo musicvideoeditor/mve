@@ -4,6 +4,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  HStack,
   Input,
   Text,
   VStack,
@@ -15,21 +16,39 @@ const ProfileDetails = () => {
     <>
       <Box
         p={6}
-        roundedTopLeft={"48"}
-        roundedBottomRight={"48"}
-        bgColor={"#FFF"}
+        roundedTopLeft={[24, "48"]}
+        roundedBottomRight={[24, "48"]}
+        roundedTopRight={[24, 0]}
+        roundedBottomLeft={[24, 0]}
+        bgColor={['transparent', "#FFF"]}
         w={["full", "xs"]}
         border={"2px solid #AAA"}
       >
-        <VStack w={"full"} gap={4}>
+        <HStack alignItems={"center"} justifyContent={"center"}>
           <Avatar
             name="Dan Abrahmov"
             size={"xl"}
             src="https://bit.ly/dan-abramov"
             mb={4}
           />
-          <Text fontWeight={"semibold"}>Krunal Mali</Text>
-          <br />
+        </HStack>
+        <Text
+          fontWeight={"semibold"}
+          className="mont-semibold"
+          textAlign={"center"}
+        >
+          Krunal Mali
+        </Text>
+        <Text
+          fontWeight={"semibold"}
+          className="mont-semibold"
+          color={"whatsapp.500"}
+          textAlign={"center"}
+        >
+          PROFILE DETAILS
+        </Text>
+        <br />
+        <VStack w={"full"} gap={4}>
           <FormControl>
             <FormLabel fontSize={"xs"} color={"gray.600"} mb={0}>
               <i>* Email ID</i>

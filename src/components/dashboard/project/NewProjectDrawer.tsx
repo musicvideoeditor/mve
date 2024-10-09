@@ -10,7 +10,13 @@ const NewProjectDrawer = () => {
 
   return (
     <>
-      <HStack justifyContent={"space-between"} mb={8}>
+      <HStack
+        mb={8}
+        gap={6}
+        w={"full"}
+        justifyContent={"space-between"}
+        flexWrap={"wrap-reverse"}
+      >
         <Box>
           <Text className="mont-bold" fontSize={"lg"}>
             {step == "title" ? "New Project" : "Files and assets"}
@@ -21,7 +27,7 @@ const NewProjectDrawer = () => {
               : "Documents and attachments that have been uploaded as part of this project"}
           </Text>
         </Box>
-        <HStack>
+        <HStack w={"full"} justifyContent={"flex-end"}>
           <Button
             leftIcon={<FiUpload />}
             size={"sm"}

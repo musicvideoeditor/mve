@@ -101,25 +101,25 @@ export default function Home() {
 
             <Stack direction={["row", "column"]} mt={[4, 2]}>
               <Button
-                w={[48, 56]}
+                w={[40, 56]}
                 colorScheme="red"
                 bgColor={"#ff3b3b"}
                 variant={"solid"}
-                px={4}
+                px={2}
                 py={6}
                 leftIcon={<MdArrowOutward fontSize={20} />}
                 className="gothic-bold"
-                fontSize={["sm", "sm"]}
+                fontSize={["xs", "sm"]}
               >
                 Get Started
               </Button>
               <Button
-                w={[48, 56]}
+                w={[40, 56]}
                 colorScheme="black"
                 variant={"outline"}
-                px={4}
+                px={2}
                 py={6}
-                fontSize={["sm", "sm"]}
+                fontSize={["xs", "sm"]}
               >
                 Show me how it works
               </Button>
@@ -137,7 +137,7 @@ export default function Home() {
         <CustomContainer>
           <Text
             textAlign={"center"}
-            fontSize={"3xl"}
+            fontSize={["2xl", "3xl"]}
             fontWeight={"bold"}
             className="mont-bold"
           >
@@ -225,7 +225,7 @@ export default function Home() {
         <CustomContainer>
           <Text
             textAlign={"center"}
-            fontSize={"3xl"}
+            fontSize={["2xl", "3xl"]}
             fontWeight={"bold"}
             className="mont-bold"
           >
@@ -354,7 +354,7 @@ export default function Home() {
       </Box>
 
       <Box p={2} bgColor={"#f5f5f5"}></Box>
-      <Box w={["full"]} p={[4, 8, 8]} bgColor={"#e9e1fc"}>
+      <Box w={["full"]} p={[0, 8, 8]} py={[8,8,8]} bgColor={"#e9e1fc"}>
         <CustomContainer>
           <Text
             textAlign={"center"}
