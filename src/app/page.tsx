@@ -27,12 +27,13 @@ import { MdArrowOutward } from "react-icons/md";
 // import { Navigation, A11y, EffectCoverflow, FreeMode } from "swiper/modules";
 // import "swiper/swiper-bundle.css";
 import Carousel from "@/components/home/Carousel";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <Box w={["full"]} px={[4, 8, 16]} bgColor={"#ffe6e6"}>
+      <Box w={["full"]} px={[8, 8, 16]} bgColor={"#ffe6e6"}>
         <CustomContainer>
           <HStack
             pos={"relative"}
@@ -51,7 +52,7 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box w={["full"]} p={[4, 8, 16]} bgColor={"#fff"}>
+      <Box w={["full"]} p={[8, 8, 16]} bgColor={"#fff"}>
         <CustomContainer>
           <Stack
             direction={["column", "row"]}
@@ -111,6 +112,8 @@ export default function Home() {
                 leftIcon={<MdArrowOutward fontSize={20} />}
                 className="gothic-bold"
                 fontSize={["xs", "sm"]}
+                as={"a"}
+                href="/auth/register"
               >
                 Get Started
               </Button>
@@ -121,6 +124,8 @@ export default function Home() {
                 px={2}
                 py={6}
                 fontSize={["xs", "sm"]}
+                as={"a"}
+                href="#how-it-works"
               >
                 Show me how it works
               </Button>
@@ -131,7 +136,7 @@ export default function Home() {
 
       <Box
         w={["full"]}
-        p={[4, 8, 16]}
+        p={[8, 8, 16]}
         bgColor={"#c2e6ff"}
         minH={["50vh", "85vh"]}
       >
@@ -222,19 +227,17 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box w={["full"]} p={[4, 8, 16]} bgColor={"#fff5c7"}>
+      <Box w={["full"]} p={[8, 8, 16]} px={[4, 8, 16]} bgColor={"#fff5c7"}>
         <CustomContainer>
           <Text
             textAlign={"center"}
             fontSize={["2xl", "3xl"]}
             fontWeight={"bold"}
             className="mont-bold"
+            mb={[8, 16]}
           >
             Plans & Pricing
           </Text>
-          <br />
-          <br />
-          <br />
           <Stack direction={["column", "row"]} gap={8}>
             <Plan
               name="Video Editing"
@@ -326,7 +329,24 @@ export default function Home() {
                     CALL
                   </span>
                 </Text>
-                <Box w={"full"} p={4} minH={24}></Box>
+                <Box
+                  w={"full"}
+                  p={4}
+                  minH={24}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                >
+                  <Link href={"tel:1234567890"}>
+                    <Text
+                      fontSize={"2xl"}
+                      className="mont-bold"
+                      color={"#1776eb"}
+                    >
+                      +91 - 1234567890
+                    </Text>
+                  </Link>
+                </Box>
               </Box>
             </Box>
           </Stack>
@@ -354,15 +374,15 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box p={2} bgColor={"#f5f5f5"}></Box>
+      <Box p={2} bgColor={"#f5f5f5"} id="how-it-works"></Box>
       <Box w={["full"]} p={[0, 8, 8]} py={[8, 8, 8]} bgColor={"#e9e1fc"}>
         <CustomContainer>
           <Text
             textAlign={"center"}
-            fontSize={"3xl"}
+            fontSize={["2xl", "3xl"]}
             fontWeight={"bold"}
             className="mont-bold"
-            mb={[2, 16]}
+            mb={[8, 16]}
           >
             How it works?
           </Text>
@@ -384,24 +404,26 @@ export default function Home() {
               </Stack>
               <br />
               <Hide below="sm">
-                <Box
-                  p={4}
-                  px={6}
-                  w={"full"}
-                  bgColor={"#6547de"}
-                  color={"#fff"}
-                  border={"2px solid #000"}
-                  rounded={8}
-                  cursor={"pointer"}
-                >
-                  <Text
-                    fontSize={"sm"}
-                    fontWeight={"semibold"}
-                    textAlign={"center"}
+                <Link href={"/auth/login"}>
+                  <Box
+                    p={4}
+                    px={6}
+                    w={"full"}
+                    bgColor={"#6547de"}
+                    color={"#fff"}
+                    border={"2px solid #000"}
+                    rounded={8}
+                    cursor={"pointer"}
                   >
-                    Start your journey with us!
-                  </Text>
-                </Box>
+                    <Text
+                      fontSize={"sm"}
+                      fontWeight={"semibold"}
+                      textAlign={"center"}
+                    >
+                      Start your journey with us!
+                    </Text>
+                  </Box>
+                </Link>
               </Hide>
             </Box>
             <Box w={["full", "auto"]}>
@@ -415,24 +437,26 @@ export default function Home() {
               ></Box>
               <Hide above="sm">
                 <br />
-                <Box
-                  p={4}
-                  px={6}
-                  w={"full"}
-                  bgColor={"#6547de"}
-                  color={"#fff"}
-                  border={"2px solid #000"}
-                  rounded={8}
-                  cursor={"pointer"}
-                >
-                  <Text
-                    fontSize={"sm"}
-                    fontWeight={"semibold"}
-                    textAlign={"center"}
+                <Link href={"/auth/login"}>
+                  <Box
+                    p={4}
+                    px={6}
+                    w={"full"}
+                    bgColor={"#6547de"}
+                    color={"#fff"}
+                    border={"2px solid #000"}
+                    rounded={8}
+                    cursor={"pointer"}
                   >
-                    Start your journey with us!
-                  </Text>
-                </Box>
+                    <Text
+                      fontSize={"sm"}
+                      fontWeight={"semibold"}
+                      textAlign={"center"}
+                    >
+                      Start your journey with us!
+                    </Text>
+                  </Box>
+                </Link>
               </Hide>
             </Box>
           </Stack>
@@ -442,14 +466,14 @@ export default function Home() {
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#b2fa5f"}>
         <CustomContainer>
           <Stack
-            direction={["column", "row"]}
+            direction={["column", "column"]}
             alignItems={"center"}
             justifyContent={"center"}
             gap={4}
           >
             <Text
               fontSize={"2xl"}
-              fontWeight={"bold"}
+              fontWeight={["bold"]}
               textAlign={"center"}
               className="allroundgothic-medium"
             >
@@ -457,7 +481,7 @@ export default function Home() {
             </Text>
             <Button
               px={8}
-              w={[48, "full"]}
+              w={[48, "48"]}
               colorScheme="red"
               border={"1px solid #000"}
               className="mont-bold"
@@ -469,7 +493,7 @@ export default function Home() {
       </Box>
 
       <Box p={2} bgColor={"#f5f5f5"}></Box>
-      <Box w={"full"} p={[4, 8, 16]} bgColor={"#fcfbf5"} pb={[8, 16]}>
+      <Box w={"full"} p={[8, 8, 16]} bgColor={"#fcfbf5"} pb={[8, 16]}>
         <CustomContainer>
           <HStack justifyContent={"space-between"} gap={8}>
             <Box display={["none", "block"]}>
@@ -509,7 +533,7 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box w={"full"} p={[4, 8, 16]} bgColor={"#e1f7fc"}>
+      <Box w={"full"} p={[8, 8, 16]} bgColor={"#e1f7fc"}>
         <CustomContainer>
           <Text
             fontSize={["2xl", "3xl", "5xl"]}

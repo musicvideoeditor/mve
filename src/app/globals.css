@@ -1,6 +1,7 @@
 html {
   -webkit-text-size-adjust: 100%; /* Prevents text resizing in iOS */
   text-size-adjust: 100%; /* Prevents text resizing in other browsers */
+  scroll-behavior: smooth;
 }
 
 @font-face {
@@ -76,6 +77,24 @@ p {
   display: none;
 }
 
+@media (max-width: 768px) {
+  
+  .allroundgothic-medium {
+    font-family: "allroundgothic-semibold";
+  }
+
+  p.gothic-bold {
+    letter-spacing: 0.25px !important;
+  }
+
+  p:not(.gothic):not(.gothic-bold):not(.allroundgothic):not(
+      .allroundgothic-bold
+    ):not(.allroundgothic-medium):not(.allroundgothic-semibold),
+  p.mont {
+    letter-spacing: 0 !important;
+  }
+}
+
 .zigzag-border {
   --mask: conic-gradient(
       from -45deg at bottom,
@@ -121,7 +140,7 @@ p {
   }
 }
 
-.video-frame{
+.video-frame {
   position: "absolute";
   top: 0;
   left: 0;
@@ -130,8 +149,16 @@ p {
 }
 
 @media (max-width: 768px) {
-  .video-frame{
+  .video-frame {
     width: 100%;
     height: 35vh;
+  }
+
+  .how-it-works--arrow {
+    transform: rotate(90deg);
+  }
+
+  .bottom-nav{
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   }
 }

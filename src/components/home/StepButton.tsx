@@ -23,13 +23,17 @@ const StepButton = ({ step, onClick, isActive }: StepButtonProps) => {
         <Stack
           w={"full"}
           direction={["column", "row"]}
-          alignItems={['center']}
+          alignItems={["center"]}
           justifyContent={["center", "space-between"]}
         >
           <Text fontSize={"sm"} fontWeight={"semibold"} textAlign={"center"}>
             Step {step}
           </Text>
-          <FaCircleArrowRight size={20} color="#6547de" />
+          <FaCircleArrowRight
+            size={20}
+            color="#6547de"
+            className="how-it-works--arrow"
+          />
         </Stack>
       </Box>
     </>

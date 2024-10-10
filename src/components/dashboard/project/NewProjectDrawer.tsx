@@ -52,7 +52,7 @@ const NewProjectDrawer = () => {
         </HStack>
       </HStack>
 
-      <Text fontSize={10} fontWeight={"semibold"} mb={6}>
+      <Text display={['none', 'block']} fontSize={10} fontWeight={"semibold"} mb={6}>
         Projects &nbsp;&nbsp; / &nbsp;&nbsp; Project Name &nbsp;&nbsp; /
         &nbsp;&nbsp; Files and assets
       </Text>

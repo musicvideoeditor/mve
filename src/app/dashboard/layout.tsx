@@ -1,6 +1,7 @@
 "use client";
 import Sidenav from "@/components/dashboard/Sidenav";
 import Topbar from "@/components/dashboard/Topbar";
+import VerticalSpacer from "@/components/extras/VerticalSpacer";
 import { colors } from "@/lib/constants";
 import { LayoutProps } from "@/lib/props/common";
 import {
@@ -12,6 +13,7 @@ import {
   IconButton,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { BsClockHistory, BsCloudDownload } from "react-icons/bs";
@@ -102,7 +104,7 @@ const layout = ({ children }: LayoutProps) => {
                     fontSize={"xs"}
                     rounded={"full"}
                     leftIcon={tab.icon}
-                    display={['none', 'flex']}
+                    display={["none", "flex"]}
                     colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
                     bgColor={
                       tab.regex.test(pathname)
@@ -133,12 +135,45 @@ const layout = ({ children }: LayoutProps) => {
             roundedTop={24}
             minH={["95vh", "90vh"]}
             bgColor={colors.dashboardBgColor}
-            overflow={'scroll'}
+            overflow={"scroll"}
           >
             <Container maxW={["full", "5xl"]}>{children}</Container>
           </Box>
         </Box>
+        <VerticalSpacer h={["10vh", 0]} />
       </Box>
+
+      <HStack
+        gap={4}
+        pos={"fixed"}
+        bottom={0}
+        left={0}
+        width={"full"}
+        p={4}
+        className="bottom-nav"
+        bgColor={colors.dashboardBgColor}
+        zIndex={999}
+        justifyContent={"space-between"}
+      >
+        {tabs.map((tab, i) => (
+          <Link key={i} href={tab.url}>
+            <Button
+              size={"sm"}
+              fontSize={"xs"}
+              rounded={"full"}
+              leftIcon={tab.icon}
+              display={["flex", "none"]}
+              colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
+              bgColor={
+                tab.regex.test(pathname) ? "#4ca336" : colors.dashboardBgColor
+              }
+              color={tab.regex.test(pathname) ? "#fff" : "#000"}
+            >
+              {tab.regex.test(pathname) ? tab.label : null}
+            </Button>
+          </Link>
+        ))}
+      </HStack>
     </>
   );
 };

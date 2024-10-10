@@ -197,7 +197,7 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
         </Box>
       </Stack>
 
-      <HStack justifyContent={"flex-end"}>
+      <HStack justifyContent={["center", "flex-end"]}>
         <Box>
           <Button
             size={"lg"}

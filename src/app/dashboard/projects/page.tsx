@@ -1,10 +1,10 @@
 import ProjectCard from "@/components/dashboard/project/ProjectCard";
 import { Box, Grid, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
 const page = () => {
-
   return (
     <>
       <Grid
@@ -20,22 +20,22 @@ const page = () => {
         <ProjectCard />
         <ProjectCard />
         <ProjectCard />
-        <Box
-          p={6}
-          bgColor={"#FFF"}
-          rounded={16}
-          display={"flex"}
-          flexDir={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          as="a"
-          href="/dashboard/new-project"
-        >
-          <FaPlus fontSize={32} />
-          <Text fontWeight={"semibold"} mt={4}>
-            New Project
-          </Text>
-        </Box>
+        <Link href="/dashboard/new-project">
+          <Box
+            p={6}
+            bgColor={"#FFF"}
+            rounded={16}
+            display={"flex"}
+            flexDir={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <FaPlus fontSize={32} />
+            <Text fontWeight={"semibold"} mt={4} textAlign={"center"} mb={8}>
+              New Project
+            </Text>
+          </Box>
+        </Link>
       </Grid>
     </>
   );
