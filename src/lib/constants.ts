@@ -7,22 +7,22 @@ export const colors = {
 export const NAVLINKS = [
     {
       label: "How it works",
-      href: "#",
+      href: "/#how-it-works",
     },
     {
       label: "Portfolio",
-      href: "#",
+      href: "/#portfolio",
     },
     {
       label: "Pricing",
-      href: "#",
+      href: "/#pricing",
     },
     {
       label: "Blogs",
-      href: "#",
+      href: "/blogs",
     },
     {
       label: "FAQ",
-      href: "#",
+      href: "/#faq",
     },
   ];

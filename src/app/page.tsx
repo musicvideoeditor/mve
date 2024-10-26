@@ -5,6 +5,7 @@ import FaqsContainer from "@/components/home/FaqsContainer";
 import Plan from "@/components/home/Plan";
 import StepButton from "@/components/home/StepButton";
 import {
+  Avatar,
   Box,
   Button,
   FormControl,
@@ -22,12 +23,11 @@ import {
 import Marquee from "react-fast-marquee";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, A11y, EffectCoverflow, FreeMode } from "swiper/modules";
-// import "swiper/swiper-bundle.css";
+import "swiper/swiper-bundle.css";
 import Carousel from "@/components/home/Carousel";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, EffectCoverflow, FreeMode, Navigation } from "swiper/modules";
 
 export default function Home() {
   return (
@@ -140,7 +140,7 @@ export default function Home() {
         bgColor={"#c2e6ff"}
         minH={["50vh", "85vh"]}
       >
-        <CustomContainer>
+        <>
           <Text
             textAlign={"center"}
             fontSize={["2xl", "3xl"]}
@@ -151,25 +151,25 @@ export default function Home() {
           </Text>
           <br />
           <br />
-          {/* <Swiper
+          <Swiper
             modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
-            spaceBetween={50}
+            spaceBetween={120}
             navigation
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
             effect={"coverflow"}
             coverflowEffect={{
-              rotate: 30,
-              stretch: 0,
-              depth: 100,
-              modifier: -1,
+              rotate: 0,
+              stretch: 80,
+              depth: 200,
+              modifier: 1,
               slideShadows: false,
             }}
             slidesPerView={2}
             centeredSlides
             freeMode
             loop
-            style={{ height: "420px" }}
+            style={{ height: "500px" }}
           >
             <SwiperSlide>
               <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
@@ -180,29 +180,80 @@ export default function Home() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 ></iframe>
               </Box>
+              <HStack
+                w={"max-content"}
+                mx={"auto"}
+                p={2}
+                mt={4}
+                rounded={4}
+                border={"1px solid #333"}
+                bgColor={"#FFF"}
+              >
+                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
+                <Box>
+                  <Text fontSize={"sm"} fontWeight={"semibold"}>
+                    Project Name
+                  </Text>
+                  <Text fontSize={"xs"}>Company</Text>
+                </Box>
+              </HStack>
             </SwiperSlide>
             <SwiperSlide>
               <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
                 <iframe
-                  src="https://www.youtube-nocookie.com/embed/xooLMR6sPxk?si=c9GduNGFGpp-MKJj"
+                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
                   height={"100%"}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 ></iframe>
               </Box>
+              <HStack
+                w={"max-content"}
+                mx={"auto"}
+                p={2}
+                mt={4}
+                rounded={4}
+                border={"1px solid #333"}
+                bgColor={"#FFF"}
+              >
+                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
+                <Box>
+                  <Text fontSize={"sm"} fontWeight={"semibold"}>
+                    Project Name
+                  </Text>
+                  <Text fontSize={"xs"}>Company</Text>
+                </Box>
+              </HStack>
             </SwiperSlide>
             <SwiperSlide>
               <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
                 <iframe
-                  src="https://www.youtube-nocookie.com/embed/hxffnJIYbrE?si=BszJmN0rETEPpaog"
+                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
                   height={"100%"}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 ></iframe>
               </Box>
+              <HStack
+                w={"max-content"}
+                mx={"auto"}
+                p={2}
+                mt={4}
+                rounded={4}
+                border={"1px solid #333"}
+                bgColor={"#FFF"}
+              >
+                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
+                <Box>
+                  <Text fontSize={"sm"} fontWeight={"semibold"}>
+                    Project Name
+                  </Text>
+                  <Text fontSize={"xs"}>Company</Text>
+                </Box>
+              </HStack>
             </SwiperSlide>
-          </Swiper> */}
-          <HStack
+          </Swiper>
+          {/* <HStack
             display={["none", "flex"]}
             w={"full"}
             alignItems={"center"}
@@ -210,8 +261,8 @@ export default function Home() {
             mt={16}
           >
             <Carousel />
-          </HStack>
-        </CustomContainer>
+          </HStack> */}
+        </>
       </Box>
 
       <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
@@ -543,7 +594,7 @@ export default function Home() {
           >
             Get in touch
           </Text>
-          <HStack alignItems={"flex-start"} flexWrap={"wrap"}>
+          <Stack direction={["column", "row"]} alignItems={"flex-start"}>
             <Box
               w={"full"}
               px={[0, 8]}
@@ -625,14 +676,14 @@ export default function Home() {
               </FormControl>
               <br />
             </Box>
-            <Box w={"full"} px={[0, 8]}>
+            <Box w={"full"} px={[0, 8]} id="faq" >
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 FAQ
               </Text>
               <br />
               <FaqsContainer />
             </Box>
-          </HStack>
+          </Stack>
         </CustomContainer>
       </Box>
     </>

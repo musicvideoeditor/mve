@@ -35,7 +35,7 @@ const DesktopNav = ({ color }: { color?: string }) => {
         </HStack>
         <Spacer />
         <HStack gap={4} justifyContent={"flex-end"}>
-          <Link href={"#"}>
+          <Link href={"/contact-us"}>
             <Text fontSize={"sm"} fontWeight={"semibold"}>
               Get Connected
             </Text>

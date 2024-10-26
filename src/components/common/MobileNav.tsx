@@ -78,7 +78,11 @@ const MobileNav = ({ color }: { color?: string }) => {
               </Link>
             </HStack>
             <Box>
-              <VStack alignItems={'flex-start'} justifyContent={'flex-start'} gap={4}>
+              <VStack
+                alignItems={"flex-start"}
+                justifyContent={"flex-start"}
+                gap={4}
+              >
                 {NAVLINKS?.map((item, i) => (
                   <Link key={i} href={item?.href}>
                     <Text
@@ -92,17 +96,19 @@ const MobileNav = ({ color }: { color?: string }) => {
                 ))}
               </VStack>
             </Box>
-            <HStack
-              my={4}
-              py={4}
-              justifyContent={"flex-start"}
-              borderTop={"1px dashed #FFF"}
-            >
-              <Text fontWeight={"semibold"}>Get In Touch</Text>
-            </HStack>
+            <Link href={"/contact-us"}>
+              <HStack
+                my={4}
+                py={4}
+                justifyContent={"flex-start"}
+                borderTop={"1px dashed #FFF"}
+              >
+                <Text fontWeight={"semibold"}>Get In Touch</Text>
+              </HStack>
+            </Link>
           </DrawerBody>
           <DrawerFooter>
-            <HStack w={'full'} justifyContent={"flex-start"} gap={4}>
+            <HStack w={"full"} justifyContent={"flex-start"} gap={4}>
               <IconButton
                 size={"sm"}
                 rounded={"full"}
