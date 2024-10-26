@@ -139,6 +139,7 @@ export default function Home() {
         p={[8, 8, 16]}
         bgColor={"#c2e6ff"}
         minH={["50vh", "85vh"]}
+        id="portfolio"
       >
         <>
           <Text
@@ -153,7 +154,7 @@ export default function Home() {
           <br />
           <Swiper
             modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
-            spaceBetween={120}
+            spaceBetween={20}
             navigation
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
@@ -165,14 +166,25 @@ export default function Home() {
               modifier: 1,
               slideShadows: false,
             }}
-            slidesPerView={2}
+            slidesPerView={1}
+            breakpoints={{
+              767: {
+                slidesPerView: 1,
+                spaceBetween: 120,
+              },
+            }}
             centeredSlides
             freeMode
             loop
             style={{ height: "500px" }}
           >
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
+              <Box
+                h={["xs", "sm"]}
+                rounded={8}
+                bgColor={"#333"}
+                overflow={"hidden"}
+              >
                 <iframe
                   src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
@@ -199,7 +211,12 @@ export default function Home() {
               </HStack>
             </SwiperSlide>
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
+              <Box
+                h={["xs", "sm"]}
+                rounded={8}
+                bgColor={"#333"}
+                overflow={"hidden"}
+              >
                 <iframe
                   src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
@@ -226,7 +243,12 @@ export default function Home() {
               </HStack>
             </SwiperSlide>
             <SwiperSlide>
-              <Box h={"sm"} rounded={8} bgColor={"#333"} overflow={"hidden"}>
+              <Box
+                h={["xs", "sm"]}
+                rounded={8}
+                bgColor={"#333"}
+                overflow={"hidden"}
+              >
                 <iframe
                   src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
                   width={"100%"}
@@ -278,7 +300,13 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box w={["full"]} p={[8, 8, 16]} px={[4, 8, 16]} bgColor={"#fff5c7"}>
+      <Box
+        w={["full"]}
+        p={[8, 8, 16]}
+        px={[4, 8, 16]}
+        bgColor={"#fff5c7"}
+        id="pricing"
+      >
         <CustomContainer>
           <Text
             textAlign={"center"}
@@ -676,7 +704,7 @@ export default function Home() {
               </FormControl>
               <br />
             </Box>
-            <Box w={"full"} px={[0, 8]} id="faq" >
+            <Box w={"full"} px={[0, 8]} id="faq">
               <Text fontSize={"lg"} fontWeight={"semibold"} mb={2}>
                 FAQ
               </Text>
