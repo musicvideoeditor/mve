@@ -152,31 +152,28 @@ export default function Home() {
           </Text>
           <br />
           <br />
+          
           <Swiper
+            centeredSlides={true}
             modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
-            spaceBetween={20}
-            navigation
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            loop
+            spaceBetween={0}
             effect={"coverflow"}
             coverflowEffect={{
-              rotate: 0,
-              stretch: 80,
-              depth: 200,
-              modifier: 1,
+              rotate: 60,
+              stretch: 0,
+              depth: 0,
+              modifier: -1,
               slideShadows: false,
             }}
             slidesPerView={1}
             breakpoints={{
               767: {
-                slidesPerView: 1,
-                spaceBetween: 120,
+                slidesPerView: 3,
+                spaceBetween: 0,
               },
             }}
-            centeredSlides
-            freeMode
-            loop
-            style={{ height: "500px" }}
+            autoHeight={true}
           >
             <SwiperSlide>
               <Box

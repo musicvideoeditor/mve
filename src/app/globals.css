@@ -150,6 +150,7 @@ p {
   height: 65vh;
 }
 
+
 @media (max-width: 768px) {
   .video-frame {
     width: 100%;
