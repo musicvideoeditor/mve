@@ -16,8 +16,15 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import { BsClockHistory, BsCloudDownload } from "react-icons/bs";
+import {
+  BsBellFill,
+  BsClockHistory,
+  BsCloudDownload,
+  BsStars,
+} from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaBell, FaVideo } from "react-icons/fa6";
+import { GoHomeFill } from "react-icons/go";
 import { MdOutlineComment } from "react-icons/md";
 import { RiFolderUploadLine } from "react-icons/ri";
 
@@ -25,35 +32,41 @@ const layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
   const tabs = [
     {
-      label: "Upload Data",
-      icon: <RiFolderUploadLine fontSize={16} />,
+      label: "Home",
+      icon: <GoHomeFill fontSize={16} />,
+      url: "/dashboard",
+      regex: /^\/dashboard$/,
+    },
+    {
+      label: "Projects",
+      icon: <FaVideo fontSize={16} />,
       url: "/dashboard/projects",
       regex: /^\/dashboard\/projects$/,
     },
+    // {
+    //   label: "Video Review",
+    //   icon: <MdOutlineComment fontSize={16} />,
+    //   url: "/dashboard/projects/csdejdt/videos/xdfg43t3",
+    //   regex: /^\/dashboard\/projects\/[^/]+\/videos\/[^/]+$/,
+    // },
     {
-      label: "Video Review",
-      icon: <MdOutlineComment fontSize={16} />,
-      url: "/dashboard/projects/csdejdt/videos/xdfg43t3",
-      regex: /^\/dashboard\/projects\/[^/]+\/videos\/[^/]+$/,
+      label: "Updates",
+      icon: <FaBell fontSize={16} />,
+      url: "/dashboard/updates",
+      regex: /^\/dashboard\/updates$/,
     },
-    {
-      label: "Review History",
-      icon: <BsClockHistory fontSize={16} />,
-      url: "#",
-      regex: /^\/dashboard\/projects\/review\/history$/,
-    },
-    {
-      label: "Chat",
-      icon: <MdOutlineComment fontSize={16} />,
-      url: "#",
-      regex: /^\/dashboard\/projects\/chat$/,
-    },
-    {
-      label: "Download",
-      icon: <BsCloudDownload fontSize={16} />,
-      url: "#",
-      regex: /^\/dashboard\/projects\/download$/,
-    },
+    // {
+    //   label: "Chat",
+    //   icon: <MdOutlineComment fontSize={16} />,
+    //   url: "#",
+    //   regex: /^\/dashboard\/projects\/chat$/,
+    // },
+    // {
+    //   label: "Download",
+    //   icon: <BsCloudDownload fontSize={16} />,
+    //   url: "#",
+    //   regex: /^\/dashboard\/projects\/download$/,
+    // },
   ];
 
   return (
@@ -108,7 +121,7 @@ const layout = ({ children }: LayoutProps) => {
                     colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
                     bgColor={
                       tab.regex.test(pathname)
-                        ? "#4ca336"
+                        ? colors.orange
                         : colors.dashboardBgColor
                     }
                     color={tab.regex.test(pathname) ? "#fff" : "#000"}
@@ -121,6 +134,7 @@ const layout = ({ children }: LayoutProps) => {
                 rounded={"full"}
                 aria-label="account"
                 size={"lg"}
+                bgColor={colors.dashboardBgColor}
                 icon={<FaRegUserCircle fontSize={20} />}
                 as={"a"}
                 href="/dashboard/account"
@@ -137,7 +151,7 @@ const layout = ({ children }: LayoutProps) => {
             bgColor={colors.dashboardBgColor}
             overflow={"scroll"}
           >
-            <Container maxW={["full", "5xl"]}>{children}</Container>
+            <Container maxW={["full", "5xl", "7xl"]}>{children}</Container>
           </Box>
         </Box>
         <VerticalSpacer h={["10vh", 0]} />
@@ -165,7 +179,9 @@ const layout = ({ children }: LayoutProps) => {
               display={["flex", "none"]}
               colorScheme={tab.regex.test(pathname) ? "yellow" : "gray"}
               bgColor={
-                tab.regex.test(pathname) ? "#4ca336" : colors.dashboardBgColor
+                tab.regex.test(pathname)
+                  ? colors.orange
+                  : colors.dashboardBgColor
               }
               color={tab.regex.test(pathname) ? "#fff" : "#000"}
             >
@@ -174,6 +190,21 @@ const layout = ({ children }: LayoutProps) => {
           </Link>
         ))}
       </HStack>
+
+      <Button
+        rounded={"full"}
+        roundedBottomRight={0}
+        pos={"fixed"}
+        bottom={8}
+        right={8}
+        colorScheme="twitter"
+        bgColor={colors.loginBtnColor}
+        zIndex={99999}
+        leftIcon={<BsStars />}
+        className="shadow"
+      >
+        Need Help?
+      </Button>
     </>
   );
 };

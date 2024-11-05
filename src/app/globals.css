@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 html {
   -webkit-text-size-adjust: 100%; /* Prevents text resizing in iOS */
@@ -80,7 +80,6 @@ p {
 }
 
 @media (max-width: 768px) {
-  
   .allroundgothic-medium {
     font-family: "allroundgothic-semibold";
   }
@@ -95,6 +94,10 @@ p {
   p.mont {
     letter-spacing: 0 !important;
   } */
+}
+
+.shadow{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
 .zigzag-border {
@@ -150,6 +153,33 @@ p {
   height: 65vh;
 }
 
+.new-project {
+  transition: all 0.2s ease;
+}
+.new-project:hover {
+  color: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  transform: translateY(-8px);
+}
+.new-project:hover .new-project--sphere {
+  width: 480px;
+  height: 480px;
+}
+
+.new-project--sphere {
+  transition: all 0.2s ease;
+}
+
+.project-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.project-card:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  transform: translateY(-8px);
+}
 
 @media (max-width: 768px) {
   .video-frame {
@@ -161,7 +191,7 @@ p {
     transform: rotate(90deg);
   }
 
-  .bottom-nav{
+  .bottom-nav {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   }
 }

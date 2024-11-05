@@ -22,6 +22,7 @@ import { FcOpenedFolder } from "react-icons/fc";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import ProjectAssetRow from "./ProjectAssetRow";
+import { colors } from "@/lib/constants";
 
 const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
   return (
@@ -203,7 +204,7 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
             size={"lg"}
             rounded={"full"}
             colorScheme="orange"
-            bgColor={"#4ca336"}
+            bgColor={colors.orange}
             boxShadow={"-4px 4px #000"}
             px={16}
             onClick={onSubmit}

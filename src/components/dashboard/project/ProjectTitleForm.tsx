@@ -1,3 +1,4 @@
+import { colors } from "@/lib/constants";
 import { Box, Button, Input, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
@@ -33,7 +34,7 @@ const ProjectTitleForm = ({ onSubmit }: { onSubmit: () => void }) => {
             size={"lg"}
             rounded={"full"}
             colorScheme="orange"
-            bgColor={"#4ca336"}
+            bgColor={colors.orange}
             boxShadow={"-4px 4px #000"}
             px={16}
             onClick={onSubmit}
