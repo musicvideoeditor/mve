@@ -7,7 +7,7 @@ import Link from "next/link";
 import { MdArrowOutward } from "react-icons/md";
 import LoginModal from "../home/LoginModal";
 
-const DesktopNav = ({ color }: { color?: string }) => {
+const DesktopNav = ({ color, user }: { color?: string; user?: any }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -41,16 +41,30 @@ const DesktopNav = ({ color }: { color?: string }) => {
             </Text>
           </Link>
 
-          <Button
-            colorScheme={color ?? "black"}
-            variant={"outline"}
-            px={3}
-            py={5}
-            leftIcon={<MdArrowOutward />}
-            onClick={onToggle}
-          >
-            Log In
-          </Button>
+          {user ? (
+            <Button
+              colorScheme={color ?? "black"}
+              variant={"outline"}
+              px={3}
+              py={5}
+              leftIcon={<MdArrowOutward />}
+              as={"a"}
+              href="/dashboard"
+            >
+              Dashboard
+            </Button>
+          ) : (
+            <Button
+              colorScheme={color ?? "black"}
+              variant={"outline"}
+              px={3}
+              py={5}
+              leftIcon={<MdArrowOutward />}
+              onClick={onToggle}
+            >
+              Log In
+            </Button>
+          )}
         </HStack>
       </HStack>
 

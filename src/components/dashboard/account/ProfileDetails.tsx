@@ -1,3 +1,5 @@
+"use client";
+import { useAppSelector } from "@/lib/redux/store";
 import {
   Avatar,
   Box,
@@ -10,8 +12,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
+import { signOut } from "next-auth/react";
 
 const ProfileDetails = () => {
+  const user = useAppSelector((state) => state.userReducer.user);
+
   return (
     <>
       <Box
@@ -20,13 +25,13 @@ const ProfileDetails = () => {
         roundedBottomRight={[24, "48"]}
         roundedTopRight={[24, 0]}
         roundedBottomLeft={[24, 0]}
-        bgColor={['transparent', "#FFF"]}
+        bgColor={["transparent", "#FFF"]}
         w={["full", "xs"]}
         border={"2px solid #AAA"}
       >
         <HStack alignItems={"center"} justifyContent={"center"}>
           <Avatar
-            name="Dan Abrahmov"
+            name={user?.name}
             size={"xl"}
             src="https://bit.ly/dan-abramov"
             mb={4}
@@ -37,7 +42,7 @@ const ProfileDetails = () => {
           className="mont-semibold"
           textAlign={"center"}
         >
-          Krunal Mali
+          {user?.name}
         </Text>
         <Text
           fontWeight={"semibold"}
@@ -54,7 +59,7 @@ const ProfileDetails = () => {
               <i>* Email ID</i>
             </FormLabel>
             <Input
-              defaultValue={"cinekruz@gmail.com"}
+              defaultValue={user?.email}
               variant={"unstyled"}
               fontSize={"sm"}
               fontWeight={"semibold"}
@@ -93,7 +98,13 @@ const ProfileDetails = () => {
               fontWeight={"semibold"}
             />
           </FormControl>
-          <Button size={"sm"} mt={2} colorScheme="red" px={6}>
+          <Button
+            size={"sm"}
+            mt={2}
+            colorScheme="red"
+            px={6}
+            onClick={() => signOut()}
+          >
             Logout
           </Button>
         </VStack>

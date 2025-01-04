@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import CustomContainer from "../custom/CustomContainer";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useAppSelector } from "@/lib/redux/store";
 
 const Navbar = () => {
+  const user = useAppSelector((state) => state.userReducer.user);
   const [bgColor, setBgColor] = useState("transparent");
   const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
@@ -46,9 +48,9 @@ const Navbar = () => {
         transition={"all .3s ease"}
       >
         <CustomContainer>
-          <DesktopNav color={hasScrolledPast ? "white" : "black"} />
+          <DesktopNav color={hasScrolledPast ? "white" : "black"} user={user} />
 
-          <MobileNav color={hasScrolledPast ? "white" : "black"} />
+          <MobileNav color={hasScrolledPast ? "white" : "black"} user={user} />
         </CustomContainer>
       </Box>
     </>

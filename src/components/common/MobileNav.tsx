@@ -29,7 +29,7 @@ import {
 } from "react-icons/fa6";
 import Link from "next/link";
 
-const MobileNav = ({ color }: { color?: string }) => {
+const MobileNav = ({ color, user }: { color?: string; user?: any }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
