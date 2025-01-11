@@ -1,19 +1,14 @@
 "use client";
+import { ProjectCardProps } from "@/lib/props/project";
 import { Box, HStack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 
-interface ProjectCardProps {
-  name: string;
-  subtitle?: string;
-  coverImg?: string;
-  progress?: number | string;
-}
 
 const ProjectCard = ({
   name,
   coverImg,
-  progress,
+  mediaCount,
   subtitle,
 }: ProjectCardProps) => {
   return (
@@ -51,7 +46,7 @@ const ProjectCard = ({
                 placeContent={"center"}
                 rounded={"full"}
               >
-                <Text fontSize={"xs"}>{progress ?? 0 / 4}</Text>
+                <Text fontSize={"xs"}>{mediaCount ?? 0 / 4}</Text>
               </Box>
             </HStack>
           </Box>

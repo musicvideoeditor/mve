@@ -144,17 +144,17 @@ const layout = ({ children }: LayoutProps) => {
           <Box
             w={["97.5%", "97.5%"]}
             mx={"auto"}
-            p={[4, 8, 8]}
+            p={[0, 8, 8]}
             py={[8]}
             roundedTop={24}
-            minH={["95vh", "90vh"]}
+            minH={["100vh", "90vh"]}
             bgColor={colors.dashboardBgColor}
             overflow={"scroll"}
           >
             <Container maxW={["full", "5xl", "7xl"]}>{children}</Container>
           </Box>
         </Box>
-        <VerticalSpacer h={["10vh", 0]} />
+        <VerticalSpacer h={["5vh", 0]} />
       </Box>
 
       <HStack
@@ -164,6 +164,7 @@ const layout = ({ children }: LayoutProps) => {
         left={0}
         width={"full"}
         p={4}
+        py={[2, 4]}
         className="bottom-nav"
         bgColor={colors.dashboardBgColor}
         zIndex={999}
@@ -192,10 +193,11 @@ const layout = ({ children }: LayoutProps) => {
       </HStack>
 
       <Button
+        display={["none", "flex"]}
         rounded={"full"}
         roundedBottomRight={0}
         pos={"fixed"}
-        bottom={8}
+        bottom={[16, 8]}
         right={8}
         colorScheme="twitter"
         bgColor={colors.loginBtnColor}
@@ -205,6 +207,22 @@ const layout = ({ children }: LayoutProps) => {
       >
         Need Help?
       </Button>
+
+      <IconButton
+        display={["flex", "none"]}
+        aria-label="help"
+
+        rounded={"full"}
+        roundedBottomRight={0}
+        icon={<BsStars />}
+        pos={"fixed"}
+        bottom={[12, 8]}
+        right={6}
+        colorScheme="twitter"
+        bgColor={colors.loginBtnColor}
+        zIndex={99999}
+        className="shadow"
+      />
     </>
   );
 };

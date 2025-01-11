@@ -2,6 +2,7 @@ import axios from "axios";
 import { apiBaseURL } from "../constants";
 import { joinWaitlist, login } from "./services/auth-api";
 import { getSession } from "next-auth/react";
+import { createProject, getProjectInfo, getProjects } from "./services/project-api";
 
 
 interface RequestProps {
@@ -70,4 +71,9 @@ export const API = {
   },
 
   // Project APIs
+  PROJECT : {
+    getProjects,
+    getProjectInfo,
+    createProject
+  }
 };
