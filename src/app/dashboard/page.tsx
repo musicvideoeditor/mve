@@ -73,11 +73,11 @@ const ProjectUpdates = () => {
               justifyContent={"center"}
             >
               <Text fontSize={"2xl"} fontWeight={"semibold"}>
-                Book&nbsp;<span style={{ color: colors.orange }}>Free</span>
+                Book&nbsp;<span style={{ color: colors.orange }}>Expert</span>
                 &nbsp;Consultation
               </Text>
               <Text fontSize={"sm"} color={"gray.700"}>
-                Schedule a quick call with our team. It's Free!
+                Schedule a quick call with our team.
               </Text>
               <AvatarGroup size="sm" max={4} mt={2}>
                 {items.map((item) => (
@@ -91,7 +91,7 @@ const ProjectUpdates = () => {
                 leftIcon={<FaPhoneAlt />}
                 rounded={"full"}
                 as={"a"}
-                href="https://cal.com"
+                href="/dashboard/appointments/new"
                 target="_blank"
               >
                 Book Now
