@@ -20,10 +20,10 @@ const SlotCard = ({
         py={2}
         px={12}
         border={"1px solid"}
-        borderColor="gray.100"
-        bg="gray.100"
         borderRadius={4}
         fontSize={"sm"}
+        borderColor="gray.100"
+        bg="gray.100"
         isDisabled={true}
         value={`${from?.slice(0, 5)}-${to?.slice(0, 5)}`}
       />
@@ -34,12 +34,12 @@ const SlotCard = ({
       py={2}
       px={12}
       border={"1px solid"}
-      borderColor={isSelected ? "whatsapp.400" : "#000"}
-      bg={isSelected ? "whatsapp.50" : "#FFF"}
       borderRadius={6}
       cursor={"pointer"}
-      _hover={{ bg: "twitter.50" }}
       fontSize={"sm"}
+      borderColor={isSelected ? "whatsapp.400" : "#000"}
+      bg={isSelected ? "whatsapp.50" : "#FFF"}
+      _hover={{ bg: "twitter.50" }}
       onClick={onClick}
     >
       <Text>

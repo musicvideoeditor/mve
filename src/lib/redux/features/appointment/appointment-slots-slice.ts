@@ -1,6 +1,6 @@
 import { API } from "@/lib/api";
-import { AppointmentSlotState } from "@/lib/api/types/appointment-types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AppointmentSlotState } from "@/lib/api/types/appointment-types";
 
 
 

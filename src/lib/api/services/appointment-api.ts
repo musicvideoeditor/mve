@@ -38,6 +38,18 @@ export const getUnavailableSlots = async ({ date }: { date: string }) => {
   }
 };
 
+export const getAppointments = async () => {
+  try {
+    const res = await processRequest({
+      method: "get",
+      url: ENDPOINTS.APPOINTMENT.getAppointments,
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
 export const bookAppointment = async ({ data }: { data: Object }) => {
   try {
     const res = await processRequest({

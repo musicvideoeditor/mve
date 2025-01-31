@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import userReducer from "./features/user-slice";
 import appointmentSlotsReducer from "./features/appointment/appointment-slots-slice";
+import bookedAppointmentsReducer from "./features/appointment/booked-appointments-slice";
 
 const appReducer = combineReducers({
   userReducer: userReducer,
-  appointmentSlotsReducer: appointmentSlotsReducer
+  appointmentSlotsReducer: appointmentSlotsReducer,
+  bookedAppointmentsReducer: bookedAppointmentsReducer 
 });
 
 export const store = configureStore({

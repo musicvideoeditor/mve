@@ -3,7 +3,7 @@ import { apiBaseURL } from "../constants";
 import { joinWaitlist, login } from "./services/auth-api";
 import { getSession } from "next-auth/react";
 import { createProject, getProjectInfo, getProjects } from "./services/project-api";
-import { bookAppointment, getAppointmentSlots, getUnavailableDates, getUnavailableSlots } from "./services/appointment-api";
+import { bookAppointment, getAppointments, getAppointmentSlots, getUnavailableDates, getUnavailableSlots } from "./services/appointment-api";
 
 
 interface RequestProps {
@@ -81,6 +81,7 @@ export const API = {
     getAppointmentSlots,
     getUnavailableDates,
     getUnavailableSlots,
+    getAppointments,
     bookAppointment
   }
 };
