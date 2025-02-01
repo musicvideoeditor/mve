@@ -1,34 +1,47 @@
-'use client';
+"use client";
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ProjectCard from "../project/ProjectCard";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa6";
 import { colors } from "@/lib/constants";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { fetchProjects } from "@/lib/redux/features/project/project-slice";
 
 const ProjectsGrid = () => {
+  const ref = useRef(false);
+  const dispatch = useAppDispatch();
+  const projects = useAppSelector((state) => state.projectReducer.projects);
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchProjects());
+    ref.current = true;
+  }, []);
+
   return (
     <>
       <Grid
         templateColumns={["repeat(1,1fr)", "repeat(2,1fr)", "repeat(4,1fr)"]}
         gap={4}
       >
-        <ProjectCard name="Damodarstakam" />
-        <ProjectCard
-          name="Vrindavan Pyaro Vrindavan"
-          subtitle="Indresh Upadhyay"
-          coverImg="/temp/mountain.jpg"
-        />
-        <ProjectCard
-          name="Mere Banke Bihari Laal"
-          subtitle="Madhavas"
-          coverImg="/temp/mountain2.jpg"
-        />
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.documentId}
+            documentId={project.documentId}
+            name={project.name}
+            coverImg={"/temp/mountain.jpg"}
+            mediaCount={project.videosCount}
+            subtitle={project.description}
+            createdAt={project.createdAt}
+          />
+        ))}
         <GridItem
           bgColor={"#FFF"}
           rounded={16}
           overflow={"hidden"}
           pos={"relative"}
+          minH={40}
           className="new-project"
         >
           <Link

@@ -1,28 +1,23 @@
 "use client";
+import { ProjectVideoType } from "@/lib/types/project";
 import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { LuClock } from "react-icons/lu";
 
-interface VideoCardProps {
-  name: string;
-  uploadDate?: string;
-  coverImg?: string;
-  duration?: number | string;
-}
 
 const VideoCard = ({
   name,
-  coverImg,
-  uploadDate,
+  thumbnail,
+  createdAt,
   duration,
-}: VideoCardProps) => {
+}: ProjectVideoType) => {
   return (
     <>
       <Link href={"/dashboard/projects/dsgsdg/videos/dsgsdg"} target="_blank">
         <Box
-          bgImage={`url("${coverImg || "/abstract.jpg"}")`}
+          bgImage={`url("${thumbnail?.url || "/abstract.jpg"}")`}
           bgPos={"50% 40%"}
           rounded={16}
           overflow={"hidden"}
@@ -39,27 +34,28 @@ const VideoCard = ({
               >
                 {name}
               </Text>
-              <Text fontSize={[10, "xs"]}>20 July, 2024</Text>
+              <Text fontSize={[10, "xs"]}>
+                {createdAt
+                  ? new Date(createdAt).toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })
+                  : null}
+              </Text>
             </Box>
             <HStack justifyContent={"space-between"}>
-              <Button
-                size={"xs"}
-                variant={"ghost"}
-                colorScheme="whiteAlpha"
-                color={"#FFF"}
-                leftIcon={<LuClock />}
-              >
-                07:53 duration
-              </Button>
-              <Button
-                size={"xs"}
-                variant={"ghost"}
-                colorScheme="whiteAlpha"
-                color={"#FFF"}
-                leftIcon={<IoChatbubbleEllipses />}
-              >
-                8 comments
-              </Button>
+              {duration ? (
+                <Button
+                  size={"xs"}
+                  variant={"ghost"}
+                  colorScheme="whiteAlpha"
+                  color={"#FFF"}
+                  leftIcon={<LuClock />}
+                >
+                  {duration} duration
+                </Button>
+              ) : null}
             </HStack>
           </Box>
         </Box>

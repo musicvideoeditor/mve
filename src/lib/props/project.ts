@@ -5,6 +5,7 @@ export interface CreateProjectProps {
 
 
 export interface ProjectCardProps {
+  documentId: string;
   name: string;
   subtitle?: string;
   coverImg?: string;

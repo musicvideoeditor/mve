@@ -32,3 +32,4 @@ export const NAVLINKS = [
     href: "/#faq",
   },
 ];
+
