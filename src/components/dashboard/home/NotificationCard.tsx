@@ -16,8 +16,8 @@ const NotificationCard = ({
   avatarUrl,
   title,
   description,
-  actionBtnLabel,
-  actionBtnUrl,
+  actionBtnLabel = "Learn More",
+  actionBtnUrl = "#",
 }: NotificationCardProps) => {
   return (
     <>

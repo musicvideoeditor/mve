@@ -5,7 +5,7 @@ export const ENDPOINTS = {
     login: "",
   },
   USER: {
-
+    getNotifications: "/notifications",
   },
   PLAN: {
     getPlans: "/plans",
@@ -14,6 +14,7 @@ export const ENDPOINTS = {
     createProject: "/projects",
     getProjectInfo: `/projects`,
     getProjects: "/projects",
+    updateProject: `/projects`,
   },
   APPOINTMENT:{
     getAppointmentSlots: "/appointment-slots",

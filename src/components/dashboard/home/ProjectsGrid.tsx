@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Skeleton, Text } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
 import ProjectCard from "../project/ProjectCard";
 import Link from "next/link";
@@ -8,9 +8,10 @@ import { colors } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { fetchProjects } from "@/lib/redux/features/project/project-slice";
 
-const ProjectsGrid = () => {
+const ProjectsGrid = ({ length }: { length?: number }) => {
   const ref = useRef(false);
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.projectReducer.loading);
   const projects = useAppSelector((state) => state.projectReducer.projects);
 
   useEffect(() => {
@@ -25,17 +26,30 @@ const ProjectsGrid = () => {
         templateColumns={["repeat(1,1fr)", "repeat(2,1fr)", "repeat(4,1fr)"]}
         gap={4}
       >
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.documentId}
-            documentId={project.documentId}
-            name={project.name}
-            coverImg={"/temp/mountain.jpg"}
-            mediaCount={project.videosCount}
-            subtitle={project.description}
-            createdAt={project.createdAt}
-          />
-        ))}
+        {isLoading && (
+          <Skeleton rounded={6}>
+            <ProjectCard
+              documentId="dummy"
+              name="dummy"
+              subtitle="dummy"
+              createdAt="dummy"
+            />
+          </Skeleton>
+        )}
+
+        {projects
+          .slice(0, length ? length - 1 : projects.length)
+          .map((project) => (
+            <ProjectCard
+              key={project.documentId}
+              documentId={project.documentId}
+              name={project.name}
+              coverImg={"/temp/mountain.jpg"}
+              mediaCount={project.videosCount}
+              subtitle={project.description}
+              createdAt={project.createdAt}
+            />
+          ))}
         <GridItem
           bgColor={"#FFF"}
           rounded={16}

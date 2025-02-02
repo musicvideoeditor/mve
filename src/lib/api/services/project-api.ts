@@ -41,3 +41,17 @@ export const createProject = async ({ data }: { data: CreateProjectProps }) => {
     throw new Error(error?.message);
   }
 };
+
+// Update project
+export const updateProject = async ({ id, data }: { id: string; data: Object }) => {
+  try {
+    const res = await processRequest({
+      method: "put",
+      url: `${ENDPOINTS.PROJECT.updateProject}/${id}`,
+      body: {...data},
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};

@@ -1,8 +1,46 @@
-import { Box, VStack } from "@chakra-ui/react";
-import React from "react";
+"use client";
+import {
+  Box,
+  CircularProgress,
+  SkeletonCircle,
+  SkeletonText,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import React, { useEffect, useRef } from "react";
 import NotificationCard from "./NotificationCard";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { fetchNotifications } from "@/lib/redux/features/notification-slice";
 
 const RecentNotifications = () => {
+  const ref = useRef(false);
+  const dispatch = useAppDispatch();
+  const notifications = useAppSelector((state) => state.notificationReducer);
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchNotifications());
+    ref.current = true;
+  }, []);
+
+  if (notifications.loading) {
+    return (
+      <Box>
+        <VStack
+          w={"full"}
+          gap={4}
+          alignItems={"flex-start"}
+          justifyContent={"flex-start"}
+        >
+          <Box padding="4" rounded={4} w={"full"} bg="white">
+            <SkeletonCircle size="10" />
+            <SkeletonText mt="4" noOfLines={2} spacing="4" skeletonHeight="2" />
+          </Box>
+        </VStack>
+      </Box>
+    );
+  }
+
   return (
     <>
       <Box>
@@ -12,27 +50,16 @@ const RecentNotifications = () => {
           alignItems={"flex-start"}
           justifyContent={"flex-start"}
         >
-          <NotificationCard
-            isSystemNotification={true}
-            title="Payment Pending"
-            description="Please pay token amount for your project Damodarashtakam"
-            actionBtnLabel="Pay ₹2380"
-            actionBtnUrl="/invoice/sdjfnwoiehw"
-          />
-          <NotificationCard
-            title="Rishi commented on video #18723"
-            description={`"Requested revisions have been done"`}
-            avatarUrl="https://bit.ly/dan-abramov"
-            actionBtnLabel="View"
-            actionBtnUrl="/projects/q21as/videos/18723"
-          />
-          <NotificationCard
-            isSystemNotification={true}
-            title="Revised Video Uploaded"
-            description="Video #18723 uploaded for your project Damodarashtakam"
-            actionBtnLabel="View"
-            actionBtnUrl="/projects/q21as/videos/18723"
-          />
+          {notifications.data?.map((item, i) => (
+            <NotificationCard
+              key={i}
+              title={item.title}
+              actionBtnLabel={item.ctaLabel}
+              isSystemNotification={true}
+              description={item?.description}
+              actionBtnUrl={item.ctaUrl}
+            />
+          ))}
         </VStack>
       </Box>
     </>

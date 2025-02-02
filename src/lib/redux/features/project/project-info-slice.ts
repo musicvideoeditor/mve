@@ -1,6 +1,6 @@
 import { API } from "@/lib/api";
-import { ProjectInfoType } from "@/lib/types/project";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ProjectInfoType } from "@/lib/types/project";
 
 export const fetchProjectInfo = createAsyncThunk(
   "projectInfo/fetchProjectInfo",
@@ -9,7 +9,25 @@ export const fetchProjectInfo = createAsyncThunk(
       const res = await API.PROJECT.getProjectInfo({ id: documentId });
       return res.data;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error?.message || error);
+    }
+  }
+);
+
+export const updateProjectDescription = createAsyncThunk(
+  "projectInfo/updateProjectDescription",
+  async (
+    { id, description }: { id: string; description: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await API.PROJECT.updateProject({
+        id,
+        data: { description },
+      });
+      return description;
+    } catch (error: any) {
+      return rejectWithValue(error?.message || error);
     }
   }
 );
@@ -23,7 +41,7 @@ interface InitialStateType {
 const initialState: InitialStateType = {
   loading: false,
   projectInfo: {},
-  error: null,
+  error: false,
 };
 
 const projectInfoSlice = createSlice({
@@ -42,6 +60,18 @@ const projectInfoSlice = createSlice({
       .addCase(fetchProjectInfo.rejected, (state) => {
         state.loading = false;
         state.error = true;
+      });
+
+    builder
+      .addCase(updateProjectDescription.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateProjectDescription.fulfilled, (state, action) => {
+        state.loading = false;
+        state.projectInfo.description = action.payload;
+      })
+      .addCase(updateProjectDescription.rejected, (state) => {
+        state.loading = false;
       });
   },
 });

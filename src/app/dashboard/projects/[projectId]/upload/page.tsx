@@ -31,7 +31,6 @@ const page = () => {
             bgColor={"#000"}
             _hover={{ bgColor: "#333" }}
             fontSize={"xs"}
-            w={24}
           >
             Add Members
           </Button>

@@ -2,17 +2,27 @@ import { colors } from "@/lib/constants";
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import React from "react";
 
-interface ErrorCardTypes {
+interface InfoCardTypes {
   title?: string;
   subtitle?: string;
   ctaLabel?: string;
   ctaUrl?: string;
+  titleColor?: string;
+  iconUrl?: string
 }
 
-const ErrorCard = ({ title, subtitle, ctaLabel, ctaUrl }: ErrorCardTypes) => {
+const InfoCard = ({
+  title,
+  subtitle,
+  ctaLabel,
+  ctaUrl,
+  titleColor,
+  iconUrl
+}: InfoCardTypes) => {
   return (
     <>
       <Box
+        p={6}
         h={"full"}
         display={"flex"}
         flexDir={"column"}
@@ -22,12 +32,12 @@ const ErrorCard = ({ title, subtitle, ctaLabel, ctaUrl }: ErrorCardTypes) => {
         rounded={8}
         border={"1px solid #DADADA"}
       >
-        <Image src="/icons/sad.png" w={6} />
-        <Text fontWeight={"semibold"} mt={2} color={"red"}>
+        <Image src={iconUrl ?? "/icons/sad.png"} w={6} />
+        <Text fontWeight={"semibold"} mt={2} color={titleColor ?? "red"}>
           {title ?? "ERROR"}
         </Text>
         <Text fontSize={"xs"} mb={2}>
-          {subtitle ?? "An error occured. Please try again."}
+          {subtitle}
         </Text>
         <Button
           colorScheme="orange"
@@ -44,4 +54,4 @@ const ErrorCard = ({ title, subtitle, ctaLabel, ctaUrl }: ErrorCardTypes) => {
   );
 };
 
-export default ErrorCard;
+export default InfoCard;

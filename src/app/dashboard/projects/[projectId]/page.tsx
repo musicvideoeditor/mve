@@ -1,6 +1,7 @@
 "use client";
-import ErrorCard from "@/components/common/ErrorCard";
+import InfoCard from "@/components/common/InfoCard";
 import MemberCard from "@/components/dashboard/project/MemberCard";
+import ProjectDescription from "@/components/dashboard/project/ProjectDescription";
 import VideoCard from "@/components/dashboard/project/VideoCard";
 import { colors } from "@/lib/constants";
 import { fetchProjectInfo } from "@/lib/redux/features/project/project-info-slice";
@@ -13,19 +14,18 @@ import {
   CircularProgress,
   Grid,
   GridItem,
-  HStack,
-  IconButton,
-  Image,
-  Stack,
   Text,
+  Stack,
   VStack,
+  HStack,
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
+  useEditableControls,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
-import { BsCloudArrowUpFill, BsEyeFill } from "react-icons/bs";
-import { FaEdit } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
-import { HiOutlineEye } from "react-icons/hi2";
-import { IoChatbubbleEllipses } from "react-icons/io5";
 import { LuPen } from "react-icons/lu";
 
 const page = ({ params }: { params: { projectId: string } }) => {
@@ -48,21 +48,23 @@ const page = ({ params }: { params: { projectId: string } }) => {
           alignItems={"center"}
           justifyContent={"center"}
         >
-          <CircularProgress />
+          <CircularProgress color={"orange"} isIndeterminate />
           <Text fontSize={"sm"}>Loading</Text>
         </VStack>
       </Box>
     );
   }
 
-  if (project.loading == false && project.projectInfo?.documentId == null) {
-    <Box p={4}>
-      <ErrorCard
-        ctaLabel="Go Back"
-        ctaUrl="/dashboard/projects"
-        subtitle={"We could not find this project"}
-      />
-    </Box>;
+  if (project.error) {
+    return (
+      <Box p={4}>
+        <InfoCard
+          ctaLabel="Go Back"
+          ctaUrl="/dashboard/projects"
+          subtitle={"We could not find this project"}
+        />
+      </Box>
+    );
   }
 
   if (project.projectInfo.documentId)
@@ -91,43 +93,35 @@ const page = ({ params }: { params: { projectId: string } }) => {
                       )
                     )
                   : null}
-                {project.projectInfo?.subscription?.revisionsLeft === 0 && (
+                {project.projectInfo?.subscription?.revisionsLeft === 0 ? (
                   <GridItem>
-                    <ErrorCard
+                    <InfoCard
                       title="You have used all revisions"
                       subtitle="Buy more to continue"
                       ctaLabel="Buy Now"
                       ctaUrl={"#"}
                     />
                   </GridItem>
+                ) : (
+                  <GridItem>
+                    <InfoCard
+                      title="No Videos"
+                      ctaLabel="Upload Now"
+                      titleColor="#000"
+                      iconUrl="/icons/upload.png"
+                      ctaUrl={`/dashboard/projects/${project.projectInfo?.documentId}/upload`}
+                    />
+                  </GridItem>
                 )}
               </Grid>
             </Box>
             <Box flex={2}>
-              <Box
-                p={4}
-                bgColor={"#FFF"}
-                border={"1px solid #DADADA"}
-                rounded={8}
-              >
-                <HStack justifyContent={"space-between"} mb={4}>
-                  <Text fontSize={"sm"} fontWeight={"semibold"}>
-                    Overview
-                  </Text>
-                  <Button
-                    colorScheme="orange"
-                    variant={"ghost"}
-                    size={"xs"}
-                    rounded={"full"}
-                    leftIcon={<LuPen />}
-                  >
-                    Edit
-                  </Button>
-                </HStack>
-                <Text fontSize={"xs"} color={"gray.800"} mb={4}>
-                  {project.projectInfo.description}
-                </Text>
-              </Box>
+              {project.projectInfo ? (
+                <ProjectDescription
+                  description={project.projectInfo?.description ?? ""}
+                  projectId={project.projectInfo?.documentId}
+                />
+              ) : null}
               <br />
               <Box
                 p={4}

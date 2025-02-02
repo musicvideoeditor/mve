@@ -17,7 +17,6 @@ import React from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 
 const ProjectUpdates = () => {
-  
 
   return (
     <>
@@ -38,7 +37,7 @@ const ProjectUpdates = () => {
                 </Text>
               </Link>
             </HStack>
-            <ProjectsGrid />
+            <ProjectsGrid length={3} />
           </Box>
           <VerticalSpacer h={"12.5vh"} />
 
