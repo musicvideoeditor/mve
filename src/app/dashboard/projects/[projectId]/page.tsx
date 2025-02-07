@@ -85,6 +85,7 @@ const page = ({ params }: { params: { projectId: string } }) => {
                       (video: ProjectVideoType, i) => (
                         <VideoCard
                           key={i}
+                          documentId={video.documentId}
                           name={video.name}
                           source={video?.source}
                           createdAt={video.createdAt}

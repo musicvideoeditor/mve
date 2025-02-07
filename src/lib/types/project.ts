@@ -1,4 +1,5 @@
 export interface ProjectVideoType {
+  documentId: string;
   name: string;
   source: "local" | "bunny" | string;
   videoUrl?: string;
@@ -23,4 +24,23 @@ export interface ProjectInfoType {
   videos: ProjectVideoType[];
   members: ProjectMemberType[];
   subscription?: { revisionsLeft: number };
+}
+
+export interface ProjectAssetType {
+  documentId: string;
+  name: string;
+  project: { documentId: string };
+  createdAt: string;
+  uploadedBy: {
+    username: string;
+    avatar?: { url: string };
+    name?: string;
+    email: string;
+  };
+  assets: Array<{
+    name: string;
+    url: string;
+    size?: string;
+  }>;
+  approvalStatus: "pending" | "reviewing" | "approved" | "rejected";
 }

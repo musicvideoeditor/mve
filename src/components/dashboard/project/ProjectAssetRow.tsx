@@ -1,5 +1,7 @@
+import { ProjectAssetType } from "@/lib/types/project";
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Checkbox,
@@ -11,7 +13,7 @@ import {
 import React from "react";
 import { LuFile } from "react-icons/lu";
 
-const ProjectAssetRow = () => {
+const ProjectAssetRow = (props: ProjectAssetType) => {
   return (
     <>
       <Tr>
@@ -31,34 +33,38 @@ const ProjectAssetRow = () => {
             </Box>
             <Box>
               <Text fontSize={"xs"} fontWeight={"semibold"}>
-                File name
+                {props?.name}
               </Text>
-              <Text fontSize={"10"}>200 KB</Text>
+              <Text fontSize={"10"}>{props?.assets?.length} Files</Text>
             </Box>
           </HStack>
         </Td>
-        <Td fontSize={"xs"}>Jan 4, 2022</Td>
-        <Td fontSize={"xs"}>Jan 4, 2022</Td>
+        <Td fontSize={"xs"}>
+          {new Date(props?.createdAt).toLocaleDateString("en-US")}
+        </Td>
+        <Td fontSize={"xs"}>
+          <Badge>{props?.approvalStatus}</Badge>
+        </Td>
         <Td>
           <HStack>
             <Avatar src="https://bit.ly/dan-abramov" size={"sm"} />
             <Box>
               <Text fontSize={"xs"} fontWeight={"semibold"}>
-                User name
+                {props?.uploadedBy?.name ?? props?.uploadedBy?.username}
               </Text>
-              <Text fontSize={"10"}>user@email.com</Text>
+              <Text fontSize={"10"}>{props?.uploadedBy?.email}</Text>
             </Box>
           </HStack>
         </Td>
-        <Td textAlign={'center'}>
-            <Button
-              size={"xs"}
-              fontWeight={"medium"}
-              border={"1px solid #BBB"}
-              variant={"ghost"}
-            >
-              Delete
-            </Button>
+        <Td textAlign={"center"}>
+          <Button
+            size={"xs"}
+            fontWeight={"medium"}
+            border={"1px solid #BBB"}
+            variant={"ghost"}
+          >
+            Delete
+          </Button>
         </Td>
       </Tr>
     </>

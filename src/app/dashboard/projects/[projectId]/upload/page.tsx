@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import ProjectAssets from "@/components/dashboard/project/ProjectAssets";
 import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 import { FiPlus, FiUpload } from "react-icons/fi";
 
-const page = () => {
+const page = ({ params }: { params: { projectId: string } }) => {
   return (
     <>
       <HStack
@@ -47,7 +47,7 @@ const page = () => {
         &nbsp;&nbsp; Files and assets
       </Text>
 
-      <ProjectAssets onSubmit={() => console.log("assets")} />
+      <ProjectAssets projectId={params.projectId} />
     </>
   );
 };

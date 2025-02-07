@@ -1,7 +1,9 @@
+"use client";
 import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   HStack,
   Input,
   InputGroup,
@@ -14,17 +16,109 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaCircle, FaPlus } from "react-icons/fa";
-import { FcOpenedFolder } from "react-icons/fc";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import ProjectAssetRow from "./ProjectAssetRow";
 import { colors } from "@/lib/constants";
+import Dropzone from "@/components/custom/Dropzone";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import {
+  addAsset,
+  fetchProjectAssets,
+} from "@/lib/redux/features/project/project-assets";
+import useFileUpload from "@/lib/helpers/useFileUpload";
+import { API } from "@/lib/api";
 
-const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
+const Filters = () => {
+  return (
+    <>
+      <HStack gap={0} border={"1px solid #BBB"} rounded={4} overflow={"hidden"}>
+        <Button
+          px={4}
+          size={"xs"}
+          fontWeight={"medium"}
+          variant={"ghost"}
+          rounded={0}
+        >
+          View all
+        </Button>
+        <Button
+          px={4}
+          size={"xs"}
+          fontWeight={"medium"}
+          variant={"ghost"}
+          borderX={"1px solid #BBB"}
+          rounded={"0"}
+        >
+          Your files
+        </Button>
+        <Button
+          px={4}
+          size={"xs"}
+          fontWeight={"medium"}
+          variant={"ghost"}
+          rounded={0}
+        >
+          Shared files
+        </Button>
+      </HStack>
+    </>
+  );
+};
+
+const ProjectAssets = ({ projectId }: { projectId: string }) => {
+  const ref = useRef(false);
+  const [uploadStatus, setUploadStatus] = useState<
+    "pending" | "uploading" | "success" | "failed"
+  >("pending");
+  const { uploadFile, loading, error } = useFileUpload();
+  const dispatch = useAppDispatch();
+  const toast = useToast();
+
+  const isLoading = useAppSelector(
+    (state) => state.projectAssetsReducer.loading
+  );
+  const assets = useAppSelector((state) => state.projectAssetsReducer.data);
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchProjectAssets({ documentId: projectId }));
+    ref.current = true;
+  }, []);
+
+  const handleProjectAssetUpload = async (files: File[]) => {
+    if (!files.length) return;
+    setUploadStatus("uploading");
+    try {
+      const res = await API.PROJECT.createProjectAsset({
+        name: files[0]?.name,
+        project: { documentId: projectId },
+      });
+      dispatch(addAsset(res.data));
+      const assetId = res.data?.id;
+      if (res.data.documentId) {
+        await uploadFile({
+          files: files,
+          entryId: assetId,
+          modelId: "api::asset.asset",
+          field: "assets",
+        });
+        setUploadStatus("success");
+      }
+    } catch (error: any) {
+      setUploadStatus("failed");
+      toast({
+        status: "error",
+        description: error?.message,
+      });
+    }
+  };
+
   return (
     <>
       <Stack
@@ -33,46 +127,10 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
         gap={4}
         mb={8}
       >
-        <Box w={["full", "xs"]} py={16} px={4} rounded={12} bgColor={"#FFF"}>
-          <VStack
-            w={"full"}
-            h={"full"}
-            alignItems={"center"}
-            justifyContent={"flex-start"}
-            gap={6}
-          >
-            <Box>
-              <Text textAlign={"center"} fontWeight={"semibold"}>
-                Upload your files
-              </Text>
-              <Text
-                textAlign={"center"}
-                fontSize={"8"}
-                fontWeight={"medium"}
-                color={"gray.500"}
-              >
-                Files should be .zip, .eps or .avi
-              </Text>
-            </Box>
-            <Box
-              w={"full"}
-              rounded={8}
-              p={8}
-              border={"1px dashed #ccdeab"}
-              bgColor={"#fafaf7"}
-            >
-              <FcOpenedFolder fontSize={36} style={{ margin: "8px auto" }} />
-              <Text
-                textAlign={"center"}
-                fontSize={"8"}
-                fontWeight={"medium"}
-                color={"gray.500"}
-              >
-                Drag and drop your files here
-              </Text>
-            </Box>
-          </VStack>
-        </Box>
+        <Dropzone
+          onUpload={(files) => handleProjectAssetUpload(files)}
+          uploadStatus={uploadStatus}
+        />
 
         <Box
           w={["full", "80%"]}
@@ -104,41 +162,7 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
             justifyContent={"space-between"}
             overflow={"scroll"}
           >
-            <HStack
-              gap={0}
-              border={"1px solid #BBB"}
-              rounded={4}
-              overflow={"hidden"}
-            >
-              <Button
-                px={4}
-                size={"xs"}
-                fontWeight={"medium"}
-                variant={"ghost"}
-                rounded={0}
-              >
-                View all
-              </Button>
-              <Button
-                px={4}
-                size={"xs"}
-                fontWeight={"medium"}
-                variant={"ghost"}
-                borderX={"1px solid #BBB"}
-                rounded={"0"}
-              >
-                Your files
-              </Button>
-              <Button
-                px={4}
-                size={"xs"}
-                fontWeight={"medium"}
-                variant={"ghost"}
-                rounded={0}
-              >
-                Shared files
-              </Button>
-            </HStack>
+            <Filters />
             <HStack>
               <Button
                 size={"xs"}
@@ -150,30 +174,10 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
               >
                 Jan 1 - Jan 31
               </Button>
-              <Button
-                size={"xs"}
-                fontWeight={"medium"}
-                border={"1px solid #BBB"}
-                variant={"ghost"}
-                leftIcon={<FaCircle fontSize={"6"} color="#16a160" />}
-                rightIcon={<IoClose color={"#999"} />}
-              >
-                Project Name
-              </Button>
-              <Button
-                size={"xs"}
-                fontWeight={"medium"}
-                // border={"1px solid #BBB"}
-                variant={"ghost"}
-                leftIcon={<FaPlus />}
-                // rightIcon={<IoClose color={'#999'} />}
-              >
-                Add Filter
-              </Button>
             </HStack>
           </HStack>
 
-          <TableContainer h={"2xs"}>
+          <TableContainer h={"2xs"} overflowY={"scroll"}>
             <Table size={"sm"} colorScheme="teal">
               <Thead>
                 <Tr>
@@ -182,23 +186,33 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
                   </Th>
                   <Th fontSize={"10"}>File name</Th>
                   <Th fontSize={"10"}>Date uploaded</Th>
-                  <Th fontSize={"10"}>Last updated</Th>
+                  <Th fontSize={"10"}>Approval Status</Th>
                   <Th fontSize={"10"}>Uploaded by</Th>
                   <Th fontSize={"10"}></Th>
                 </Tr>
               </Thead>
+              {isLoading ? (
+                <VStack
+                  w={"full"}
+                  h={"sm"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                >
+                  <CircularProgress isIndeterminate color="orange" />
+                  <Text fontSize={"sm"}>Loading...</Text>
+                </VStack>
+              ) : null}
               <Tbody>
-                <ProjectAssetRow />
-                <ProjectAssetRow />
-                <ProjectAssetRow />
-                <ProjectAssetRow />
+                {assets.map((asset) => (
+                  <ProjectAssetRow key={asset.documentId} {...asset} />
+                ))}
               </Tbody>
             </Table>
           </TableContainer>
         </Box>
       </Stack>
 
-      <HStack justifyContent={["center", "flex-end"]}>
+      {/* <HStack justifyContent={["center", "flex-end"]}>
         <Box>
           <Button
             size={"lg"}
@@ -207,7 +221,6 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
             bgColor={colors.orange}
             boxShadow={"-4px 4px #000"}
             px={16}
-            onClick={onSubmit}
           >
             Submit for Review
           </Button>
@@ -221,7 +234,7 @@ const ProjectAssets = ({ onSubmit }: { onSubmit: () => void }) => {
             *Submit once all of your data is uploaded.
           </Text>
         </Box>
-      </HStack>
+      </HStack> */}
     </>
   );
 };

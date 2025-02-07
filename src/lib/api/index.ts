@@ -2,24 +2,35 @@ import axios from "axios";
 import { apiBaseURL } from "../constants";
 import { joinWaitlist, login } from "./services/auth-api";
 import { getSession } from "next-auth/react";
-import { createProject, getProjectInfo, getProjects, updateProject } from "./services/project-api";
-import { bookAppointment, getAppointments, getAppointmentSlots, getUnavailableDates, getUnavailableSlots } from "./services/appointment-api";
-import { getNotifications } from "./services/notification-api";
-
+import {
+  createProject,
+  createProjectAsset,
+  deleteProjectAsset,
+  getProjectAssets,
+  getProjectInfo,
+  getProjects,
+  updateProject,
+} from "./services/project-api";
+import {
+  bookAppointment,
+  getAppointments,
+  getAppointmentSlots,
+  getUnavailableDates,
+  getUnavailableSlots,
+} from "./services/appointment-api";
+import { getNotifications, uploadAsset } from "./services/misc-api";
 
 interface RequestProps {
   method?: "get" | "put" | "post" | "delete" | "patch";
   url: string;
   query?: { [key: string]: any };
   body?: { [key: string]: any };
+  hasFiles?: boolean;
 }
 
 const httpClient = axios.create({
   baseURL: apiBaseURL,
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 export const processRequest = async ({
@@ -27,6 +38,7 @@ export const processRequest = async ({
   url,
   query = {},
   body = {},
+  hasFiles = false,
 }: RequestProps) => {
   try {
     const session = await getSession();
@@ -34,9 +46,12 @@ export const processRequest = async ({
     // @ts-ignore
     const token = session?.accessToken || null;
 
-    const headers = token ? {
-      Authorization: `Bearer ${token}`,
-    } : {};
+    const headers = token
+      ? {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": hasFiles ? "multipart/form-data" : "application/json",
+        }
+      : {};
 
     const res = await httpClient.request({
       method: method,
@@ -52,7 +67,7 @@ export const processRequest = async ({
           : ""
       }`,
       data: body,
-      headers
+      headers,
     });
     return res;
   } catch (error: any) {
@@ -69,21 +84,28 @@ export const API = {
 
   // User APIs
   USER: {
-    getNotifications
+    getNotifications,
   },
 
   // Project APIs
-  PROJECT : {
+  PROJECT: {
     getProjects,
     getProjectInfo,
     createProject,
-    updateProject
+    updateProject,
+
+    createProjectAsset,
+    getProjectAssets,
+    deleteProjectAsset,
   },
   APPOINTMENT: {
     getAppointmentSlots,
     getUnavailableDates,
     getUnavailableSlots,
     getAppointments,
-    bookAppointment
-  }
+    bookAppointment,
+  },
+  MISC: {
+    uploadAsset,
+  },
 };

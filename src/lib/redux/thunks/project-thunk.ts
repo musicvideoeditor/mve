@@ -28,3 +28,38 @@ export const createProject = createAsyncThunk(
     return res.data;
   }
 );
+
+
+// Create asyncThunk to upload asset
+export const uploadAsset = createAsyncThunk(
+  "projectAssets/uploadProjectAsset",
+  async (
+    {
+      files,
+      entryId,
+      modelId,
+      field,
+      path,
+    }: {
+      files: File[];
+      entryId: string;
+      modelId: string;
+      field: string;
+      path?: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await API.MISC.uploadAsset({
+        files,
+        entryId: entryId,
+        modelId: modelId,
+        field,
+        path,
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error?.message || error);
+    }
+  }
+);

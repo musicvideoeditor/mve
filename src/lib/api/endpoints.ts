@@ -1,3 +1,4 @@
+import { uploadAsset } from "./services/misc-api";
 import { getProjectInfo } from "./services/project-api";
 
 export const ENDPOINTS = {
@@ -15,6 +16,10 @@ export const ENDPOINTS = {
     getProjectInfo: `/projects`,
     getProjects: "/projects",
     updateProject: `/projects`,
+
+    createProjectAsset: "/assets",
+    getProjectAssets: "/assets",
+    deleteProjectAsset: "/assets"
   },
   APPOINTMENT:{
     getAppointmentSlots: "/appointment-slots",
@@ -22,5 +27,9 @@ export const ENDPOINTS = {
     getUnavailableSlots: "/unavailable-slots",
     bookAppointment: "/appointments",
     getAppointments: "/appointments",
+  },
+  MISC: {
+    uploadAsset: "/upload",
+    deleteAsset: "/upload/files"
   }
 };
