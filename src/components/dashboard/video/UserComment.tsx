@@ -35,12 +35,12 @@ const UserComment = (props: VideoCommentType) => {
           </Text>
         </HStack>
         {props?.response ? (
-          <HStack w={"full"} justifyContent={"flex-start"} mt={1} pl={2}>
-            <Text fontSize={"xs"}>{props?.response}</Text>
+          <Box w={"full"} mt={1} pl={4} color={"#DADADA"}>
+            <Text fontSize={"xs"}>- {props?.response}</Text>
             <Text fontSize={"xs"} textAlign={"right"}>
               Replied by Admin
             </Text>
-          </HStack>
+          </Box>
         ) : null}
       </Box>
     </>

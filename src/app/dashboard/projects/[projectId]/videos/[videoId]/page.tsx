@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import InfoCard from "@/components/common/InfoCard";
 import UserComment from "@/components/dashboard/video/UserComment";
 import { fetchVideoInfo } from "@/lib/redux/features/project/video/video-slice";
-import { fetchVideoComments } from "@/lib/redux/features/project/video/comment-slice";
+import { addVideoComment, fetchVideoComments } from "@/lib/redux/features/project/video/comment-slice";
 
 const page = ({
   params,
@@ -47,6 +47,20 @@ const page = ({
     dispatch(fetchVideoComments(params.videoId));
     ref.current = true;
   }, []);
+
+  async function postComment (){
+    try {
+      await dispatch(addVideoComment({videoId: params.videoId, data: {comment, includeTimestamp, timeStamp}}));
+      setComment("");
+      setIncludeTimestamp(false);
+      setTimeStamp({ minutes: 0, seconds: 0 });
+    } catch (error: any) {
+      toast({
+        status: "error",
+        description: error?.message,
+      });
+    }
+  }
 
   if (video.loading) {
     return (
@@ -134,7 +148,7 @@ const page = ({
             justifyContent={"flex-start"}
             mb={2}
           >
-            <Avatar name="Krunal Mali" size={"xs"} />
+            {/* <Avatar name="Krunal Mali" size={"xs"} /> */}
             <Box w={"full"}>
               <Input
                 w={"full"}
@@ -142,6 +156,7 @@ const page = ({
                 placeholder="Type your feedback here..."
                 fontSize={"xs"}
                 color={"#FFF"}
+                value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
               <HStack justifyContent={"space-between"} mt={4}>
@@ -204,6 +219,7 @@ const page = ({
                   bgColor={"purple.500"}
                   size={"xs"}
                   fontSize={8}
+                  onClick={() => postComment()}
                 >
                   Add Feedback
                 </Button>

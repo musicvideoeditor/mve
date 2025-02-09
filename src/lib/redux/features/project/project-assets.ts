@@ -86,7 +86,7 @@ const projectAssetsSlice = createSlice({
       })
       .addCase(addProjectAsset.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.data.unshift(action.payload);
       })
       .addCase(addProjectAsset.rejected, (state, action) => {
         state.loading = false;

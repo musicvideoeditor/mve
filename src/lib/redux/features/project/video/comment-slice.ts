@@ -69,7 +69,7 @@ const videoCommentsSlice = createSlice({
       })
       .addCase(addVideoComment.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.data.unshift(action.payload);
       })
       .addCase(addVideoComment.rejected, (state, action) => {
         state.loading = false;
