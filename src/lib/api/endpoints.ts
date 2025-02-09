@@ -21,6 +21,11 @@ export const ENDPOINTS = {
     getProjectAssets: "/assets",
     deleteProjectAsset: "/assets"
   },
+  VIDEO:{
+    getVideoInfo: "/videos",
+    getVideoComments: "/comments",
+    addVideoComment: "/comments",
+  },
   APPOINTMENT:{
     getAppointmentSlots: "/appointment-slots",
     getUnavailableDates: "/unavailable-dates",

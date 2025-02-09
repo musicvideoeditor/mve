@@ -9,13 +9,18 @@ import { LuClock } from "react-icons/lu";
 
 const VideoCard = ({
   name,
+  project,
   thumbnail,
   createdAt,
   duration,
+  documentId,
 }: ProjectVideoType) => {
   return (
     <>
-      <Link href={"/dashboard/projects/dsgsdg/videos/dsgsdg"} target="_blank">
+      <Link
+        href={`/dashboard/projects/${project?.documentId}/videos/${documentId}`}
+        target="_blank"
+      >
         <Box
           bgImage={`url("${thumbnail?.url || "/abstract.jpg"}")`}
           bgPos={"50% 40%"}

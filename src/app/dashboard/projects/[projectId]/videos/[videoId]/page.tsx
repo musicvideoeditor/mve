@@ -4,33 +4,87 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormLabel,
   HStack,
   IconButton,
   Input,
   Stack,
-  Switch,
   Text,
-  Textarea,
-  useColorModeValue,
+  useToast,
+  VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { MdReply } from "react-icons/md";
 import VideoFrame from "@/components/dashboard/video/VideoFrame";
-import { FiDownload } from "react-icons/fi";
 import { FaDownload, FaShareSquare } from "react-icons/fa";
 import { BsStopwatch } from "react-icons/bs";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import InfoCard from "@/components/common/InfoCard";
+import UserComment from "@/components/dashboard/video/UserComment";
+import { fetchVideoInfo } from "@/lib/redux/features/project/video/video-slice";
+import { fetchVideoComments } from "@/lib/redux/features/project/video/comment-slice";
 
-const page = () => {
+const page = ({
+  params,
+}: {
+  params: { videoId: string; projectId: string };
+}) => {
+  const toast = useToast();
+  const ref = useRef(false)
+  const dispatch = useAppDispatch();
+
+  const video = useAppSelector((state) => state.videoReducer);
+  const comments = useAppSelector((state) => state.commentsReducer);
+
+  const [comment, setComment] = useState("");
+  const [includeTimestamp, setIncludeTimestamp] = useState(false);
+  const [timeStamp, setTimeStamp] = useState({ minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchVideoInfo(params.videoId));
+    dispatch(fetchVideoComments(params.videoId));
+    ref.current = true;
+  }, []);
+
+  if (video.loading) {
+    return (
+      <Box p={4}>
+        <VStack
+          w={"full"}
+          h={["80vh"]}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <CircularProgress color={"orange"} isIndeterminate />
+          <Text fontSize={"sm"}>Loading</Text>
+        </VStack>
+      </Box>
+    );
+  }
+
+  if (video.error) {
+    return (
+      <Box p={4}>
+        <InfoCard
+          ctaLabel="Go Back"
+          ctaUrl={`/dashboard/projects/${params.projectId}`}
+          subtitle={"We could not find this video"}
+        />
+      </Box>
+    );
+  }
+
   return (
     <>
       <Text fontSize={"xl"} fontWeight={"bold"}>
-        Project Name
+        {video.data?.name}
       </Text>
       <Stack w={"full"} justifyContent={"space-between"} gap={4}>
         <HStack w={"full"} justifyContent={"space-between"} flex={5}>
           <Text fontSize={"sm"} w={"full"}>
-            ID: PROJ1234
+            Project: {video.data?.project.name}
           </Text>
           <HStack w={"full"} justifyContent={"flex-end"} gap={0}>
             <IconButton
@@ -54,16 +108,21 @@ const page = () => {
         alignItems={"flex-start"}
         gap={[0, 4]}
       >
-        <Box w={'full'} flex={['unset', 6]}>
+        <Box w={"full"} flex={["unset", 6]}>
           <VideoFrame
-            src="https://www.youtube.com/embed/xooLMR6sPxk"
+            source={video.data?.source}
+            url={
+              video.data?.source === "local"
+                ? video.data?.video?.url
+                : video.data?.videoUrl
+            }
             title="Your Video Title"
             showBookmarks={true}
           />
         </Box>
 
         <Box
-          flex={['unset', 2]}
+          flex={["unset", 2]}
           rounded={12}
           p={3}
           bgColor={"#1d2729"}
@@ -82,6 +141,8 @@ const page = () => {
                 variant={"unstyled"}
                 placeholder="Type your feedback here..."
                 fontSize={"xs"}
+                color={"#FFF"}
+                onChange={(e) => setComment(e.target.value)}
               />
               <HStack justifyContent={"space-between"} mt={4}>
                 <HStack
@@ -102,6 +163,12 @@ const page = () => {
                     color={"#FFF"}
                     placeholder="00"
                     defaultValue={"00"}
+                    onChange={(e) =>
+                      setTimeStamp({
+                        ...timeStamp,
+                        minutes: Number(e.target.value),
+                      })
+                    }
                   />
                   <Text size={"xs"} color={"#FFF"}>
                     :
@@ -115,6 +182,12 @@ const page = () => {
                     color={"#FFF"}
                     placeholder="00"
                     defaultValue={"00"}
+                    onChange={(e) =>
+                      setTimeStamp({
+                        ...timeStamp,
+                        seconds: Number(e.target.value),
+                      })
+                    }
                   />
                   <Checkbox
                     size={"sm"}
@@ -122,6 +195,7 @@ const page = () => {
                     bgColor={"#FFF"}
                     iconColor="#000"
                     rounded={2}
+                    onChange={(e) => setIncludeTimestamp(e.target.checked)}
                   />
                 </HStack>
 
@@ -143,7 +217,8 @@ const page = () => {
             color={"gray.400"}
             pos={"relative"}
           >
-            Comments <span style={{ color: "#FFF" }}>2</span>{" "}
+            Comments{" "}
+            <span style={{ color: "#FFF" }}>{comments.data.length}</span>{" "}
             <span
               style={{
                 position: "absolute",
@@ -157,72 +232,16 @@ const page = () => {
           </Text>
 
           <Box maxH={"xs"} overflowY={"scroll"}>
-            <Box mb={8}>
-              <HStack alignItems={"center"}>
-                <Avatar name="Krunal Mali" size={"sm"} />
-                <Text fontWeight={"medium"} fontSize={"sm"}>
-                  Krunal Mali (12 May, 2024)
-                </Text>
-              </HStack>
-              <Text fontSize={"xs"} mt={4}>
-                <Text as={"span"} color={"purple.400"} fontSize={"xs"} pr={2}>
-                  01:37
-                </Text>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aspernatur veniam minus sunt labore voluptate, delectus
-                architecto neque repellendus hic id? Lorem ipsum dolor sit, amet
-                consectetur adipisicing elit. Aspernatur veniam minus sunt
-                labore voluptate, delectus architecto neque repellendus hic id?
-              </Text>
-              <HStack w={"full"} justifyContent={"space-between"} mt={1}>
-                <IconButton
-                  colorScheme="twitter"
-                  variant={"ghost"}
-                  size={"sm"}
-                  rounded={"full"}
-                  _hover={{
-                    bgColor: "blackAlpha.400",
-                  }}
-                  icon={<MdReply fontSize={16} />}
-                  aria-label="reply"
-                />
-                <Text fontSize={"xs"} color={"gray.500"}>
-                  5m ago
-                </Text>
-              </HStack>
-            </Box>
-            <Box mb={8}>
-              <HStack alignItems={"center"}>
-                <Avatar name="Krunal Mali" size={"sm"} />
-                <Text fontWeight={"medium"} fontSize={"sm"}>
-                  Krunal Mali (12 May, 2024)
-                </Text>
-              </HStack>
-              <Text fontSize={"xs"} mt={4}>
-                <Text as={"span"} color={"purple.400"} fontSize={"xs"} pr={2}>
-                  01:37
-                </Text>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aspernatur veniam minus sunt labore voluptate, delectus
-                architecto neque?
-              </Text>
-              <HStack w={"full"} justifyContent={"space-between"} mt={1}>
-                <IconButton
-                  colorScheme="twitter"
-                  variant={"ghost"}
-                  size={"sm"}
-                  rounded={"full"}
-                  _hover={{
-                    bgColor: "blackAlpha.400",
-                  }}
-                  icon={<MdReply fontSize={16} />}
-                  aria-label="reply"
-                />
-                <Text fontSize={"xs"} color={"gray.500"}>
-                  5m ago
-                </Text>
-              </HStack>
-            </Box>
+            {comments.loading ? (
+              <Box p={4}>
+                <CircularProgress color={"orange"} isIndeterminate />
+                <Text fontSize={"xs"}>Loading</Text>
+              </Box>
+            ) : (
+              comments.data.map((comment: any, index: number) => {
+                return <UserComment key={index} {...comment} />;
+              })
+            )}
           </Box>
         </Box>
       </Stack>

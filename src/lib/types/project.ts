@@ -7,6 +7,26 @@ export interface ProjectVideoType {
   duration?: string;
   createdAt: string;
   thumbnail?: { url: string };
+  project: { documentId: string; name: string };
+}
+
+export interface VideoCommentType {
+  createdAt: string;
+  message: string;
+  response?: string;
+  minutes?: number;
+  seconds?: number;
+  author: {
+    name: string;
+    username?: string;
+    avatar?: { url: string };
+  };
+  respondedBy?: {
+    name: string;
+    username?: string;
+    avatar?: { url: string };
+  };
+  updatedAt?: string;
 }
 
 export interface ProjectMemberType {

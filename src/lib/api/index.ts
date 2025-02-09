@@ -19,6 +19,7 @@ import {
   getUnavailableSlots,
 } from "./services/appointment-api";
 import { getNotifications, uploadAsset } from "./services/misc-api";
+import { addVideoComment, getVideoComments, getVideoInfo } from "./services/video-api";
 
 interface RequestProps {
   method?: "get" | "put" | "post" | "delete" | "patch";
@@ -97,6 +98,11 @@ export const API = {
     createProjectAsset,
     getProjectAssets,
     deleteProjectAsset,
+  },
+  VIDEO: {
+    getVideoInfo,
+    getVideoComments,
+    addVideoComment,
   },
   APPOINTMENT: {
     getAppointmentSlots,

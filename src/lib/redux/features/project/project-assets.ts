@@ -1,6 +1,6 @@
 import { API } from "@/lib/api";
-import { ProjectAssetType, ProjectVideoType } from "@/lib/types/project";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ProjectAssetType } from "@/lib/types/project";
 
 // asyncThunk to create project asset
 export const addProjectAsset = createAsyncThunk(
