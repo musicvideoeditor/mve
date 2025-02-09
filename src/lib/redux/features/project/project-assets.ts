@@ -33,8 +33,8 @@ export const deleteProjectAsset = createAsyncThunk(
   "projectAssets/deleteProjectAsset",
   async ({ id }: { id: string }, { rejectWithValue }) => {
     try {
-      const res = await API.PROJECT.deleteProjectAsset({ id });
-      return res.data;
+      await API.PROJECT.deleteProjectAsset({ id });
+      return id;
     } catch (error: any) {
       return rejectWithValue(error?.message || error);
     }

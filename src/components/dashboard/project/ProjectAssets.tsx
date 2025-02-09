@@ -163,7 +163,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
             overflow={"scroll"}
           >
             <Filters />
-            <HStack>
+            {/* <HStack>
               <Button
                 size={"xs"}
                 fontWeight={"medium"}
@@ -174,16 +174,16 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
               >
                 Jan 1 - Jan 31
               </Button>
-            </HStack>
+            </HStack> */}
           </HStack>
 
           <TableContainer h={"2xs"} overflowY={"scroll"}>
             <Table size={"sm"} colorScheme="teal">
               <Thead>
                 <Tr>
-                  <Th>
+                  {/* <Th>
                     <Checkbox borderColor={"#BBB"}></Checkbox>
-                  </Th>
+                  </Th> */}
                   <Th fontSize={"10"}>File name</Th>
                   <Th fontSize={"10"}>Date uploaded</Th>
                   <Th fontSize={"10"}>Approval Status</Th>

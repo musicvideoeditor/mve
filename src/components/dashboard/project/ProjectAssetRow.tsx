@@ -1,3 +1,8 @@
+"use client";
+import AlertBox from "@/components/custom/AlertBox";
+import DateFormatter from "@/components/custom/DateFormatter";
+import { deleteProjectAsset } from "@/lib/redux/features/project/project-assets";
+import { useAppDispatch } from "@/lib/redux/store";
 import { ProjectAssetType } from "@/lib/types/project";
 import {
   Avatar,
@@ -9,17 +14,39 @@ import {
   Td,
   Text,
   Tr,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { LuFile } from "react-icons/lu";
 
 const ProjectAssetRow = (props: ProjectAssetType) => {
+  const toast = useToast();
+  const dispatch = useAppDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleDelete() {
+    try {
+      setIsLoading(true);
+      await dispatch(deleteProjectAsset({ id: props.documentId }));
+      onClose();
+    } catch (error: any) {
+      toast({
+        status: "error",
+        description: error?.message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <Tr>
-        <Td>
+        {/* <Td>
           <Checkbox borderColor={"#BBB"}></Checkbox>
-        </Td>
+        </Td> */}
         <Td>
           <HStack>
             <Box
@@ -35,19 +62,27 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
               <Text fontSize={"xs"} fontWeight={"semibold"}>
                 {props?.name}
               </Text>
-              <Text fontSize={"10"}>{props?.assets?.length} Files</Text>
+              <Text fontSize={"10"}>
+                {props?.assets?.length
+                  ? `${props?.assets?.length} Files`
+                  : "Recently uploaded"}
+              </Text>
             </Box>
           </HStack>
         </Td>
-        <Td fontSize={"xs"}>
-          {new Date(props?.createdAt).toLocaleDateString("en-US")}
+        <Td>
+          <DateFormatter>{props.createdAt}</DateFormatter>
         </Td>
         <Td fontSize={"xs"}>
           <Badge>{props?.approvalStatus}</Badge>
         </Td>
         <Td>
           <HStack>
-            <Avatar src="https://bit.ly/dan-abramov" size={"sm"} />
+            <Avatar
+              src={props?.uploadedBy?.avatar?.url}
+              name={props?.uploadedBy?.name || props?.uploadedBy?.username}
+              size={"sm"}
+            />
             <Box>
               <Text fontSize={"xs"} fontWeight={"semibold"}>
                 {props?.uploadedBy?.name ?? props?.uploadedBy?.username}
@@ -62,11 +97,27 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
             fontWeight={"medium"}
             border={"1px solid #BBB"}
             variant={"ghost"}
+            onClick={onOpen}
           >
             Delete
           </Button>
         </Td>
       </Tr>
+
+      {/* Delete confirmation alert */}
+      <AlertBox
+        title="Delete asset?"
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={handleDelete}
+        isLoading={isLoading}
+        theme="delete"
+      >
+        <Text fontSize={"sm"}>
+          Are you sure you want to delete this record? This action is
+          irreversible.
+        </Text>
+      </AlertBox>
     </>
   );
 };
