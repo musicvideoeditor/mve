@@ -22,13 +22,13 @@ import {
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import * as z from "zod";
 
-const page = () => {
+const SignupForm = () => {
   const params = useSearchParams();
   const callback = params.get("callback");
   const toast = useToast();
@@ -82,7 +82,11 @@ const page = () => {
                 <FormLabel fontSize={"xs"} lineHeight={1}>
                   Name
                 </FormLabel>
-                <Input size={'sm'} placeholder="Your full name" {...register("name")} />
+                <Input
+                  size={"sm"}
+                  placeholder="Your full name"
+                  {...register("name")}
+                />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
               <FormControl mb={6} isInvalid={!!errors.email}>
@@ -149,6 +153,16 @@ const page = () => {
           </VStack>
         </form>
       </Container>
+    </>
+  );
+};
+
+const page = () => {
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <SignupForm />
+      </Suspense>
     </>
   );
 };

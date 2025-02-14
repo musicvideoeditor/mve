@@ -18,7 +18,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,7 @@ import Navbar from "@/components/common/Navbar";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useSearchParams } from "next/navigation";
 
-const page = () => {
+const LoginForm = () => {
   const params = useSearchParams();
   const callback = params.get("callback");
 
@@ -167,6 +167,16 @@ const page = () => {
           </VStack>
         </form>
       </Container>
+    </>
+  );
+};
+
+const page = () => {
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LoginForm />
+      </Suspense>
     </>
   );
 };
