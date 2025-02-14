@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiBaseURL } from "../constants";
-import { joinWaitlist, login } from "./services/auth-api";
+import { createAccount, joinWaitlist, login } from "./services/auth-api";
 import { getSession } from "next-auth/react";
 import {
   addProjectMember,
@@ -21,7 +21,7 @@ import {
   getUnavailableDates,
   getUnavailableSlots,
 } from "./services/appointment-api";
-import { getNotifications, uploadAsset } from "./services/misc-api";
+import { getHomeConfig, getNotifications, uploadAsset } from "./services/misc-api";
 import { addVideoComment, getVideoComments, getVideoInfo } from "./services/video-api";
 
 interface RequestProps {
@@ -84,6 +84,7 @@ export const API = {
   // Auth APIs
   AUTH: {
     login,
+    createAccount
   },
 
   // User APIs
@@ -120,5 +121,6 @@ export const API = {
   },
   MISC: {
     uploadAsset,
+    getHomeConfig
   },
 };

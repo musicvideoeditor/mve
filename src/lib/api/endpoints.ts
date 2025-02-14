@@ -1,3 +1,4 @@
+import getConfig from "next/config";
 import { uploadAsset } from "./services/misc-api";
 import { getProjectInfo } from "./services/project-api";
 
@@ -38,7 +39,8 @@ export const ENDPOINTS = {
     getAppointments: "/appointments",
   },
   MISC: {
+    getHomeConfig: "/home-config",
     uploadAsset: "/upload",
-    deleteAsset: "/upload/files"
+    deleteAsset: "/upload/files",
   }
 };

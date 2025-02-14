@@ -19,7 +19,9 @@ const DesktopNav = ({ color, user }: { color?: string; user?: any }) => {
         justifyContent={"flex-start"}
         color={color ?? "#000"}
       >
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
         <HStack gap={8}>
           {NAVLINKS?.map((item, i) => (
             <Link key={i} href={item?.href}>

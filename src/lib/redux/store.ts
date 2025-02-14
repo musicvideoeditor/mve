@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import userReducer from "./features/user-slice";
+import configReducer from "./features/config-slice";
 import projectReducer from "./features/project/project-slice";
 import projectInfoReducer from "./features/project/project-info-slice";
 import notificationReducer from "./features/notification-slice";
@@ -21,7 +22,8 @@ const appReducer = combineReducers({
   projectAssetsReducer: projectAssetsReducer,
   projectMemberReducer:projectMemberReducer,
   commentsReducer: commentsReducer,
-  videoReducer: videoReducer
+  videoReducer: videoReducer,
+  configReducer: configReducer,
 
 });
 

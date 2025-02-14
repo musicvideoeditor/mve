@@ -1,4 +1,5 @@
 "use client";
+import { useAppSelector } from "@/lib/redux/store";
 import {
   Accordion,
   AccordionButton,
@@ -11,42 +12,28 @@ import React from "react";
 import { FaPlusCircle } from "react-icons/fa";
 
 const FaqsContainer = () => {
+  const faqs = useAppSelector((state) => state.configReducer.data?.faqs) ?? [];
+
   return (
     <>
       <Accordion allowToggle>
-        <AccordionItem border={'none'} mb={2}>
+        {faqs?.map((faq, i) => (
+        <AccordionItem key={i} border={"none"} mb={2}>
           <h2>
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                Section 1 title
+                {faq?.question}
               </Box>
               <AccordionIcon as={FaPlusCircle} />
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            {faq?.answer}
           </AccordionPanel>
         </AccordionItem>
-
-        <AccordionItem border={'none'} mb={2}>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                Section 2 title
-              </Box>
-              <AccordionIcon as={FaPlusCircle} />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
+          
+        ))
+}
       </Accordion>
     </>
   );

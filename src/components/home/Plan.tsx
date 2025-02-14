@@ -112,6 +112,8 @@ const Plan = ({
               bgColor: "#222",
               color: "#FFF",
             }}
+            as={'a'}
+            href="/auth/register?callback=/dashboard/appointments/new"
           >
             Book Slot
           </Button>

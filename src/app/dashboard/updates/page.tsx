@@ -1,4 +1,5 @@
 import NotificationCard from "@/components/dashboard/home/NotificationCard";
+import RecentNotifications from "@/components/dashboard/home/RecentNotifications";
 import { Box, Checkbox, Input, Stack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
@@ -58,34 +59,7 @@ const page = () => {
         </Box>
         <Box flex={4}>
           <Text fontSize={"lg"} fontWeight={"semibold"} mb={4}>&zwnj;</Text>
-          <VStack
-            w={"full"}
-            gap={4}
-            alignItems={"flex-start"}
-            justifyContent={"flex-start"}
-          >
-            <NotificationCard
-              isSystemNotification={true}
-              title="Payment Pending"
-              description="Please pay token amount for your project Damodarashtakam"
-              actionBtnLabel="Pay ₹2380"
-              actionBtnUrl="/invoice/sdjfnwoiehw"
-            />
-            <NotificationCard
-              title="Rishi commented on video #18723"
-              description={`"Requested revisions have been done"`}
-              avatarUrl="https://bit.ly/dan-abramov"
-              actionBtnLabel="View"
-              actionBtnUrl="/projects/q21as/videos/18723"
-            />
-            <NotificationCard
-              isSystemNotification={true}
-              title="Revised Video Uploaded"
-              description="Video #18723 uploaded for your project Damodarashtakam"
-              actionBtnLabel="View"
-              actionBtnUrl="/projects/q21as/videos/18723"
-            />
-          </VStack>
+          <RecentNotifications />
         </Box>
       </Stack>
     </>

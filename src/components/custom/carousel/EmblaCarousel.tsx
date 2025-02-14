@@ -14,11 +14,12 @@ import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import "./css/embla.css";
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import CarouselSlide from "./CarouselSlide";
+import { PortfolioType } from "@/lib/types/other";
 
 const TWEEN_FACTOR_BASE = 0.2;
 
 type PropType = {
-  slides: number[];
+  slides: PortfolioType[];
   options?: EmblaOptionsType;
 };
 
@@ -107,11 +108,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((index) => (
+          {slides.map((slide, index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__parallax">
                 <div className="embla__parallax__layer">
-                  <CarouselSlide />
+                  <CarouselSlide {...slide} />
                 </div>
               </div>
             </div>

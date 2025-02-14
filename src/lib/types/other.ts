@@ -20,3 +20,28 @@ export interface AlertBoxProps {
   secondaryCtaLabel?: string;
   hideButtons?: boolean;
 }
+
+export interface HomeConfigType {
+  showOfferSection: boolean;
+  clientLogos?: { url: string }[];
+}
+export interface PlanType {
+  color?: string;
+  name: string;
+  description: string;
+  price: number;
+  cancelledPrice: number;
+  flag?: string;
+  planBenefits?: { benefit: string }[];
+}
+export interface PortfolioType {
+  clientName: string;
+  clientSubtitle?: string;
+  url: string;
+  logo?: { url: string };
+}
+
+export interface FaqType {
+  question: string;
+  answer: string;
+}

@@ -11,6 +11,8 @@ import {
   FormLabel,
   HStack,
   Input,
+  InputGroup,
+  InputRightElement,
   Text,
   useToast,
   VStack,
@@ -23,8 +25,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/lib/schema/auth-schema";
 import * as z from "zod";
+import Navbar from "@/components/common/Navbar";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useSearchParams } from "next/navigation";
 
 const page = () => {
+  const params = useSearchParams();
+  const callback = params.get("callback");
+
   const toast = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,7 +53,7 @@ const page = () => {
           status: "success",
           description: "Login successful",
         });
-        window.location.href = "/dashboard";
+        window.location.href = callback ?? "/dashboard";
         setLoading(false);
       } else {
         toast({
@@ -59,6 +67,7 @@ const page = () => {
 
   return (
     <>
+      <Navbar />
       <VerticalSpacer />
       <Container maxW={"sm"} p={[4, 8]}>
         <form method="post" onSubmit={handleSubmit(handleLogin)}>
@@ -92,7 +101,16 @@ const page = () => {
                 <FormLabel fontSize={"xs"} lineHeight={1}>
                   Password
                 </FormLabel>
-                <Input size={"sm"} type="password" {...register("password")} />
+                <InputGroup size={"sm"}>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    {...register("password")}
+                  />
+                  <InputRightElement
+                    children={showPassword ? <FiEyeOff /> : <FiEye />}
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                </InputGroup>
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
               <HStack justifyContent={"space-between"} mb={4}>
@@ -137,7 +155,9 @@ const page = () => {
               <Text fontSize={"xs"} textAlign={"center"}>
                 Don't have an account?{" "}
                 <a
-                  href="/auth/register"
+                  href={`/auth/register${
+                    callback ? `?callback=${callback}` : ""
+                  }`}
                   style={{ fontWeight: "bold", color: "navy" }}
                 >
                   Sign Up

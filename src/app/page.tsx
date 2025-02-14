@@ -8,6 +8,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   FormControl,
   FormLabel,
   Hide,
@@ -15,6 +16,8 @@ import {
   Image,
   Input,
   Select,
+  SkeletonCircle,
+  SkeletonText,
   Stack,
   Text,
   Textarea,
@@ -25,11 +28,44 @@ import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 import "swiper/swiper-bundle.css";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, EffectCoverflow, FreeMode, Navigation } from "swiper/modules";
 import Carousel from "@/components/home/Carousel";
+import { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { fetchHomeConfig } from "@/lib/redux/features/config-slice";
+import LogoMarquee from "@/components/home/LogoMarquee";
+import PlansContainer from "@/components/home/PlansContainer";
+import PortfolioContainer from "@/components/home/PortfolioContainer";
 
 export default function Home() {
+  const ref = useRef(false);
+  const dispatch = useAppDispatch();
+  const config = useAppSelector((state) => state.configReducer);
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchHomeConfig());
+    ref.current = true;
+  }, []);
+
+  if (config.loading) {
+    return (
+      <Box>
+        <Navbar />
+        <VStack
+          w={"full"}
+          h={["80vh", "80vh"]}
+          gap={4}
+          alignItems={"center"}
+          justifyContent={"center"}
+          p={[4, 8, 16]}
+        >
+          <CircularProgress isIndeterminate />
+          <Text>Loading</Text>
+        </VStack>
+      </Box>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -52,375 +88,96 @@ export default function Home() {
         </CustomContainer>
       </Box>
 
-      <Box w={["full"]} p={[8, 8, 16]} bgColor={"#fff"}>
-        <CustomContainer>
-          <Stack
-            direction={["column", "row"]}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <VStack gap={0}>
-              <Text
-                fontSize={"2xl"}
-                fontWeight={"bold"}
-                className="gothic-bold"
-                textAlign={"center"}
-              >
-                Get your Music Video Edited starting at just
-              </Text>
-              <HStack
-                alignItems={"center"}
-                justifyContent={"center"}
-                gap={4}
-                mt={[4, 2]}
-              >
+      {/* Offer banner */}
+      {config?.data?.config?.showOfferSection ? (
+        <Box w={["full"]} p={[8, 8, 16]} bgColor={"#fff"}>
+          <CustomContainer>
+            <Stack
+              direction={["column", "row"]}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <VStack gap={0}>
                 <Text
-                  fontSize={"xl"}
+                  fontSize={"2xl"}
                   fontWeight={"bold"}
-                  as={"s"}
-                  className="mont-bold"
-                >
-                  ₹30,000
-                </Text>
-                <Text
-                  fontSize={"3xl"}
-                  fontWeight={"bold"}
-                  color={"red.600"}
-                  className="mont-bold"
-                >
-                  ₹10,000*
-                </Text>
-              </HStack>
-              <Text
-                fontSize={["xs", "sm"]}
-                fontWeight={["semibold", "medium"]}
-                color={"red.600"}
-                textAlign={"center"}
-              >
-                *Limited seats available for this offer, check yours!
-              </Text>
-            </VStack>
-
-            <Stack direction={["row", "column"]} mt={[4, 2]}>
-              <Button
-                w={[40, 56]}
-                colorScheme="red"
-                bgColor={"#ff3b3b"}
-                variant={"solid"}
-                px={2}
-                py={6}
-                leftIcon={<MdArrowOutward fontSize={20} />}
-                className="gothic-bold"
-                fontSize={["xs", "sm"]}
-                as={"a"}
-                href="/auth/register"
-              >
-                Get Started
-              </Button>
-              <Button
-                w={[40, 56]}
-                colorScheme="black"
-                variant={"outline"}
-                px={2}
-                py={6}
-                fontSize={["xs", "sm"]}
-                as={"a"}
-                href="#how-it-works"
-              >
-                Show me how it works
-              </Button>
-            </Stack>
-          </Stack>
-        </CustomContainer>
-      </Box>
-
-      <Box
-        w={["full"]}
-        p={[8, 8, 16]}
-        bgColor={"#c2e6ff"}
-        minH={["50vh", "85vh"]}
-        id="portfolio"
-      >
-        <>
-          <Text
-            textAlign={"center"}
-            fontSize={["2xl", "3xl"]}
-            fontWeight={"bold"}
-            className="mont-bold"
-          >
-            Recent videos from our team
-          </Text>
-
-          <br />
-          <br />
-
-          {/* <Swiper
-            centeredSlides={true}
-            modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
-            loop
-            spaceBetween={0}
-            effect={"coverflow"}
-            coverflowEffect={{
-              rotate: 60,
-              stretch: 0,
-              depth: 0,
-              modifier: -1,
-              slideShadows: false,
-            }}
-            slidesPerView={1}
-            breakpoints={{
-              767: {
-                slidesPerView: 3,
-                spaceBetween: 0,
-              },
-            }}
-            autoHeight={true}
-          >
-            <SwiperSlide>
-              <Box
-                h={["xs", "sm"]}
-                rounded={8}
-                bgColor={"#333"}
-                overflow={"hidden"}
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
-                  width={"100%"}
-                  height={"100%"}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
-              </Box>
-              <HStack
-                w={"max-content"}
-                mx={"auto"}
-                p={2}
-                mt={4}
-                rounded={4}
-                border={"1px solid #333"}
-                bgColor={"#FFF"}
-              >
-                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
-                <Box>
-                  <Text fontSize={"sm"} fontWeight={"semibold"}>
-                    Project Name
-                  </Text>
-                  <Text fontSize={"xs"}>Company</Text>
-                </Box>
-              </HStack>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box
-                h={["xs", "sm"]}
-                rounded={8}
-                bgColor={"#333"}
-                overflow={"hidden"}
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
-                  width={"100%"}
-                  height={"100%"}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
-              </Box>
-              <HStack
-                w={"max-content"}
-                mx={"auto"}
-                p={2}
-                mt={4}
-                rounded={4}
-                border={"1px solid #333"}
-                bgColor={"#FFF"}
-              >
-                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
-                <Box>
-                  <Text fontSize={"sm"} fontWeight={"semibold"}>
-                    Project Name
-                  </Text>
-                  <Text fontSize={"xs"}>Company</Text>
-                </Box>
-              </HStack>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box
-                h={["xs", "sm"]}
-                rounded={8}
-                bgColor={"#333"}
-                overflow={"hidden"}
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/-LfC5CL1sIs?si=kxZY5wwhXdaC5W3W"
-                  width={"100%"}
-                  height={"100%"}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
-              </Box>
-              <HStack
-                w={"max-content"}
-                mx={"auto"}
-                p={2}
-                mt={4}
-                rounded={4}
-                border={"1px solid #333"}
-                bgColor={"#FFF"}
-              >
-                <Avatar size={"md"} src="https://bit.ly/sage-adebayo" />
-                <Box>
-                  <Text fontSize={"sm"} fontWeight={"semibold"}>
-                    Project Name
-                  </Text>
-                  <Text fontSize={"xs"}>Company</Text>
-                </Box>
-              </HStack>
-            </SwiperSlide>
-          </Swiper> */}
-          <Carousel />
-        </>
-      </Box>
-
-      <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
-        <CustomContainer>
-          <Marquee style={{ height: "40px" }} delay={4}>
-            <Image
-              src="/brands.png"
-              w={["full", "full"]}
-              h={"40px"}
-              objectFit={"contain"}
-            />
-          </Marquee>
-        </CustomContainer>
-      </Box>
-
-      <Box
-        w={["full"]}
-        p={[8, 8, 16]}
-        px={[4, 8, 16]}
-        bgColor={"#fff5c7"}
-        id="pricing"
-      >
-        <CustomContainer>
-          <Text
-            textAlign={"center"}
-            fontSize={["2xl", "3xl"]}
-            fontWeight={"bold"}
-            className="mont-bold"
-            mb={[8, 16]}
-          >
-            Plans & Pricing
-          </Text>
-          <Stack direction={["column", "row"]} gap={8}>
-            <Plan
-              name="Video Editing"
-              price={20000}
-              description="For videos that need to come alive"
-              features={[
-                "1st cut in 2 Days",
-                "Final cut in 2 Days",
-                "2 Revisions",
-                "Motion Graphics",
-              ]}
-            />
-            <Plan
-              bgColor="#ffc4dd"
-              name="Color Grading"
-              price={10000}
-              description="For videos that aim for cinematic color quality"
-              features={[
-                "1st cut in 2 Days",
-                "Final cut in 2 Days",
-                "1 Revisions",
-                "Chat Support",
-              ]}
-            />
-            <Plan
-              bgColor="#b2fa5f"
-              name="Complete Editing"
-              price={10000}
-              cancelledPrice={30000}
-              description="Everything from editing to color grading and motion graphics"
-              features={[
-                "Video Editing",
-                "Color Grading",
-                "Motion Graphics",
-                "3 Revisions",
-              ]}
-              badgeText="💥 Limited time offer"
-            />
-            <Box w={["full", "64"]} alignSelf={"flex-end"}>
-              <Box
-                p={4}
-                w={"full"}
-                bgColor={"#fcd808"}
-                border={"2px solid #000"}
-                rounded={8}
-              >
-                <Text
-                  fontSize={"sm"}
-                  fontWeight={"semibold"}
+                  className="gothic-bold"
                   textAlign={"center"}
                 >
-                  Got any VFX work to tackle?
+                  Get your Music Video Edited starting at just
                 </Text>
-              </Box>
-              <Box
-                mt={4}
-                p={4}
-                w={"full"}
-                bgColor={"#ffef94"}
-                border={"2px solid #000"}
-                boxShadow={"-4px 4px 0px #333"}
-                rounded={8}
-              >
-                <Text
-                  fontSize={"sm"}
-                  fontWeight={"semibold"}
-                  textAlign={"center"}
-                >
-                  Need just Motion Graphics?
-                </Text>
-              </Box>
-              <Box
-                mt={4}
-                w={"full"}
-                bgColor={"#fff"}
-                border={"2px solid #000"}
-                overflow={"hidden"}
-                rounded={8}
-              >
-                <Text
-                  fontSize={"xs"}
-                  fontWeight={"semibold"}
-                  textAlign={"center"}
-                  p={2}
-                  bgColor={"#f7f8fa"}
-                >
-                  We are here, just{" "}
-                  <span style={{ color: "#1776eb", fontWeight: "bold" }}>
-                    CALL
-                  </span>
-                </Text>
-                <Box
-                  w={"full"}
-                  p={4}
-                  minH={24}
-                  display={"flex"}
+                <HStack
                   alignItems={"center"}
                   justifyContent={"center"}
+                  gap={4}
+                  mt={[4, 2]}
                 >
-                  <Link href={"tel:1234567890"}>
-                    <Text
-                      fontSize={"2xl"}
-                      className="mont-bold"
-                      color={"#1776eb"}
-                    >
-                      +91 - 1234567890
-                    </Text>
-                  </Link>
-                </Box>
-              </Box>
-            </Box>
-          </Stack>
-        </CustomContainer>
-      </Box>
+                  <Text
+                    fontSize={"xl"}
+                    fontWeight={"bold"}
+                    as={"s"}
+                    className="mont-bold"
+                  >
+                    ₹30,000
+                  </Text>
+                  <Text
+                    fontSize={"3xl"}
+                    fontWeight={"bold"}
+                    color={"red.600"}
+                    className="mont-bold"
+                  >
+                    ₹10,000*
+                  </Text>
+                </HStack>
+                <Text
+                  fontSize={["xs", "sm"]}
+                  fontWeight={["semibold", "medium"]}
+                  color={"red.600"}
+                  textAlign={"center"}
+                >
+                  *Limited seats available for this offer, check yours!
+                </Text>
+              </VStack>
+
+              <Stack direction={["row", "column"]} mt={[4, 2]}>
+                <Button
+                  w={[40, 56]}
+                  colorScheme="red"
+                  bgColor={"#ff3b3b"}
+                  variant={"solid"}
+                  px={2}
+                  py={6}
+                  leftIcon={<MdArrowOutward fontSize={20} />}
+                  className="gothic-bold"
+                  fontSize={["xs", "sm"]}
+                  as={"a"}
+                  href="/auth/register"
+                >
+                  Get Started
+                </Button>
+                <Button
+                  w={[40, 56]}
+                  colorScheme="black"
+                  variant={"outline"}
+                  px={2}
+                  py={6}
+                  fontSize={["xs", "sm"]}
+                  as={"a"}
+                  href="#how-it-works"
+                >
+                  Show me how it works
+                </Button>
+              </Stack>
+            </Stack>
+          </CustomContainer>
+        </Box>
+      ) : null}
+
+      <PortfolioContainer />
+
+      <LogoMarquee />
+
+      <PlansContainer />
 
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#fff"}>
         <CustomContainer>
