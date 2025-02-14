@@ -24,10 +24,10 @@ import Marquee from "react-fast-marquee";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 import "swiper/swiper-bundle.css";
-import Carousel from "@/components/home/Carousel";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, EffectCoverflow, FreeMode, Navigation } from "swiper/modules";
+import Carousel from "@/components/home/Carousel";
 
 export default function Home() {
   return (
@@ -150,10 +150,11 @@ export default function Home() {
           >
             Recent videos from our team
           </Text>
+
           <br />
           <br />
-          
-          <Swiper
+
+          {/* <Swiper
             centeredSlides={true}
             modules={[Navigation, A11y, EffectCoverflow, FreeMode]}
             loop
@@ -271,16 +272,8 @@ export default function Home() {
                 </Box>
               </HStack>
             </SwiperSlide>
-          </Swiper>
-          {/* <HStack
-            display={["none", "flex"]}
-            w={"full"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            mt={16}
-          >
-            <Carousel />
-          </HStack> */}
+          </Swiper> */}
+          <Carousel />
         </>
       </Box>
 

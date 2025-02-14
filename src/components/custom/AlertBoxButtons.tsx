@@ -107,17 +107,7 @@ const isValidTheme = (theme: string): theme is AlertBoxProps["theme"] => {
   return ["info", "success", "delete"].includes(theme);
 };
 
-const AlertBoxButtons = (
-  props: Pick<
-    AlertBoxProps,
-    | "isLoading"
-    | "onClose"
-    | "onSubmit"
-    | "theme"
-    | "primaryCtaLabel"
-    | "secondaryCtaLabel"
-  >
-) => {
+const AlertBoxButtons = (props: AlertBoxButtonProps) => {
   const buttons: { [k in typeof props.theme]: React.ReactNode } = {
     info: <InfoButtons {...props} />,
     success: <SuccessButtons {...props} />,
