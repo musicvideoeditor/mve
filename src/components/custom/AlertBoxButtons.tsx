@@ -10,6 +10,7 @@ type AlertBoxButtonProps = Pick<
   | "theme"
   | "primaryCtaLabel"
   | "secondaryCtaLabel"
+  | "hideButtons"
 >;
 
 const InfoButtons = (props: AlertBoxButtonProps) => {
@@ -26,6 +27,7 @@ const InfoButtons = (props: AlertBoxButtonProps) => {
           onClick={onClose}
           w={["full", "max-content"]}
           isLoading={isLoading}
+          size={'sm'}
         >
           {primaryCtaLabel ?? "Okay"}
         </Button>
@@ -50,6 +52,7 @@ const SuccessButtons = (props: AlertBoxButtonProps) => {
             onClick={onClose}
             w={["full", "max-content"]}
             isLoading={isLoading}
+            size={'sm'}
           >
             {secondaryCtaLabel}
           </Button>
@@ -61,6 +64,7 @@ const SuccessButtons = (props: AlertBoxButtonProps) => {
           w={["full", "max-content"]}
           isLoading={isLoading}
           colorScheme="whatsapp"
+          size={'sm'}
         >
           {primaryCtaLabel ?? "Okay"}
         </Button>
@@ -84,6 +88,7 @@ const DeleteButtons = (props: AlertBoxButtonProps) => {
           onClick={onClose}
           w={["full", "max-content"]}
           isLoading={isLoading}
+          size={'sm'}
         >
           {secondaryCtaLabel ?? "Cancel"}
         </Button>
@@ -94,6 +99,7 @@ const DeleteButtons = (props: AlertBoxButtonProps) => {
           w={["full", "max-content"]}
           isLoading={isLoading}
           colorScheme="red"
+          size={'sm'}
         >
           {primaryCtaLabel ?? "Delete"}
         </Button>
@@ -114,11 +120,10 @@ const AlertBoxButtons = (props: AlertBoxButtonProps) => {
     delete: <DeleteButtons {...props} />,
   };
 
-  if (!isValidTheme(props.theme)) {
-    throw new Error(`Invalid theme: ${props.theme}`);
+  if (isValidTheme(props.theme) && !props.hideButtons) {
+    return buttons[props.theme];
   }
 
-  return buttons[props.theme];
 };
 
 export default AlertBoxButtons;

@@ -38,7 +38,7 @@ const AppModal = (props: AppModalProps) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered {...modalProps}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size={modalProps?.size ?? "xl"} {...modalProps}>
         <ModalOverlay
           bg="blackAlpha.300"
           backdropFilter="blur(10px) hue-rotate(90deg)"

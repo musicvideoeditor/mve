@@ -19,7 +19,11 @@ export const ENDPOINTS = {
 
     createProjectAsset: "/assets",
     getProjectAssets: "/assets",
-    deleteProjectAsset: "/assets"
+    deleteProjectAsset: "/assets",
+
+    getProjectMembers: "/invites",
+    addProjectMember: "/invites",
+    removeProjectMember: "/invites",
   },
   VIDEO:{
     getVideoInfo: "/videos",

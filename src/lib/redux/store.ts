@@ -5,6 +5,7 @@ import projectReducer from "./features/project/project-slice";
 import projectInfoReducer from "./features/project/project-info-slice";
 import notificationReducer from "./features/notification-slice";
 import projectAssetsReducer from "./features/project/project-assets";
+import projectMemberReducer from "./features/project/project-members-slice";
 import commentsReducer from "./features/project/video/comment-slice";
 import videoReducer from "./features/project/video/video-slice";
 import appointmentSlotsReducer from "./features/appointment/appointment-slots-slice";
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   projectInfoReducer: projectInfoReducer,
   notificationReducer: notificationReducer,
   projectAssetsReducer: projectAssetsReducer,
+  projectMemberReducer:projectMemberReducer,
   commentsReducer: commentsReducer,
   videoReducer: videoReducer
 

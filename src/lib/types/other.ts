@@ -18,4 +18,5 @@ export interface AlertBoxProps {
   children: React.ReactNode;
   primaryCtaLabel?: string;
   secondaryCtaLabel?: string;
+  hideButtons?: boolean;
 }

@@ -3,12 +3,15 @@ import { apiBaseURL } from "../constants";
 import { joinWaitlist, login } from "./services/auth-api";
 import { getSession } from "next-auth/react";
 import {
+  addProjectMember,
   createProject,
   createProjectAsset,
   deleteProjectAsset,
   getProjectAssets,
   getProjectInfo,
+  getProjectMembers,
   getProjects,
+  removeProjectMember,
   updateProject,
 } from "./services/project-api";
 import {
@@ -98,6 +101,10 @@ export const API = {
     createProjectAsset,
     getProjectAssets,
     deleteProjectAsset,
+
+    getProjectMembers,
+    addProjectMember,
+    removeProjectMember
   },
   VIDEO: {
     getVideoInfo,

@@ -1,5 +1,6 @@
 "use client";
 import InfoCard from "@/components/common/InfoCard";
+import InviteModal from "@/components/dashboard/project/InviteModal";
 import MemberCard from "@/components/dashboard/project/MemberCard";
 import ProjectDescription from "@/components/dashboard/project/ProjectDescription";
 import VideoCard from "@/components/dashboard/project/VideoCard";
@@ -18,19 +19,15 @@ import {
   Stack,
   VStack,
   HStack,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-  useEditableControls,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
 import { FiUserPlus } from "react-icons/fi";
-import { LuPen } from "react-icons/lu";
 
 const page = ({ params }: { params: { projectId: string } }) => {
   const ref = useRef(false);
   const dispatch = useAppDispatch();
+  const {isOpen, onOpen, onClose} = useDisclosure()
   const project = useAppSelector((state) => state.projectInfoReducer);
 
   useEffect(() => {
@@ -142,6 +139,7 @@ const page = ({ params }: { params: { projectId: string } }) => {
                     size={"xs"}
                     rounded={"full"}
                     leftIcon={<FiUserPlus />}
+                    onClick={onOpen}
                   >
                     Invite
                   </Button>
@@ -168,6 +166,13 @@ const page = ({ params }: { params: { projectId: string } }) => {
             </Box>
           </Stack>
         </Box>
+
+        <InviteModal
+          onClose={onClose}
+          isOpen={isOpen}
+          members={project.projectInfo?.members ?? []}
+          projectId={project.projectInfo?.documentId ?? ""}
+        />
       </>
     );
 };

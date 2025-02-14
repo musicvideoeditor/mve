@@ -1,10 +1,24 @@
 "use client";
+import InviteModal from "@/components/dashboard/project/InviteModal";
 import ProjectAssets from "@/components/dashboard/project/ProjectAssets";
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
-import React from "react";
+import { fetchProjectInfo } from "@/lib/redux/features/project/project-info-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { Box, Button, HStack, Text, useDisclosure } from "@chakra-ui/react";
+import React, { useEffect, useRef } from "react";
 import { FiPlus, FiUpload } from "react-icons/fi";
 
 const page = ({ params }: { params: { projectId: string } }) => {
+  const ref = useRef(false);
+    const dispatch = useAppDispatch();
+    const {isOpen, onOpen, onClose} = useDisclosure()
+    const project = useAppSelector((state) => state.projectInfoReducer);
+  
+    useEffect(() => {
+      if (ref.current) return;
+      dispatch(fetchProjectInfo(params.projectId));
+      ref.current = true;
+    }, []);
+
   return (
     <>
       <HStack
@@ -31,6 +45,7 @@ const page = ({ params }: { params: { projectId: string } }) => {
             bgColor={"#000"}
             _hover={{ bgColor: "#333" }}
             fontSize={"xs"}
+            onClick={onOpen}
           >
             Add Members
           </Button>
@@ -43,11 +58,18 @@ const page = ({ params }: { params: { projectId: string } }) => {
         fontWeight={"semibold"}
         mb={6}
       >
-        Projects &nbsp;&nbsp; / &nbsp;&nbsp; Project Name &nbsp;&nbsp; /
+        Projects &nbsp;&nbsp; / &nbsp;&nbsp; {project.projectInfo.name} &nbsp;&nbsp; /
         &nbsp;&nbsp; Files and assets
       </Text>
 
       <ProjectAssets projectId={params.projectId} />
+
+      <InviteModal
+        onClose={onClose}
+        isOpen={isOpen}
+        members={project.projectInfo?.members ?? []}
+        projectId={project.projectInfo?.documentId ?? ""}
+      />
     </>
   );
 };

@@ -84,12 +84,19 @@ const ProjectDescription = ({
   projectId: string;
 }) => {
   const toast = useToast();
-  const [v, setV] = useState("");
+  const [v, setV] = useState(description);
   const dispatch = useAppDispatch();
 
   const handleSave = () => {
     try {
-      dispatch(updateProjectDescription({ id: projectId, description: v }));
+      if (v === description) {
+        toast({
+          status: "info",
+          description: "Nothing to save"
+        })
+      } else {
+        dispatch(updateProjectDescription({ id: projectId, description: v }));
+      }
     } catch (error: any) {
       toast({
         status: "error",

@@ -104,3 +104,45 @@ export const deleteProjectAsset = async ({ id }: { id: string }) => {
     throw new Error(error?.message);
   }
 };
+
+// Project Members APIs
+
+export const getProjectMembers = async ({ id }: { id: string }) => {
+  try {
+    const res = await processRequest({
+      method: "get",
+      url: `${ENDPOINTS.PROJECT.getProjectMembers}?projectId=${id}`,
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
+export const addProjectMember = async (data: {
+  projectId: string;
+  email: string;
+}) => {
+  try {
+    const res = await processRequest({
+      method: "post",
+      url: ENDPOINTS.PROJECT.addProjectMember,
+      body: { ...data },
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
+export const removeProjectMember = async ({ id }: { id: string }) => {
+  try {
+    const res = await processRequest({
+      method: "delete",
+      url: `${ENDPOINTS.PROJECT.removeProjectMember}/${id}`,
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};

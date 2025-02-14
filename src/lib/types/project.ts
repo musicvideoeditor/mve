@@ -30,6 +30,7 @@ export interface VideoCommentType {
 }
 
 export interface ProjectMemberType {
+  documentId: string;
   name?: string;
   username: string;
   email: string;
