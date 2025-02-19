@@ -1,9 +1,8 @@
 "use client";
-import Sidenav from "@/components/dashboard/Sidenav";
-import Topbar from "@/components/dashboard/Topbar";
 import VerticalSpacer from "@/components/extras/VerticalSpacer";
 import { colors } from "@/lib/constants";
 import { LayoutProps } from "@/lib/props/common";
+import { useAppSelector } from "@/lib/redux/store";
 import {
   Box,
   Button,
@@ -17,19 +16,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import {
-  BsBellFill,
-  BsClockHistory,
-  BsCloudDownload,
   BsStars,
 } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaBell, FaVideo } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
-import { MdOutlineComment } from "react-icons/md";
-import { RiFolderUploadLine } from "react-icons/ri";
 
 const layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
+  const notifications = useAppSelector((state) => state.notificationReducer.data);
+
   const tabs = [
     {
       label: "Home",
@@ -115,6 +111,7 @@ const layout = ({ children }: LayoutProps) => {
                     size={"lg"}
                     href={tab.url}
                     fontSize={"xs"}
+                    pos={'relative'}
                     rounded={"full"}
                     leftIcon={tab.icon}
                     display={["none", "flex"]}
@@ -127,6 +124,24 @@ const layout = ({ children }: LayoutProps) => {
                     color={tab.regex.test(pathname) ? "#fff" : "#000"}
                   >
                     {tab.label}
+
+                    {/* Notification badge */}
+                    <Hide below="md">
+                      {tab.label == "Updates" && notifications?.length > 0 ? (
+                        <Box
+                          pos={"absolute"}
+                          top={2}
+                          right={2}
+                          w={4}
+                          h={4}
+                          color={'#FFF'}
+                          rounded={"full"}
+                          bgColor={colors.orange}
+                          display={'grid'}
+                          placeContent={'center'}
+                        >1</Box>
+                      ) : null}
+                    </Hide>
                   </Button>
                 ))}
               </Hide>

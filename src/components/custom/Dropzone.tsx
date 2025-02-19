@@ -39,6 +39,7 @@ const Dropzone = (props: DropzoneProps) => {
         if (file.type == "application/zip") return "/icons/zip.png";
         if (file.type == "application/eps") return "/icons/eps.png";
         if (file.type == "video/avi") return "/icons/avi.png";
+        else return "/icons/file.png"
       });
 
       // @ts-ignore
@@ -96,7 +97,7 @@ const Dropzone = (props: DropzoneProps) => {
           >
             <input
               {...getInputProps()}
-              accept={"application/zip, application/eps, video/avi"}
+              // accept={"application/zip, application/eps, video/avi"}
             />
 
             <FcOpenedFolder fontSize={36} style={{ margin: "8px auto" }} />

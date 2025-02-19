@@ -16,6 +16,7 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -33,6 +34,7 @@ import {
 } from "@/lib/redux/features/project/project-assets";
 import useFileUpload from "@/lib/helpers/useFileUpload";
 import { API } from "@/lib/api";
+import AlertBox from "@/components/custom/AlertBox";
 
 const Filters = () => {
   return (
@@ -77,6 +79,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
     "pending" | "uploading" | "success" | "failed"
   >("pending");
   const { uploadFile, loading, error } = useFileUpload();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
   const toast = useToast();
 
@@ -212,29 +215,38 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
         </Box>
       </Stack>
 
-      {/* <HStack justifyContent={["center", "flex-end"]}>
-        <Box>
-          <Button
-            size={"lg"}
-            rounded={"full"}
-            colorScheme="orange"
-            bgColor={colors.orange}
-            boxShadow={"-4px 4px #000"}
-            px={16}
-          >
-            Submit for Review
-          </Button>
-          <Text
-            fontSize={10}
-            fontWeight={"semibold"}
-            color={"red.500"}
-            mt={2}
-            textAlign={"center"}
-          >
-            *Submit once all of your data is uploaded.
-          </Text>
-        </Box>
-      </HStack> */}
+      <HStack justifyContent={["center", "flex-end"]}>
+        {/* Show this button if any asset is in "reviewing" status */}
+        {assets.some((asset) => asset.approvalStatus === "reviewing") && (
+          <Box>
+            <Button
+              size={"lg"}
+              rounded={"full"}
+              colorScheme="orange"
+              bgColor={colors.orange}
+              boxShadow={"-4px 4px #000"}
+              px={16}
+              onClick={onOpen}
+            >
+              Submit for Review
+            </Button>
+          </Box>
+        )}
+      </HStack>
+      <br />
+      <br />
+
+      <AlertBox
+        title="Under Review"
+        isOpen={isOpen}
+        onClose={onClose}
+        theme="info"
+      >
+        <Text>
+          Project assets are currently under review. We will notify you once we
+          approve them.
+        </Text>
+      </AlertBox>
     </>
   );
 };

@@ -69,7 +69,7 @@ const page = () => {
       setValue("date", new Date(value).toLocaleDateString("en-CA"));
       getUnavailableSlots();
     }
-  }, [value])
+  }, [value]);
 
   useEffect(() => {
     if (selectedSlotIds) {
@@ -84,13 +84,14 @@ const page = () => {
       const res = await API.APPOINTMENT.bookAppointment({ data });
       dispatch(addAppointment(res.data));
       // @ts-ignore
-      let preBookedSlots = unavailableSlots
-      preBookedSlots.push(res.data?.slot)
-      setUnavailableSlots(preBookedSlots)
+      let preBookedSlots = unavailableSlots;
+      preBookedSlots.push(res.data?.slot);
+      setUnavailableSlots(preBookedSlots);
       toast({
         status: "success",
         description: "Appointment booked successfully",
       });
+      window.location.href = "/dashboard/new-project";
       reset();
     } catch (error: any) {
       toast({
@@ -167,87 +168,71 @@ const page = () => {
         alignItems={"flex-start"}
         justifyContent={"flex-start"}
       >
-        {watch("purpose") && (
-          <Box>
-            <Box mb={4}>
-              <Text fontSize={"md"}>Select Date</Text>
+        <Box>
+          <Box mb={4}>
+            <Text fontSize={"md"}>Select Date</Text>
 
-              {errors.date && (
-                <Text fontSize={"xs"} color={"red.500"}>
-                  {errors.date.message}
-                </Text>
-              )}
-            </Box>
-
-            <Calendar
-              onChange={onChange}
-              value={value}
-              tileDisabled={({ date }) =>
-                holidays.includes(new Date(date).toLocaleDateString("en-CA")) ||
-                date < new Date()
-              }
-            />
-          </Box>
-        )}
-
-        {value && (
-          <Box>
-            <Box mb={4}>
-              <Text fontSize={"md"}>Select Slot</Text>
-              {errors.slots && (
-                <Text fontSize={"xs"} color={"red.500"}>
-                  {errors.slots.message}
-                </Text>
-              )}
-            </Box>
-
-            <Grid
-              templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]}
-              gap={4}
-              h={"60"}
-            >
-              {slots.map((slot, i) => (
-                <GridItem>
-                  <SlotCard
-                    from={slot.from}
-                    to={slot.to}
-                    isDisabled={unavailableSlots
-                      .map((slot) => slot.documentId)
-                      .includes(slot?.documentId)}
-                    isSelected={selectedSlotIds.includes(slot?.documentId)}
-                    // onClick={() => {
-                    //   if (selectedSlotIds.includes(slot?.documentId)) {
-                    //     setSelectedSlotIds((prev) =>
-                    //       prev.filter((id) => id !== slot?.documentId)
-                    //     );
-                    //   } else {
-                    //     setSelectedSlotIds([
-                    //       ...selectedSlotIds,
-                    //       slot?.documentId,
-                    //     ]);
-                    //   }
-                    // }}
-                    onClick={() => {
-                      setSelectedSlotIds([slot?.documentId]);
-                    }}
-                  />
-                </GridItem>
-              ))}
-            </Grid>
-            {selectedSlotIds.length > 0 && (
-              <Button
-                w={"full"}
-                rightIcon={<FaArrowRight />}
-                colorScheme="orange"
-                bgColor={colors.orange}
-                isLoading={isLoading}
-                onClick={() => handleSubmit(onSubmit)()}
-              >
-                Book Now
-              </Button>
+            {errors.date && (
+              <Text fontSize={"xs"} color={"red.500"}>
+                {errors.date.message}
+              </Text>
             )}
           </Box>
-        )}
+
+          <Calendar
+            onChange={onChange}
+            value={value}
+            tileDisabled={({ date }) =>
+              holidays.includes(new Date(date).toLocaleDateString("en-CA")) ||
+              date < new Date()
+            }
+          />
+        </Box>
+
+        <Box>
+          <Box mb={4}>
+            <Text fontSize={"md"}>Select Slot</Text>
+            {errors.slots && (
+              <Text fontSize={"xs"} color={"red.500"}>
+                {errors.slots.message}
+              </Text>
+            )}
+          </Box>
+
+          <Grid
+            templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]}
+            gap={4}
+            h={"60"}
+          >
+            {slots.map((slot, i) => (
+              <GridItem key={i}>
+                <SlotCard
+                  from={slot.from}
+                  to={slot.to}
+                  isDisabled={unavailableSlots
+                    .map((slot) => slot.documentId)
+                    .includes(slot?.documentId)}
+                  isSelected={selectedSlotIds.includes(slot?.documentId)}
+                  onClick={() => {
+                    setSelectedSlotIds([slot?.documentId]);
+                  }}
+                />
+              </GridItem>
+            ))}
+          </Grid>
+          {selectedSlotIds.length > 0 && (
+            <Button
+              w={"full"}
+              rightIcon={<FaArrowRight />}
+              colorScheme="orange"
+              bgColor={colors.orange}
+              isLoading={isLoading}
+              onClick={() => handleSubmit(onSubmit)()}
+            >
+              Book Now
+            </Button>
+          )}
+        </Box>
       </Stack>
     </>
   );
