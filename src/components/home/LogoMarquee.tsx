@@ -8,7 +8,7 @@ const LogoMarquee = () => {
     <>
     {/* Logo marquee */}
     <Box w={["full"]} p={[4, 8]} bgColor={"#fff"}>
-      <CustomContainer>
+      {/* <CustomContainer> */}
         <Marquee style={{ height: "40px" }} delay={4}>
           <Image
             src="/brands.png"
@@ -17,7 +17,7 @@ const LogoMarquee = () => {
             objectFit={"contain"}
           />
         </Marquee>
-      </CustomContainer>
+      {/* </CustomContainer> */}
     </Box>
     
     </>
