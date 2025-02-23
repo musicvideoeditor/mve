@@ -1,6 +1,7 @@
 import { colors } from "@/lib/constants";
 import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import htmlParser from "react-html-parser";
 import { FaArrowRight } from "react-icons/fa6";
 interface NotificationCardProps {
   isSystemNotification?: boolean;
@@ -42,17 +43,21 @@ const NotificationCard = ({
             <Text fontWeight={"semibold"} fontSize={"sm"}>
               {title}
             </Text>
-            <Text fontSize={"xs"}>{description}</Text>
+            <Text fontSize={"xs"}>
+              {htmlParser(description?.slice(0, 100) || "")}...
+            </Text>
           </Box>
         </HStack>
         {actionBtnUrl ? (
-          <HStack w={"full"} justifyContent={"flex-end"} mt={2}>
+          <HStack w={"full"} justifyContent={"flex-end"} mt={4}>
             <Button
               size={"xs"}
               rounded={"full"}
               colorScheme="orange"
               bgColor={colors.orange}
               rightIcon={<FaArrowRight />}
+              as={'a'}
+              href={actionBtnUrl ?? "#"}
             >
               {actionBtnLabel || "Learn More"}
             </Button>

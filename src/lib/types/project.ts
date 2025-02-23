@@ -65,3 +65,9 @@ export interface ProjectAssetType {
   }>;
   approvalStatus: "pending" | "reviewing" | "approved" | "rejected";
 }
+
+export interface InviteType{
+  project: { documentId: string; name: string };
+  documentId: string;
+  userEmail: string;
+}

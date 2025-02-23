@@ -1,12 +1,12 @@
 "use client";
 import AlertBox from "@/components/custom/AlertBox";
 import { Box, Button, HStack, Input, Text, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MemberCard from "./MemberCard";
-import { ProjectMemberType } from "@/lib/types/project";
+import { InviteType, ProjectMemberType } from "@/lib/types/project";
 import { IoSend } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { addProjectMember } from "@/lib/redux/features/project/project-members-slice";
+import { fetchProjectInvites, sendInvite } from "@/lib/redux/features/project/project-invite-slice";
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -21,6 +21,7 @@ const InviteModal = ({
   members,
   projectId,
 }: InviteModalProps) => {
+  const ref = useRef(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const dispatch = useAppDispatch();
@@ -28,9 +29,15 @@ const InviteModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const invites = useAppSelector((state) => state.projectMemberReducer.data);
+  const invites = useAppSelector((state) => state.projectInviteReducer.data);
 
-  async function sendInvite() {
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchProjectInvites(projectId));
+    ref.current = true;
+  }, []);
+
+  async function handleSendProjectInvite() {
     // validate email syntax
     if (!emailRegex.test(email)) {
       toast({
@@ -40,9 +47,23 @@ const InviteModal = ({
       return;
     }
 
+    // Check if invite with this userEmail already exists
+    if (
+      invites.find(
+        (invite: InviteType) => invite.userEmail.toLowerCase() === email.toLowerCase()
+      )
+    ) {
+      toast({
+        status: "error",
+        description: "Invite already sent",
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
-      await dispatch(addProjectMember({ projectId, email })).unwrap();
+      await dispatch(sendInvite({ projectId, email })).unwrap();
+      setEmail("");
       onClose();
     } catch (error: any) {
       toast({
@@ -83,7 +104,24 @@ const InviteModal = ({
           <Text fontSize={"sm"} mb={4}>
             {invites?.length ? "Pending Invites" : "Invite others"}
           </Text>
-          <HStack>
+          {invites?.length ? (
+            <Box>
+              {/* @ts-ignore */}
+              {invites?.map((invite: InviteType) => (
+                <MemberCard
+                  key={invite.documentId}
+                  name={"Pending Invite"}
+                  email={invite?.userEmail}
+                  permissions={["comment", "upload", "view"]}
+                />
+              ))}
+            </Box>
+          ) : (
+            <Text fontSize={"sm"}>
+              Invite others to this project by entering their email address
+            </Text>
+          )}
+          <HStack mt={4}>
             <Input
               fontSize={"sm"}
               placeholder="Enter email ID to invite someone to this project"
@@ -94,7 +132,7 @@ const InviteModal = ({
               fontSize={"sm"}
               rightIcon={<IoSend />}
               colorScheme="twitter"
-              onClick={sendInvite}
+              onClick={handleSendProjectInvite}
               isLoading={isLoading}
             >
               Invite

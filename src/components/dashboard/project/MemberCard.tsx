@@ -1,3 +1,4 @@
+import { storageBaseUrl } from "@/lib/constants";
 import { Avatar, Box, HStack, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
 import { BsCloudArrowUpFill, BsEyeFill } from "react-icons/bs";
@@ -7,9 +8,10 @@ interface MemberCardProps {
   permissions: Array<"view" | "upload" | "comment">;
   name: string;
   email: string;
+  avatar?: { url: string };
 }
 
-const MemberCard = ({ permissions, name, email }: MemberCardProps) => {
+const MemberCard = ({ permissions, name, email, avatar }: MemberCardProps) => {
   return (
     <>
       <HStack
@@ -22,7 +24,10 @@ const MemberCard = ({ permissions, name, email }: MemberCardProps) => {
         _hover={{ bgColor: "gray.100" }}
       >
         <Box flex={1}>
-          <Avatar src="https://bit.ly/dan-abramov" size={"sm"} />
+          <Avatar
+            src={avatar?.url ? storageBaseUrl + avatar?.url : "/avatar.png"}
+            size={"sm"}
+          />
         </Box>
         <Box flex={7}>
           <Text fontSize={"xs"} fontWeight={"semibold"}>
@@ -31,7 +36,7 @@ const MemberCard = ({ permissions, name, email }: MemberCardProps) => {
           <Text fontSize={"10"}>{email}</Text>
         </Box>
         <Box flex={2}>
-          <HStack justifyContent={'flex-end'}>
+          <HStack justifyContent={"flex-end"}>
             {permissions?.includes("view") ? (
               <IconButton
                 aria-label="view"

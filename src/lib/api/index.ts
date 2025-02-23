@@ -23,6 +23,7 @@ import {
 } from "./services/appointment-api";
 import { getHomeConfig, getNotifications, uploadAsset } from "./services/misc-api";
 import { addVideoComment, getVideoComments, getVideoInfo } from "./services/video-api";
+import { acceptInvite, getAllInvites, getInvite, getProjectInvites, rejectInvite, sendInvite } from "./services/invite-api";
 
 interface RequestProps {
   method?: "get" | "put" | "post" | "delete" | "patch";
@@ -106,6 +107,14 @@ export const API = {
     getProjectMembers,
     addProjectMember,
     removeProjectMember
+  },
+  INVITE:{
+    getAllInvites,
+    getProjectInvites,
+    getInvite,
+    sendInvite,
+    acceptInvite,
+    rejectInvite,
   },
   VIDEO: {
     getVideoInfo,

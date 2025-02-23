@@ -292,7 +292,7 @@ export default function Home() {
       <Box w={["full"]} p={[4, 8, 8]} bgColor={"#b2fa5f"}>
         <CustomContainer>
           <Stack
-            direction={["column", "column"]}
+            direction={["column", "row"]}
             alignItems={"center"}
             justifyContent={"center"}
             gap={4}

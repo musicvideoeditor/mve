@@ -24,6 +24,7 @@ export interface AlertBoxProps {
 export interface HomeConfigType {
   showOfferSection: boolean;
   clientLogos?: { url: string }[];
+  phoneNumber?: string;
 }
 export interface PlanType {
   color?: string;

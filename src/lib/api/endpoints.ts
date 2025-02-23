@@ -26,6 +26,14 @@ export const ENDPOINTS = {
     addProjectMember: "/invites",
     removeProjectMember: "/invites",
   },
+  INVITE:{
+    sendInvite: "/invites",
+    getInvite: "/invites",
+    getAllInvites: "/invites",
+    getProjectInvites: "/invites",
+    acceptInvite: "/invites",
+    rejectInvite: "/invites",
+  },
   VIDEO:{
     getVideoInfo: "/videos",
     getVideoComments: "/comments",

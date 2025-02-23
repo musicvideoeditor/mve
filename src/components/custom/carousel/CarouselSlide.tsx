@@ -1,3 +1,4 @@
+import { storageBaseUrl } from "@/lib/constants";
 import { PortfolioType } from "@/lib/types/other";
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import React from "react";
@@ -16,16 +17,18 @@ const CarouselSlide = (props: PortfolioType) => {
           ></iframe>
         </Box>
         <HStack
+        minW={'240px'}
           w={"max-content"}
           mx={"auto"}
           p={2}
           px={3}
           mt={4}
           rounded={4}
+          gap={3}
           border={"1px solid #333"}
-          bgColor={"#FFF"}
+          // bgColor={"#FFF"}
         >
-          <Avatar size={"md"} src={props?.logo?.url} />
+          <Avatar size={"md"} src={props?.logo?.url ? storageBaseUrl + props?.logo?.url : ""} />
           <Box>
             <Text fontSize={"sm"} fontWeight={"semibold"}>
               {props?.clientName}

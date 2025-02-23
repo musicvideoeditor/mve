@@ -3,6 +3,8 @@ export const apiBaseURL =
     ? "http://localhost:1337"
     : "https://api.musicvideoeditor.com";
 
+export const storageBaseUrl = apiBaseURL;
+
 export const colors = {
   dashboardBgColor: "#e8e8e6",
   homeSidenavBgColor: "#f53d3d",

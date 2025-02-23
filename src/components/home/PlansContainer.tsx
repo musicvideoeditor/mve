@@ -6,8 +6,8 @@ import Plan from "./Plan";
 import { useAppSelector } from "@/lib/redux/store";
 
 const PlansContainer = () => {
-  const plans =
-    useAppSelector((state) => state.configReducer.data?.plans) ?? [];
+  const config = useAppSelector((state) => state.configReducer.data);
+  const plans = config?.plans ?? [];
 
   return (
     <>
@@ -55,7 +55,7 @@ const PlansContainer = () => {
                   fontWeight={"semibold"}
                   textAlign={"center"}
                 >
-                  Got any VFX work to tackle?
+                  🤳🏼 Got any VFX work to tackle?
                 </Text>
               </Box>
               <Box
@@ -103,13 +103,13 @@ const PlansContainer = () => {
                   alignItems={"center"}
                   justifyContent={"center"}
                 >
-                  <Link href={"tel:1234567890"}>
+                  <Link href={`tel:${config?.config?.phoneNumber}`}>
                     <Text
                       fontSize={"2xl"}
                       className="mont-bold"
                       color={"#1776eb"}
                     >
-                      +91 - 1234567890
+                      +91 - {config?.config?.phoneNumber}
                     </Text>
                   </Link>
                 </Box>
