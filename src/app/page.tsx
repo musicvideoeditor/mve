@@ -35,6 +35,7 @@ import { fetchHomeConfig } from "@/lib/redux/features/config-slice";
 import LogoMarquee from "@/components/home/LogoMarquee";
 import PlansContainer from "@/components/home/PlansContainer";
 import PortfolioContainer from "@/components/home/PortfolioContainer";
+import Footer from "@/components/common/Footer";
 
 export default function Home() {
   const ref = useRef(false);
@@ -461,6 +462,8 @@ export default function Home() {
           </Stack>
         </CustomContainer>
       </Box>
+
+      <Footer />
     </>
   );
 }
