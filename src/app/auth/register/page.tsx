@@ -21,6 +21,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -135,6 +136,9 @@ const SignupForm = () => {
                 fontSize={"sm"}
                 fontWeight={"medium"}
                 leftIcon={<FcGoogle />}
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/api/auth/callback/google" })
+                }
               >
                 Sign up with Google
               </Button>

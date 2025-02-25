@@ -147,6 +147,9 @@ const LoginForm = () => {
                 fontSize={"sm"}
                 fontWeight={"medium"}
                 leftIcon={<FcGoogle />}
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/api/auth/callback/google" })
+                }
               >
                 Sign in with Google
               </Button>

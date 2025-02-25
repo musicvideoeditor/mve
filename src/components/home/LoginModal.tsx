@@ -150,6 +150,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                       fontSize={"sm"}
                       fontWeight={"medium"}
                       leftIcon={<FcGoogle />}
+                      onClick={() => signIn("google", { callbackUrl: "/api/auth/callback/google" })}
                     >
                       Sign in with Google
                     </Button>

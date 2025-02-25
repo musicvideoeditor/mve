@@ -3,6 +3,7 @@ import { apiBaseURL } from "@/lib/constants";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -23,14 +24,12 @@ export const authOptions: NextAuthOptions = {
           });
           const { jwt } = authRes.data;
 
-          
-
           const userRes = await axios.get(`${apiBaseURL}/api/users/me`, {
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
           });
-          
+
           const user = userRes.data;
 
           if (user && jwt) {
@@ -51,6 +50,10 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   pages: {
     signIn: "/auth/login",
@@ -58,8 +61,24 @@ export const authOptions: NextAuthOptions = {
     newUser: "/auth/signup",
   },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
+    async jwt({ token, user, account }) {
+      if (account && user) {
+        try {
+          const response = await fetch(
+            `${apiBaseURL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`
+          );
+          const data = await response.json();
+          token.accessToken = data.jwt;
+          token.id = data.user.id;
+          token.username = data.user.username;
+          token.name = data.user.name;
+          token.createdAt = data.user.createdAt;
+          token.email = data.user.email;
+        } catch (error) {
+          console.error("Error in JWT callback:", error);
+        }
+      }
+      if (!account && user) {
         token.id = user.id;
         token.name = user.name;
         token.username = user.username;
