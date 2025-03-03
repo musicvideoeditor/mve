@@ -24,6 +24,7 @@ import InfoCard from "@/components/common/InfoCard";
 import UserComment from "@/components/dashboard/video/UserComment";
 import { fetchVideoInfo } from "@/lib/redux/features/project/video/video-slice";
 import { addVideoComment, fetchVideoComments } from "@/lib/redux/features/project/video/comment-slice";
+import ReactPlayer from 'react-player'
 
 const page = ({
   params,

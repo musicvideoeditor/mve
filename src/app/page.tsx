@@ -26,7 +26,6 @@ import {
 import Marquee from "react-fast-marquee";
 import { FaArrowRight, FaCircleArrowRight } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
-import "swiper/swiper-bundle.css";
 import Link from "next/link";
 import Carousel from "@/components/home/Carousel";
 import { useEffect, useRef } from "react";

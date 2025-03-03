@@ -1,15 +1,23 @@
 import { Box, Tooltip } from "@chakra-ui/react";
 import UserPin from "./UserPin";
-import { apiBaseURL } from "@/lib/constants";
+import { apiBaseURL, storageBaseUrl } from "@/lib/constants";
+import ReactPlayer from "react-player";
 
 interface VideoFrameProps {
   source?: "local" | string;
   url?: string;
   title?: string;
   showBookmarks?: boolean;
+  thumbnailUrl?: string;
 }
 
-const VideoFrame = ({ url, source, title, showBookmarks }: VideoFrameProps) => {
+const VideoFrame = ({
+  url,
+  source = "bunny",
+  title,
+  thumbnailUrl,
+  showBookmarks,
+}: VideoFrameProps) => {
   if (!url) {
     return (
       <>
@@ -21,25 +29,17 @@ const VideoFrame = ({ url, source, title, showBookmarks }: VideoFrameProps) => {
   return (
     <Box
       position="relative"
-      width="100%"
+      width={["100%", "100%"]}
+      // bgColor={"red"}
       h={["35vh", "65vh"]}
-      paddingBottom="56.25%"
+      // paddingBottom="56.25%"
       mb={8}
       rounded={12}
       overflow={"hidden"}
     >
-      {source == "local" ? (
-        <video className="video-frame" src={apiBaseURL + url} controls />
-      ) : (
-        <iframe
-          title={title || "No title"}
-          src={url}
-          allowFullScreen
-          className="video-frame"
-        />
-      )}
+      <ReactPlayer url={source == "local" ? storageBaseUrl + url : url} controls />
 
-      {showBookmarks ? (
+      {/* {showBookmarks ? (
         <Box pos={"absolute"} bottom={["14%", "18%"]} width={"100%"}>
           <UserPin
             color="white"
@@ -52,7 +52,7 @@ const VideoFrame = ({ url, source, title, showBookmarks }: VideoFrameProps) => {
             message="Add flute music here..."
           />
         </Box>
-      ) : null}
+      ) : null} */}
     </Box>
   );
 };

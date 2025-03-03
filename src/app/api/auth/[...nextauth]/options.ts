@@ -57,34 +57,35 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/auth/login",
-    error: "/auth/login",
+    error: "/auth/error",
     newUser: "/auth/signup",
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      if (account && user) {
-        try {
-          const response = await fetch(
-            `${apiBaseURL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`
-          );
-          const data = await response.json();
-          token.accessToken = data.jwt;
-          token.id = data.user.id;
-          token.username = data.user.username;
-          token.name = data.user.name;
-          token.createdAt = data.user.createdAt;
-          token.email = data.user.email;
-        } catch (error) {
-          console.error("Error in JWT callback:", error);
+      if (user) {
+        if (account?.provider == "google") {
+          try {
+            const response = await fetch(
+              `${apiBaseURL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`
+            );
+            const data = await response.json();
+            token.accessToken = data.jwt;
+            token.id = data.user.id;
+            token.username = data.user.username;
+            token.name = data.user.name;
+            token.createdAt = data.user.createdAt;
+            token.email = data.user.email;
+          } catch (error) {
+            console.error("Error in JWT callback:", error);
+          }
+        } else {
+          token.id = user.id;
+          token.name = user.name;
+          token.username = user.username;
+          token.email = user.email;
+          token.createdAt = user.createdAt;
+          token.accessToken = user.accessToken;
         }
-      }
-      if (!account && user) {
-        token.id = user.id;
-        token.name = user.name;
-        token.username = user.username;
-        token.email = user.email;
-        token.createdAt = user.createdAt;
-        token.accessToken = user.accessToken;
       }
       return token;
     },
