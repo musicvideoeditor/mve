@@ -21,9 +21,25 @@ import {
   getUnavailableDates,
   getUnavailableSlots,
 } from "./services/appointment-api";
-import { getHomeConfig, getNotifications, uploadAsset } from "./services/misc-api";
-import { addVideoComment, getVideoComments, getVideoInfo } from "./services/video-api";
-import { acceptInvite, getAllInvites, getInvite, getProjectInvites, rejectInvite, sendInvite } from "./services/invite-api";
+import {
+  getHomeConfig,
+  getNotifications,
+  uploadAsset,
+} from "./services/misc-api";
+import {
+  addVideoComment,
+  getVideoComments,
+  getVideoInfo,
+} from "./services/video-api";
+import {
+  acceptInvite,
+  getAllInvites,
+  getInvite,
+  getProjectInvites,
+  rejectInvite,
+  sendInvite,
+} from "./services/invite-api";
+import { getTransactions } from "./services/transaction-api";
 
 interface RequestProps {
   method?: "get" | "put" | "post" | "delete" | "patch";
@@ -85,7 +101,7 @@ export const API = {
   // Auth APIs
   AUTH: {
     login,
-    createAccount
+    createAccount,
   },
 
   // User APIs
@@ -106,9 +122,9 @@ export const API = {
 
     getProjectMembers,
     addProjectMember,
-    removeProjectMember
+    removeProjectMember,
   },
-  INVITE:{
+  INVITE: {
     getAllInvites,
     getProjectInvites,
     getInvite,
@@ -128,8 +144,11 @@ export const API = {
     getAppointments,
     bookAppointment,
   },
+  TRANSACTION: {
+    getTransactions,
+  },
   MISC: {
     uploadAsset,
-    getHomeConfig
+    getHomeConfig,
   },
 };

@@ -1,3 +1,7 @@
+"use client";
+import { fetchProjects } from "@/lib/redux/features/project/project-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { SingleProjectState } from "@/lib/types/project";
 import {
   Accordion,
   AccordionButton,
@@ -16,10 +20,10 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { HiOutlineVideoCamera } from "react-icons/hi";
 
-const ProjectItem = () => {
+const ProjectItem = ({ name, members, author }: SingleProjectState) => {
   return (
     <>
       <AccordionItem>
@@ -27,7 +31,7 @@ const ProjectItem = () => {
           <HStack flex={1}>
             <HiOutlineVideoCamera fontSize={"20"} />
             <Box fontSize={"sm"} textAlign="left">
-              Project Name
+              {name}
             </Box>
           </HStack>
           <AccordionIcon />
@@ -48,55 +52,86 @@ const ProjectItem = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>Sangam Kr</Td>
-                  <Td>sangam@teamlancer.io</Td>
-                  <Td>31 Aug, 2024</Td>
-                  <Td textAlign={"center"}>
-                    <Switch size={"sm"} colorScheme="gray" />
-                  </Td>
+                <Tr >
+                  <Td>{author?.name}</Td>
+                  <Td>{author?.email}</Td>
+                  <Td>{author?.createdAt}</Td>
+                  <Td textAlign={"center"}></Td>
                 </Tr>
-                <Tr>
-                  <Td>Sangam Kr</Td>
-                  <Td>sangam@teamlancer.io</Td>
-                  <Td>31 Aug, 2024</Td>
-                  <Td textAlign={"center"}>
-                    <Switch size={"sm"} colorScheme="gray" />
-                  </Td>
-                </Tr>
+                {members?.map((member, i) => (
+                  <Tr key={i}>
+                    <Td>{member?.name}</Td>
+                    <Td>{member?.email}</Td>
+                    <Td>{member?.createdAt}</Td>
+                    <Td textAlign={"center"}>
+                      <Switch size={"sm"} colorScheme="gray" />
+                    </Td>
+                  </Tr>
+                ))}
               </Tbody>
             </Table>
           </Hide>
           <Hide above="sm">
-            <Box p={3} rounded={4} bgColor={"#FFF"}>
-              <HStack mb={1}>
-                <Text>
-                  <strong>User: </strong>
-                </Text>
-                <p>Sangam Kr</p>
-              </HStack>
+          <Box  p={3} rounded={4} bgColor={"#FFF"} mb={2}>
+                <HStack mb={1}>
+                  <Text>
+                    <strong>User: </strong>
+                  </Text>
+                  <p>{author?.name}</p>
+                </HStack>
 
-              <HStack mb={1}>
-                <Text>
-                  <strong>Email: </strong>
-                </Text>
-                <p>sangam@teamlancer.io</p>
-              </HStack>
+                <HStack mb={1}>
+                  <Text>
+                    <strong>Email: </strong>
+                  </Text>
+                  <p>{author?.email}</p>
+                </HStack>
 
-              <HStack mb={1}>
-                <Text>
-                  <strong>Joined On: </strong>
-                </Text>
-                <p>31 Aug, 2024</p>
-              </HStack>
+                <HStack mb={1}>
+                  <Text>
+                    <strong>Joined On: </strong>
+                  </Text>
+                  <p>{author?.createdAt}</p>
+                </HStack>
 
-              <HStack>
-                <Text>
-                  <strong>Block/Unblock: </strong>
-                </Text>
-                <Switch size={"sm"} colorScheme="gray" />
-              </HStack>
-            </Box>
+                {/* <HStack>
+                  <Text>
+                    <strong>Block/Unblock: </strong>
+                  </Text>
+                  <Switch size={"sm"} colorScheme="gray" />
+                </HStack> */}
+              </Box>
+            {members?.map((member, i) => (
+              <Box key={i} p={3} rounded={4} bgColor={"#FFF"} mb={2}>
+                <HStack mb={1}>
+                  <Text>
+                    <strong>User: </strong>
+                  </Text>
+                  <p>{member?.name}</p>
+                </HStack>
+
+                <HStack mb={1}>
+                  <Text>
+                    <strong>Email: </strong>
+                  </Text>
+                  <p>{member?.email}</p>
+                </HStack>
+
+                <HStack mb={1}>
+                  <Text>
+                    <strong>Joined On: </strong>
+                  </Text>
+                  <p>{member?.createdAt}</p>
+                </HStack>
+
+                <HStack>
+                  <Text>
+                    <strong>Block/Unblock: </strong>
+                  </Text>
+                  <Switch size={"sm"} colorScheme="gray" />
+                </HStack>
+              </Box>
+            ))}
           </Hide>
         </AccordionPanel>
       </AccordionItem>
@@ -105,11 +140,22 @@ const ProjectItem = () => {
 };
 
 const Members = () => {
+  const dispatch = useAppDispatch();
+  const ref = useRef(false);
+  const projects = useAppSelector((state) => state.projectReducer.projects);
+
+  useEffect(() => {
+    if (ref.current) return;
+    dispatch(fetchProjects());
+    ref.current = true;
+  }, []);
+
   return (
     <>
       <Accordion allowToggle>
-        <ProjectItem />
-        <ProjectItem />
+        {projects?.map((project, i) => (
+          <ProjectItem key={i} {...project} />
+        ))}
       </Accordion>
     </>
   );

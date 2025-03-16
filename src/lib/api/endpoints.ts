@@ -26,7 +26,7 @@ export const ENDPOINTS = {
     addProjectMember: "/invites",
     removeProjectMember: "/invites",
   },
-  INVITE:{
+  INVITE: {
     sendInvite: "/invites",
     getInvite: "/invites",
     getAllInvites: "/invites",
@@ -34,21 +34,24 @@ export const ENDPOINTS = {
     acceptInvite: "/invites",
     rejectInvite: "/invites",
   },
-  VIDEO:{
+  VIDEO: {
     getVideoInfo: "/videos",
     getVideoComments: "/comments",
     addVideoComment: "/comments",
   },
-  APPOINTMENT:{
+  APPOINTMENT: {
     getAppointmentSlots: "/appointment-slots",
     getUnavailableDates: "/unavailable-dates",
     getUnavailableSlots: "/unavailable-slots",
     bookAppointment: "/appointments",
     getAppointments: "/appointments",
   },
+  TRANSACTION: {
+    getTransactions: "/transactions",
+  },
   MISC: {
     getHomeConfig: "/home-config",
     uploadAsset: "/upload",
     deleteAsset: "/upload/files",
-  }
+  },
 };

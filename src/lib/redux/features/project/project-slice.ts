@@ -1,5 +1,6 @@
 import { API } from "@/lib/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ProjectsState, SingleProjectState } from "@/lib/types/project";
 
 export const fetchProjects = createAsyncThunk(
   "projects/fetchProjects",
@@ -13,21 +14,6 @@ export const fetchProjects = createAsyncThunk(
   }
 );
 
-interface SingleProjectState {
-  id?: number;
-  documentId: string;
-  name: string;
-  description?: string;
-  status?: "draft" | "published" | "archived";
-  thumbnail?: { url: string };
-  videosCount?: number;
-  createdAt?: string;
-}
-
-interface ProjectsState {
-  loading: boolean;
-  projects: Array<SingleProjectState>;
-}
 
 const initialState: ProjectsState = {
   loading: false,

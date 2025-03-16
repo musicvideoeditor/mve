@@ -29,11 +29,30 @@ export interface VideoCommentType {
   updatedAt?: string;
 }
 
+export interface SingleProjectState {
+  id?: number;
+  documentId: string;
+  name: string;
+  description?: string;
+  status?: "draft" | "published" | "archived";
+  thumbnail?: { url: string };
+  videosCount?: number;
+  createdAt?: string;
+  members?: ProjectMemberType[];
+  author: ProjectMemberType;
+}
+
+export interface ProjectsState {
+  loading: boolean;
+  projects: Array<SingleProjectState>;
+}
+
 export interface ProjectMemberType {
   documentId: string;
   name?: string;
   username: string;
   email: string;
+  createdAt?: string;
   avatar?: { url: string };
   permissions?: Array<"view" | "upload" | "comment">;
 }
@@ -66,7 +85,7 @@ export interface ProjectAssetType {
   approvalStatus: "pending" | "reviewing" | "approved" | "rejected";
 }
 
-export interface InviteType{
+export interface InviteType {
   project: { documentId: string; name: string };
   documentId: string;
   userEmail: string;

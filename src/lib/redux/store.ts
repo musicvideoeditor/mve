@@ -10,6 +10,7 @@ import projectMemberReducer from "./features/project/project-members-slice";
 import projectInviteReducer from "./features/project/project-invite-slice";
 import commentsReducer from "./features/project/video/comment-slice";
 import videoReducer from "./features/project/video/video-slice";
+import transactionReducer from "./features/account/transaction-slice";
 import appointmentSlotsReducer from "./features/appointment/appointment-slots-slice";
 import bookedAppointmentsReducer from "./features/appointment/booked-appointments-slice";
 
@@ -25,8 +26,8 @@ const appReducer = combineReducers({
   projectInviteReducer: projectInviteReducer,
   commentsReducer: commentsReducer,
   videoReducer: videoReducer,
+  transactionReducer: transactionReducer,
   configReducer: configReducer,
-
 });
 
 export const store = configureStore({
