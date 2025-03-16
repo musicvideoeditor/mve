@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
               email: user.email,
               username: user.username,
               createdAt: user.createdAt,
+              url: Date.now() - new Date(user?.createdAt).getTime() < 86400000 ? "/dashboard/appointments/new" : "/dashboard",
             };
           } else {
             throw new Error("Invalid credentials");
@@ -85,6 +86,14 @@ export const authOptions: NextAuthOptions = {
           token.email = user.email;
           token.createdAt = user.createdAt;
           token.accessToken = user.accessToken;
+        }
+
+        // If user has registered in last 24 hours
+        // @ts-ignore
+        if (Date.now() - new Date(user?.createdAt).getTime() < 86400000) {
+          token.url = "/dashboard/appointments/new"
+        } else {
+          token.url = "/dashboard"
         }
       }
       return token;

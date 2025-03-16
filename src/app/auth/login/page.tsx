@@ -53,7 +53,7 @@ const LoginForm = () => {
           status: "success",
           description: "Login successful",
         });
-        window.location.href = callback ?? "/dashboard";
+        window.location.href = callback ? callback : res.url || "/dashboard";
         setLoading(false);
       } else {
         toast({

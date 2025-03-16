@@ -33,7 +33,7 @@ const CarouselSlide = (props: PortfolioType) => {
             <Text fontSize={"sm"} fontWeight={"semibold"}>
               {props?.clientName}
             </Text>
-            <Text fontSize={"xs"}>{props?.clientSubtitle}</Text>
+            <Text w={'max-content'} fontSize={"8px"} py={['2px']} px={['4px']} rounded={'full'} bgColor={'#000'} color={'#FFF'}>{props?.clientSubtitle}</Text>
           </Box>
         </HStack>
       </Box>

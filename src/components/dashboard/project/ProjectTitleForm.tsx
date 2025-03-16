@@ -38,7 +38,7 @@ const ProjectTitleForm = () => {
           status: "success",
           description: "Project created successfully",
         })
-        window.location.href = `/dashboard/projects/${res.data.documentId}`
+        window.location.href = `/dashboard/projects/${res.data.documentId}/upload`
       } catch (error:any) {
         toast({
           status: "error",

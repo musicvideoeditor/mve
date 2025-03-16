@@ -52,7 +52,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
           status: "success",
           description: "Login successful",
         });
-        window.location.href = "/dashboard";
+        console.log(res.url);
+        window.location.href = res.url || "/dashboard";
         setLoading(false);
       } else {
         toast({
