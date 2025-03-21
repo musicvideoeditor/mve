@@ -142,6 +142,7 @@ const page = ({
           p={3}
           bgColor={"#1d2729"}
           color={"#FFF"}
+          w={["full", "auto"]}
           h={"100%"}
         >
           <HStack
