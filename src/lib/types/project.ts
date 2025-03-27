@@ -80,9 +80,18 @@ export interface ProjectAssetType {
   assets: Array<{
     name: string;
     url: string;
-    size?: string;
+    size?: number;
   }>;
-  approvalStatus: "pending" | "reviewing" | "approved" | "rejected";
+  approvalStatus:
+    | "pending"
+    | "reviewing"
+    | "approved"
+    | "rejected"
+    | "uploading"
+    | "pending upload"
+    | "just uploaded";
+  uploadProgress?: number;
+  onRemoveFileFromStack: () => void;
 }
 
 export interface InviteType {

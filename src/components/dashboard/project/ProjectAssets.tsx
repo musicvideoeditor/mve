@@ -35,6 +35,7 @@ import {
 import useFileUpload from "@/lib/helpers/useFileUpload";
 import { API } from "@/lib/api";
 import AlertBox from "@/components/custom/AlertBox";
+import { getSession } from "next-auth/react";
 
 const Filters = () => {
   return (
@@ -75,13 +76,16 @@ const Filters = () => {
 
 const ProjectAssets = ({ projectId }: { projectId: string }) => {
   const ref = useRef(false);
-  const [uploadStatus, setUploadStatus] = useState<
-    "pending" | "uploading" | "success" | "failed"
-  >("pending");
-  const { uploadFile, loading, error } = useFileUpload();
+
+  const user = useAppSelector(state => state.userReducer.user)
+  const { uploadFile, loading, error, progress } = useFileUpload();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
   const toast = useToast();
+
+  const [stackedFiles, setStackedFiles] = useState<File[]>([]);
+  const [uploadedFilesIndex, setUploadedFilesIndex] = useState<number[]>([]);
+  const [uploadingFileIndex, setUploadingFileIndex] = useState(-1);
 
   const isLoading = useAppSelector(
     (state) => state.projectAssetsReducer.loading
@@ -94,31 +98,38 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
     ref.current = true;
   }, []);
 
-  const handleProjectAssetUpload = async (files: File[]) => {
-    if (!files.length) return;
-    setUploadStatus("uploading");
-    try {
-      const res = await API.PROJECT.createProjectAsset({
-        name: files[0]?.name,
-        project: { documentId: projectId },
-      });
-      dispatch(addAsset(res.data));
-      const assetId = res.data?.id;
-      if (res.data.documentId) {
-        await uploadFile({
-          files: files,
-          entryId: assetId,
-          modelId: "api::asset.asset",
-          field: "assets",
+  const handleProjectAssetUpload = async () => {
+    onClose();
+    const session = await getSession();
+    if (!stackedFiles?.length) return;
+
+    for (const file of Array.from(stackedFiles)) {
+      try {
+        setUploadingFileIndex(
+          stackedFiles.map((fl) => fl.name).indexOf(file.name)
+        );
+        const res = await API.PROJECT.createProjectAsset({
+          name: file?.name,
+          project: { documentId: projectId },
         });
-        setUploadStatus("success");
+        const assetId = res.data?.id;
+        if (res.data.documentId) {
+          await uploadFile({
+            files: [file],
+            entryId: assetId,
+            modelId: "api::asset.asset",
+            field: "assets",
+            sessionToken: session?.accessToken,
+          });
+        }
+        setUploadedFilesIndex(prev => [...prev, uploadingFileIndex]);
+        setUploadingFileIndex(-1)
+      } catch (error: any) {
+        toast({
+          status: "error",
+          description: error?.message,
+        });
       }
-    } catch (error: any) {
-      setUploadStatus("failed");
-      toast({
-        status: "error",
-        description: error?.message,
-      });
     }
   };
 
@@ -131,8 +142,9 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
         mb={8}
       >
         <Dropzone
-          onUpload={(files) => handleProjectAssetUpload(files)}
-          uploadStatus={uploadStatus}
+          onFilesDrop={(files) =>
+            setStackedFiles((prev) => [...prev, ...files])
+          }
         />
 
         <Box
@@ -166,18 +178,6 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
             overflow={"scroll"}
           >
             <Filters />
-            {/* <HStack>
-              <Button
-                size={"xs"}
-                fontWeight={"medium"}
-                border={"1px solid #BBB"}
-                variant={"ghost"}
-                leftIcon={<FaCircle fontSize={"6"} color="#16a160" />}
-                rightIcon={<IoClose color={"#999"} />}
-              >
-                Jan 1 - Jan 31
-              </Button>
-            </HStack> */}
           </HStack>
 
           <TableContainer h={"2xs"} overflowY={"scroll"}>
@@ -206,6 +206,52 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
                 </VStack>
               ) : null}
               <Tbody>
+                {stackedFiles?.map((item, key) => (
+                  <ProjectAssetRow
+                    key={key}
+                    approvalStatus={
+                      uploadingFileIndex == key
+                        ? "uploading"
+                        : uploadedFilesIndex.includes(key)
+                        ? "just uploaded"
+                        : "pending upload"
+                    }
+                    assets={[
+                      {
+                        name: item?.name || "No name",
+                        url: URL.createObjectURL(item) || "#",
+                        // @ts-ignore
+                        size: item?.size || "No size",
+                      },
+                    ]}
+                    name={item?.name || "No name"}
+                    project={{ documentId: projectId }}
+                    documentId=""
+                    onRemoveFileFromStack={() => {
+                      // remove file from stackedFiles
+                      const newStackedFiles = stackedFiles.filter(
+                        (file) => file.name !== item.name
+                      );
+                      setStackedFiles(newStackedFiles);
+                    }}
+                    uploadProgress={
+                      uploadingFileIndex == key
+                        ? progress
+                        : uploadedFilesIndex.includes(key)
+                        ? 100
+                        : 0
+                    }
+                    uploadedBy={{
+                      // @ts-ignore
+                      email: user?.email,
+                      // @ts-ignore
+                      username: user?.username,
+                      name: user?.name,
+                      avatar: {url: "#"},
+                    }}
+                  />
+                ))}
+
                 {assets.map((asset) => (
                   <ProjectAssetRow key={asset.documentId} {...asset} />
                 ))}
@@ -217,7 +263,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
 
       <HStack justifyContent={["center", "flex-end"]}>
         {/* Show this button if any asset is in "reviewing" status */}
-        {assets.some((asset) => asset.approvalStatus === "reviewing") && (
+        {stackedFiles?.length > 0 && (
           <Box>
             <Button
               size={"lg"}
@@ -228,7 +274,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
               px={16}
               onClick={onOpen}
             >
-              Submit for Review
+              Start Uploading
             </Button>
           </Box>
         )}
@@ -237,14 +283,17 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
       <br />
 
       <AlertBox
-        title="Under Review"
+        title="Start Upload?"
         isOpen={isOpen}
         onClose={onClose}
-        theme="info"
+        theme="success"
+        primaryCtaLabel="Start Upload"
+        onSubmit={handleProjectAssetUpload}
       >
         <Text>
-          Project assets are currently under review. We will notify you once we
-          approve them.
+          Upload may take some time depending upon your network speed and files
+          size. Please don't close the dashboard while the files are being
+          uploaded
         </Text>
       </AlertBox>
     </>

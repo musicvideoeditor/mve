@@ -11,6 +11,7 @@ import {
   Button,
   Checkbox,
   HStack,
+  Progress,
   Td,
   Text,
   Tr,
@@ -20,7 +21,19 @@ import {
 import React, { useState } from "react";
 import { LuFile } from "react-icons/lu";
 
+function calculateSize(size?: number) {
+  if (size && size > 0) {
+    const sizeInKb = size / 1000;
+    const sizeInMb = sizeInKb / 1000;
+    if (sizeInKb <= 0.1) return `${size.toFixed(2)} Bytes`;
+    if (sizeInKb > 0.1 && sizeInKb < 1000) return `${sizeInKb.toFixed(2)} KB`;
+    else return `${sizeInMb.toFixed(2)} MB`;
+  }
+  return "Invalid Size";
+}
+
 const ProjectAssetRow = (props: ProjectAssetType) => {
+  const { uploadProgress, approvalStatus, onRemoveFileFromStack } = props;
   const toast = useToast();
   const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,7 +42,10 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
   async function handleDelete() {
     try {
       setIsLoading(true);
-      await dispatch(deleteProjectAsset({ id: props.documentId }));
+      if (Boolean(props.documentId))
+        await dispatch(deleteProjectAsset({ id: props.documentId }));
+      else onRemoveFileFromStack();
+
       onClose();
     } catch (error: any) {
       toast({
@@ -63,9 +79,7 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
                 {props?.name}
               </Text>
               <Text fontSize={"10"}>
-                {props?.assets?.length
-                  ? `${props?.assets?.length} Files`
-                  : "Recently uploaded"}
+                {calculateSize(props?.assets[0]?.size)}
               </Text>
             </Box>
           </HStack>
@@ -92,15 +106,19 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
           </HStack>
         </Td>
         <Td textAlign={"center"}>
-          <Button
-            size={"xs"}
-            fontWeight={"medium"}
-            border={"1px solid #BBB"}
-            variant={"ghost"}
-            onClick={onOpen}
-          >
-            Delete
-          </Button>
+          {approvalStatus == "pending upload" && uploadProgress != 0 ? (
+            <Progress value={uploadProgress} hasStripe />
+          ) : approvalStatus == "just uploaded" ? null : (
+            <Button
+              size={"xs"}
+              fontWeight={"medium"}
+              border={"1px solid #BBB"}
+              variant={"ghost"}
+              onClick={onOpen}
+            >
+              {approvalStatus == "pending upload" ? "REMOVE" : "DELETE"}
+            </Button>
+          )}
         </Td>
       </Tr>
 

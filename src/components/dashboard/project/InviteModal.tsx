@@ -102,7 +102,7 @@ const InviteModal = ({
             </Box>
           ) : null}
           <Text fontSize={"sm"} mb={4}>
-            {invites?.length ? "Pending Invites" : "Invite others"}
+            {invites?.length ? "Pending Invites" : ""}
           </Text>
           {invites?.length ? (
             <Box>
