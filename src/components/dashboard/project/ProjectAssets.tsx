@@ -77,15 +77,15 @@ const Filters = () => {
 const ProjectAssets = ({ projectId }: { projectId: string }) => {
   const ref = useRef(false);
 
-  const user = useAppSelector(state => state.userReducer.user)
+  const user = useAppSelector((state) => state.userReducer.user);
   const { uploadFile, loading, error, progress } = useFileUpload();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
   const toast = useToast();
 
   const [stackedFiles, setStackedFiles] = useState<File[]>([]);
-  const [uploadedFilesIndex, setUploadedFilesIndex] = useState<number[]>([]);
-  const [uploadingFileIndex, setUploadingFileIndex] = useState(-1);
+  const [uploadedFilesIndex, setUploadedFilesIndex] = useState<string[]>([]);
+  const [uploadingFileIndex, setUploadingFileIndex] = useState<string>("");
 
   const isLoading = useAppSelector(
     (state) => state.projectAssetsReducer.loading
@@ -98,6 +98,16 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
     ref.current = true;
   }, []);
 
+  useEffect(() => {
+    console.log("Uploaded files are");
+    console.log(uploadedFilesIndex);
+  }, [uploadedFilesIndex]);
+
+  useEffect(() => {
+    console.log("Current progress is");
+    console.log(progress);
+  }, [progress]);
+
   const handleProjectAssetUpload = async () => {
     onClose();
     const session = await getSession();
@@ -105,9 +115,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
 
     for (const file of Array.from(stackedFiles)) {
       try {
-        setUploadingFileIndex(
-          stackedFiles.map((fl) => fl.name).indexOf(file.name)
-        );
+        setUploadingFileIndex(file.name);
         const res = await API.PROJECT.createProjectAsset({
           name: file?.name,
           project: { documentId: projectId },
@@ -120,10 +128,11 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
             modelId: "api::asset.asset",
             field: "assets",
             sessionToken: session?.accessToken,
+            path: projectId + "/" + user?.username + "/"
           });
         }
-        setUploadedFilesIndex(prev => [...prev, uploadingFileIndex]);
-        setUploadingFileIndex(-1)
+        setUploadedFilesIndex((prev) => [...prev, file?.name]);
+        setUploadingFileIndex("");
       } catch (error: any) {
         toast({
           status: "error",
@@ -154,7 +163,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
           border={"1px solid #666"}
           rounded={8}
         >
-          <HStack justifyContent={"space-between"} mb={4}>
+          <HStack justifyContent={"space-between"} mb={4} flexWrap={'wrap'}>
             <Box>
               <Text fontWeight={"semibold"} fontSize={"sm"}>
                 Attached files
@@ -164,7 +173,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
               </Text>
             </Box>
 
-            <InputGroup w={"2xs"} border={"1px solid #DDD"} rounded={8}>
+            <InputGroup w={["full", "2xs"]} border={"1px solid #DDD"} rounded={8}>
               <InputLeftElement children={<FiSearch />} />
               <Input placeholder="Search" pl={8} fontSize={"sm"} />
             </InputGroup>
@@ -195,24 +204,19 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
                 </Tr>
               </Thead>
               {isLoading ? (
-                <VStack
-                  w={"full"}
-                  h={"sm"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                >
+                <>
                   <CircularProgress isIndeterminate color="orange" />
                   <Text fontSize={"sm"}>Loading...</Text>
-                </VStack>
+                </>
               ) : null}
               <Tbody>
                 {stackedFiles?.map((item, key) => (
                   <ProjectAssetRow
                     key={key}
                     approvalStatus={
-                      uploadingFileIndex == key
+                      uploadingFileIndex == item.name
                         ? "uploading"
-                        : uploadedFilesIndex.includes(key)
+                        : uploadedFilesIndex.includes(item.name)
                         ? "just uploaded"
                         : "pending upload"
                     }
@@ -235,11 +239,11 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
                       setStackedFiles(newStackedFiles);
                     }}
                     uploadProgress={
-                      uploadingFileIndex == key
+                      uploadingFileIndex == item.name
                         ? progress
-                        : uploadedFilesIndex.includes(key)
-                        ? 100
-                        : 0
+                        : // : uploadedFilesIndex.includes(item.name)
+                          // ? 100
+                          0
                     }
                     uploadedBy={{
                       // @ts-ignore
@@ -247,7 +251,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
                       // @ts-ignore
                       username: user?.username,
                       name: user?.name,
-                      avatar: {url: "#"},
+                      avatar: { url: "#" },
                     }}
                   />
                 ))}

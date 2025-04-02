@@ -11,6 +11,7 @@ import {
   Button,
   Checkbox,
   HStack,
+  Icon,
   Progress,
   Td,
   Text,
@@ -76,7 +77,8 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
             </Box>
             <Box>
               <Text fontSize={"xs"} fontWeight={"semibold"}>
-                {props?.name}
+                {props?.name?.slice(0, 10) +
+                  (props?.name?.length > 10 ? "..." : "")}
               </Text>
               <Text fontSize={"10"}>
                 {calculateSize(props?.assets[0]?.size)}
@@ -106,7 +108,7 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
           </HStack>
         </Td>
         <Td textAlign={"center"}>
-          {approvalStatus == "pending upload" && uploadProgress != 0 ? (
+          {approvalStatus == "uploading" ? (
             <Progress value={uploadProgress} hasStripe />
           ) : approvalStatus == "just uploaded" ? null : (
             <Button

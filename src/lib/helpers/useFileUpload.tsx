@@ -13,7 +13,7 @@ interface UploadHandlerProps extends FileUploadTypes {
 
 const useFileUpload = () => {
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  let progress;
   const [error, setError] = useState(null);
 
   const uploadFile = async (props: UploadHandlerProps) => {
@@ -63,8 +63,9 @@ const useFileUpload = () => {
             Authorization: "Bearer " + props.sessionToken,
           },
           onUploadProgress: (event) => {
-            // @ts-ignore
-            setProgress(Math.round((event.loaded / event.total) * 100));
+            console.log("Upload Event for file " + props.files[0]?.name)
+            console.log(event)
+            progress = Math.round((event.loaded / event.total) * 100);
           },
         }
       );

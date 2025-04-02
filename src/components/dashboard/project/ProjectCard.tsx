@@ -22,7 +22,6 @@ const ProjectCard = ({
         className="project-card"
         as="a"
         href={`/dashboard/projects/${documentId}`}
-        target="_blank"
       >
         <Box p={6} bgColor={"rgba(0,0,0,0.6)"} color={"#FFF"}>
           <Box h={24}>
