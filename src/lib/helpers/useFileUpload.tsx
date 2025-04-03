@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { API } from "../api";
 import { FileUploadTypes } from "../types/other";
-import { Progress } from "@chakra-ui/react";
 import axios from "axios";
 import { ENDPOINTS } from "../api/endpoints";
 import { apiBaseURL } from "../constants";
@@ -13,7 +12,7 @@ interface UploadHandlerProps extends FileUploadTypes {
 
 const useFileUpload = () => {
   const [loading, setLoading] = useState(false);
-  let progress;
+  const [progress, setProgress] = useState(0)
   const [error, setError] = useState(null);
 
   const uploadFile = async (props: UploadHandlerProps) => {
@@ -65,7 +64,8 @@ const useFileUpload = () => {
           onUploadProgress: (event) => {
             console.log("Upload Event for file " + props.files[0]?.name)
             console.log(event)
-            progress = Math.round((event.loaded / event.total) * 100);
+            // @ts-ignore
+            setProgress(Math.round((event.loaded / event.total) * 100));
           },
         }
       );
