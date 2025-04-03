@@ -6,7 +6,10 @@ import MemberCard from "./MemberCard";
 import { InviteType, ProjectMemberType } from "@/lib/types/project";
 import { IoSend } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { fetchProjectInvites, sendInvite } from "@/lib/redux/features/project/project-invite-slice";
+import {
+  fetchProjectInvites,
+  sendInvite,
+} from "@/lib/redux/features/project/project-invite-slice";
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -50,7 +53,8 @@ const InviteModal = ({
     // Check if invite with this userEmail already exists
     if (
       invites.find(
-        (invite: InviteType) => invite.userEmail.toLowerCase() === email.toLowerCase()
+        (invite: InviteType) =>
+          invite.userEmail.toLowerCase() === email.toLowerCase()
       )
     ) {
       toast({
@@ -93,10 +97,13 @@ const InviteModal = ({
               </Text>
               {members?.map((member: ProjectMemberType) => (
                 <MemberCard
-                  key={member?.username}
-                  name={member?.name || member?.username}
-                  email={member?.email}
+                  documentId={member.documentId}
+                  key={member?.user?.username}
+                  name={member?.user?.name || member?.user?.username}
+                  email={member?.user?.email}
                   permissions={["comment", "upload", "view"]}
+                  isConfirmed={true}
+                  isBlocked={member?.isBlocked}
                 />
               ))}
             </Box>
@@ -109,10 +116,12 @@ const InviteModal = ({
               {/* @ts-ignore */}
               {invites?.map((invite: InviteType) => (
                 <MemberCard
+                  documentId=""
                   key={invite.documentId}
                   name={"Pending Invite"}
                   email={invite?.userEmail}
                   permissions={["comment", "upload", "view"]}
+                  isConfirmed={false}
                 />
               ))}
             </Box>

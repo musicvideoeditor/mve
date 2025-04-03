@@ -135,6 +135,19 @@ export const addProjectMember = async (data: {
   }
 };
 
+export const updateProjectMember = async ({ id, data }: { id: string, data: object }) => {
+  try {
+    const res = await processRequest({
+      method: "put",
+      url: `${ENDPOINTS.PROJECT.updateProjectMember}/${id}`,
+      body: { ...data },
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
 export const removeProjectMember = async ({ id }: { id: string }) => {
   try {
     const res = await processRequest({

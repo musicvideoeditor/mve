@@ -1,17 +1,59 @@
+"use client";
+import { API } from "@/lib/api";
 import { storageBaseUrl } from "@/lib/constants";
-import { Avatar, Box, HStack, IconButton, Text } from "@chakra-ui/react";
-import React from "react";
+import {
+  Avatar,
+  Box,
+  HStack,
+  IconButton,
+  Switch,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import { BsCloudArrowUpFill, BsEyeFill } from "react-icons/bs";
+import { FiClock } from "react-icons/fi";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 
 interface MemberCardProps {
+  documentId: string;
   permissions: Array<"view" | "upload" | "comment">;
   name: string;
   email: string;
   avatar?: { url: string };
+  isConfirmed?: boolean;
+  isBlocked?: boolean;
 }
 
-const MemberCard = ({ permissions, name, email, avatar }: MemberCardProps) => {
+const MemberCard = ({
+  permissions,
+  name,
+  email,
+  avatar,
+  documentId,
+  isBlocked,
+  isConfirmed,
+}: MemberCardProps) => {
+  const toast = useToast();
+
+  async function toggleMemberStatus(status: boolean) {
+    try {
+      await API.PROJECT.updateProjectMember({
+        id: documentId,
+        data: { data: { isBlocked: status } },
+      });
+      toast({
+        status: "success",
+        description: "Member status updated successfully",
+      });
+    } catch (error: any) {
+      toast({
+        status: "error",
+        description: error?.message,
+      });
+    }
+  }
+
   return (
     <>
       <HStack
@@ -37,7 +79,7 @@ const MemberCard = ({ permissions, name, email, avatar }: MemberCardProps) => {
         </Box>
         <Box flex={2}>
           <HStack justifyContent={"flex-end"}>
-            {permissions?.includes("view") ? (
+            {/* {permissions?.includes("view") ? (
               <IconButton
                 aria-label="view"
                 size={"xs"}
@@ -60,7 +102,18 @@ const MemberCard = ({ permissions, name, email, avatar }: MemberCardProps) => {
                 rounded={"full"}
                 icon={<IoChatbubbleEllipses />}
               />
-            ) : null}
+            ) : null} */}
+
+            {isConfirmed ? (
+              <Switch
+                defaultChecked={!isBlocked}
+                onChange={(e) => {
+                  toggleMemberStatus(!e.target.checked);
+                }}
+              />
+            ) : (
+              <FiClock />
+            )}
           </HStack>
         </Box>
       </HStack>

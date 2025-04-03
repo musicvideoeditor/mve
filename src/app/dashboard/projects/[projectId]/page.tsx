@@ -27,7 +27,7 @@ import { FiUserPlus } from "react-icons/fi";
 const page = ({ params }: { params: { projectId: string } }) => {
   const ref = useRef(false);
   const dispatch = useAppDispatch();
-  const {isOpen, onOpen, onClose} = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const project = useAppSelector((state) => state.projectInfoReducer);
 
   useEffect(() => {
@@ -153,9 +153,12 @@ const page = ({ params }: { params: { projectId: string } }) => {
                     ? project.projectInfo?.members?.map(
                         (member: ProjectMemberType) => (
                           <MemberCard
-                            key={member?.username}
-                            name={member?.name || member?.username}
-                            email={member?.email}
+                            documentId={member.documentId}
+                            key={member?.user?.username}
+                            name={member?.user?.name || member?.user?.username}
+                            email={member?.user?.email}
+                            isConfirmed={true}
+                            isBlocked={member?.isBlocked}
                             permissions={["comment", "upload", "view"]}
                           />
                         )

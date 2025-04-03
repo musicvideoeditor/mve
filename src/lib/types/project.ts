@@ -49,11 +49,16 @@ export interface ProjectsState {
 
 export interface ProjectMemberType {
   documentId: string;
-  name?: string;
-  username: string;
-  email: string;
-  createdAt?: string;
-  avatar?: { url: string };
+  user: {
+    documentId: string;
+    name?: string;
+    username: string;
+    email: string;
+    createdAt?: string;
+    avatar?: { url: string };
+  };
+  isConfirmed?: boolean;
+  isBlocked?: boolean;
   permissions?: Array<"view" | "upload" | "comment">;
 }
 

@@ -13,6 +13,7 @@ import {
   getProjects,
   removeProjectMember,
   updateProject,
+  updateProjectMember,
 } from "./services/project-api";
 import {
   bookAppointment,
@@ -122,6 +123,7 @@ export const API = {
 
     getProjectMembers,
     addProjectMember,
+    updateProjectMember,
     removeProjectMember,
   },
   INVITE: {

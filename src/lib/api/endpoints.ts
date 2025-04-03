@@ -24,6 +24,7 @@ export const ENDPOINTS = {
 
     getProjectMembers: "/invites",
     addProjectMember: "/invites",
+    updateProjectMember: "/project-members",
     removeProjectMember: "/invites",
   },
   INVITE: {
