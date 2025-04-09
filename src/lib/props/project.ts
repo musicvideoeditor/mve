@@ -11,6 +11,8 @@ export interface ProjectCardProps {
   coverImg?: string;
   createdAt?: string;
   mediaCount?: number;
+  statusSubtitle?: string;
+  statusTitle?: string
 }
 
 export interface ProjectInfoProps {

@@ -40,6 +40,8 @@ export interface SingleProjectState {
   createdAt?: string;
   members?: ProjectMemberType[];
   author: ProjectMemberType;
+  statusSubtitle?: string;
+  statusTitle?: string;
 }
 
 export interface ProjectsState {

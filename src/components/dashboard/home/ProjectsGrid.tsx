@@ -48,6 +48,8 @@ const ProjectsGrid = ({ length }: { length?: number }) => {
               mediaCount={project.videosCount}
               subtitle={project.description}
               createdAt={project.createdAt}
+              statusTitle={project?.statusTitle}
+              statusSubtitle={project?.statusSubtitle}
             />
           ))}
         <GridItem
