@@ -31,6 +31,7 @@ import Link from "next/link";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
+const services = ["Video Editing", "Color Grading", "Complete Editing"];
 
 const page = () => {
   const ref = useRef(false);
@@ -56,9 +57,13 @@ const page = () => {
     watch,
     formState: { errors },
   } = useForm<z.infer<typeof CreateAppointmentSchema>>({
+    defaultValues: {
+      purpose: "",
+    },
     resolver: zodResolver(CreateAppointmentSchema),
   });
 
+  const purpose = watch("purpose");
   const date = new Date(watch("date"));
   const firstCut = new Date(date.setDate(date.getDate() + 5));
 
@@ -186,15 +191,44 @@ const page = () => {
 
       <Box>
         <Text fontSize={"md"} mb={4}>
-          Purpose
+          Select Service
         </Text>
-        <Input
-          placeholder="Type here..."
-          variant={"flushed"}
-          fontWeight={"semibold"}
-          borderBottom={"1px"}
-          {...register("purpose")}
-        />
+        <Stack direction={["column", "row"]} gap={4}>
+          {services.map((s, i) => (
+            <Button
+              key={i}
+              onClick={() => setValue("purpose", s)}
+              colorScheme={purpose == s ? "orange" : "gray"}
+              border={"1px solid #DADADA"}
+            >
+              {s}
+            </Button>
+          ))}
+          <Button
+            onClick={() => setValue("purpose", "other")}
+            colorScheme={
+              purpose == ""
+                ? "gray"
+                : purpose == "other" || !services.includes(purpose)
+                ? "orange"
+                : "gray"
+            }
+            border={"1px solid #DADADA"}
+          >
+            Other
+          </Button>
+        </Stack>
+
+        {services.includes(purpose) || purpose == "" ? null : (
+          <Input
+            mt={4}
+            placeholder="Type here..."
+            variant={"flushed"}
+            fontWeight={"semibold"}
+            borderBottom={"1px"}
+            {...register("purpose")}
+          />
+        )}
         {errors.purpose && (
           <Text fontSize={"xs"} color={"red.500"}>
             {errors.purpose.message}
