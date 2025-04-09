@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
@@ -26,6 +27,7 @@ import { CreateAppointmentSchema } from "@/lib/schema/appointment-schema";
 import { AppointmentSlotState } from "@/lib/api/types/appointment-types";
 import { API } from "@/lib/api";
 import { addAppointment } from "@/lib/redux/features/appointment/booked-appointments-slice";
+import Link from "next/link";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -43,6 +45,7 @@ const page = () => {
   const [unavailableSlots, setUnavailableSlots] = useState<
     AppointmentSlotState[]
   >([]);
+  const [appointmentBooked, setAppointmentBooked] = useState(false);
 
   const {
     register,
@@ -55,6 +58,9 @@ const page = () => {
   } = useForm<z.infer<typeof CreateAppointmentSchema>>({
     resolver: zodResolver(CreateAppointmentSchema),
   });
+
+  const date = new Date(watch("date"));
+  const firstCut = new Date(date.setDate(date.getDate() + 5));
 
   useEffect(() => {
     if (ref.current) return;
@@ -91,8 +97,7 @@ const page = () => {
         status: "success",
         description: "Appointment booked successfully",
       });
-      window.location.href = "/dashboard/new-project";
-      reset();
+      setAppointmentBooked(true);
     } catch (error: any) {
       toast({
         status: "error",
@@ -134,6 +139,43 @@ const page = () => {
       });
     }
   };
+
+  if (appointmentBooked) {
+    return (
+      <>
+        <VStack
+          w={["full"]}
+          h={["80vh"]}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Text fontSize={"lg"} fontWeight={"semibold"} mb={4}>
+            Your slot was booked successfully!
+          </Text>
+          <Text>
+            Upload your files by{" "}
+            {new Date(getValues("date")).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </Text>
+          <Text>
+            You will get your first cut by{" "}
+            {firstCut.toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </Text>
+          <br />
+          <Link href={"/dashboard/new-project"}>
+            <Button>Create New Project</Button>
+          </Link>
+        </VStack>
+      </>
+    );
+  }
 
   return (
     <>
