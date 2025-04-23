@@ -85,7 +85,7 @@ const SignupForm = () => {
           status: "success",
           description: "Login successful",
         });
-        window.location.href = callback ? callback : res.url || "/dashboard";
+        window.location.href = callback ? callback : res.url || "/dashboard/appointments/new";
       } else {
         toast({
           status: "error",
