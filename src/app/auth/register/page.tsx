@@ -202,17 +202,25 @@ const SignupForm = () => {
           <Text fontSize={"xs"} textAlign={"center"}>
             Please enter the OTP sent to your email
           </Text>
-          <PinInput otp onComplete={(v) => setOtp(v)}>
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-          </PinInput>
+          <HStack
+            justifyContent={"center"}
+            gap={4}
+            alignItems={"center"}
+            my={6}
+          >
+            <PinInput otp onComplete={(v) => setOtp(v)}>
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+            </PinInput>
+          </HStack>
           <br />
           <Button
-            w={"full"}
+            size={"xs"}
+            variant={'ghost'}
             colorScheme="blue"
             fontSize={"sm"}
             fontWeight={"medium"}
