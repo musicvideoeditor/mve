@@ -1,9 +1,10 @@
 "use client";
 import Navbar from "@/components/common/Navbar";
+import AppModal from "@/components/custom/AppModal";
 import VerticalSpacer from "@/components/extras/VerticalSpacer";
 import { API } from "@/lib/api";
 import { colors } from "@/lib/constants";
-import { SignupSchema } from "@/lib/schema/auth-schema";
+import { LoginSchema, SignupSchema } from "@/lib/schema/auth-schema";
 import {
   Box,
   Button,
@@ -16,6 +17,9 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Modal,
+  PinInput,
+  PinInputField,
   Text,
   useToast,
   VStack,
@@ -36,14 +40,20 @@ const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
   });
+  const name = watch("name");
+  const email = watch("email");
+  const password = watch("password");
 
   async function handleRegister(v: z.infer<typeof SignupSchema>) {
     setIsLoading(true);
@@ -51,9 +61,11 @@ const SignupForm = () => {
       const res = await API.AUTH.createAccount({ data: v });
       toast({
         status: "success",
-        description: "Registration successful",
+        title: "OTP Sent Successfully",
+        description: "Please check your email for OTP",
       });
-      window.location.href = "/auth/login";
+      // window.location.href = "/auth/login";
+      setShowOtpModal(true);
     } catch (error: any) {
       toast({
         status: "error",
@@ -62,6 +74,25 @@ const SignupForm = () => {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function handleLogin(v: z.infer<typeof LoginSchema>) {
+    setIsLoading(true);
+    signIn("credentials", { ...v, redirect: false }).then((res) => {
+      if (res?.ok) {
+        toast({
+          status: "success",
+          description: "Login successful",
+        });
+        window.location.href = callback ? callback : res.url || "/dashboard";
+      } else {
+        toast({
+          status: "error",
+          description: res?.error,
+        });
+        setIsLoading(false);
+      }
+    });
   }
 
   return (
@@ -157,6 +188,42 @@ const SignupForm = () => {
           </VStack>
         </form>
       </Container>
+
+      <AppModal
+        isOpen={showOtpModal}
+        theme="success"
+        onClose={() => setShowOtpModal(false)}
+        onSubmit={() => handleLogin({ email, password })}
+        isLoading={isLoading}
+        title="Enter OTP"
+        primaryCtaLabel="Verify"
+      >
+        <Box>
+          <Text fontSize={"xs"} textAlign={"center"}>
+            Please enter the OTP sent to your email
+          </Text>
+          <PinInput otp onComplete={(v) => setOtp(v)}>
+            <PinInputField />
+            <PinInputField />
+            <PinInputField />
+            <PinInputField />
+            <PinInputField />
+            <PinInputField />
+          </PinInput>
+          <br />
+          <Button
+            w={"full"}
+            colorScheme="blue"
+            fontSize={"sm"}
+            fontWeight={"medium"}
+            bgColor={colors.loginBtnColor}
+            isLoading={isLoading}
+            onClick={() => handleRegister({ name, email, password })}
+          >
+            Resend OTP
+          </Button>
+        </Box>
+      </AppModal>
     </>
   );
 };
