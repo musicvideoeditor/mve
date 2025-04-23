@@ -76,8 +76,9 @@ const SignupForm = () => {
     }
   }
 
-  function handleLogin(v: z.infer<typeof LoginSchema>) {
+  async function handleLogin(v: z.infer<typeof LoginSchema>) {
     setIsLoading(true);
+    await API.AUTH.verifyOtp({ data: { email: v.email, otp } });
     signIn("credentials", { ...v, redirect: false }).then((res) => {
       if (res?.ok) {
         toast({
@@ -220,11 +221,11 @@ const SignupForm = () => {
           <br />
           <Button
             size={"xs"}
-            variant={'ghost'}
+            mx={"auto"}
+            variant={"ghost"}
             colorScheme="blue"
             fontSize={"sm"}
             fontWeight={"medium"}
-            bgColor={colors.loginBtnColor}
             isLoading={isLoading}
             onClick={() => handleRegister({ name, email, password })}
           >

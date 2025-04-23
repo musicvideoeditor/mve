@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiBaseURL } from "../constants";
-import { createAccount, joinWaitlist, login } from "./services/auth-api";
+import { createAccount, joinWaitlist, login, verifyOtp } from "./services/auth-api";
 import { getSession } from "next-auth/react";
 import {
   addProjectMember,
@@ -103,6 +103,7 @@ export const API = {
   AUTH: {
     login,
     createAccount,
+    verifyOtp,
   },
 
   // User APIs
