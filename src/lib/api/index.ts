@@ -1,6 +1,11 @@
 import axios from "axios";
 import { apiBaseURL } from "../constants";
-import { createAccount, joinWaitlist, login, verifyOtp } from "./services/auth-api";
+import {
+  createAccount,
+  joinWaitlist,
+  login,
+  verifyOtp,
+} from "./services/auth-api";
 import { getSession } from "next-auth/react";
 import {
   addProjectMember,
@@ -48,6 +53,7 @@ interface RequestProps {
   query?: { [key: string]: any };
   body?: { [key: string]: any };
   hasFiles?: boolean;
+  useAbsoluteUrl?: boolean;
 }
 
 const httpClient = axios.create({
@@ -61,6 +67,7 @@ export const processRequest = async ({
   query = {},
   body = {},
   hasFiles = false,
+  useAbsoluteUrl = false,
 }: RequestProps) => {
   try {
     const session = await getSession();
@@ -70,14 +77,17 @@ export const processRequest = async ({
 
     const headers = token
       ? {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": hasFiles ? "multipart/form-data" : "application/json",
+          ...(hasFiles
+            ? { AccessKey: process.env.BUNNY_API_KEY }
+            : { Authorization: `Bearer ${token}` }),
+          "Content-Type": hasFiles ? "application/octet-stream" : "application/json",
         }
       : {};
 
     const res = await httpClient.request({
       method: method,
-      url: `/api${url}${
+      // Absolute URL to upload files directly to Bunny
+      url: `${useAbsoluteUrl ? "" : "/api"}${url}${
         Object.keys(query)?.length >= 1
           ? "?" +
             Object.keys(query)

@@ -1,6 +1,7 @@
 import { SignupSchema } from "@/lib/schema/auth-schema";
 import { processRequest } from "..";
 import * as z from "zod";
+import { ENDPOINTS } from "../endpoints";
 
 export const createAccount = async ({
   data,
@@ -10,7 +11,7 @@ export const createAccount = async ({
   try {
     const res = await processRequest({
       method: "post",
-      url: "/auth-services/send-otp",
+      url: ENDPOINTS.AUTH.sendOtp,
       body: {
         ...data,
         username: data?.email?.split("@")[0],
@@ -26,7 +27,7 @@ export const login = async ({ data }: { data: Object }) => {
   try {
     const res = await processRequest({
       method: "post",
-      url: "/auth/local",
+      url: ENDPOINTS.AUTH.login,
       body: { ...data },
     });
     return res;
@@ -39,7 +40,7 @@ export const verifyOtp = async ({ data }: { data: Object }) => {
   try {
     const res = await processRequest({
       method: "post",
-      url: "/auth-services/verify-otp",
+      url: ENDPOINTS.AUTH.verifyOtp,
       body: { ...data },
     });
     return res;
@@ -52,7 +53,7 @@ export const joinWaitlist = async ({ data }: { data: Object }) => {
   try {
     const res = await processRequest({
       method: "post",
-      url: "/join-waitlist",
+      url: ENDPOINTS.AUTH.joinWaitlist,
       body: data,
     });
     return res;
@@ -65,7 +66,20 @@ export const forgotPassword = async ({ data }: { data: Object }) => {
   try {
     const res = await processRequest({
       method: "post",
-      url: "/join-waitlist",
+      url: ENDPOINTS.AUTH.forgotPassword,
+      body: data,
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
+export const resetPassword = async ({ data }: { data: Object }) => {
+  try {
+    const res = await processRequest({
+      method: "post",
+      url: ENDPOINTS.AUTH.resetPassword,
       body: data,
     });
     return res;

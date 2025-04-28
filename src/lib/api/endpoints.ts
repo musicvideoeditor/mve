@@ -1,10 +1,16 @@
 import getConfig from "next/config";
 import { uploadAsset } from "./services/misc-api";
 import { getProjectInfo } from "./services/project-api";
+import { BUNNY } from "../constants";
 
 export const ENDPOINTS = {
   AUTH: {
-    login: "",
+    login: "/auth/local",
+    sendOtp: "/auth-services/send-otp",
+    verifyOtp: "/auth-services/verify-otp",
+    joinWaitlist: "/join-waitlist",
+    forgotPassword: "/auth/forgot-password",
+    resetPassword: "/auth/reset-password",
   },
   USER: {
     getNotifications: "/notifications",
@@ -52,7 +58,7 @@ export const ENDPOINTS = {
   },
   MISC: {
     getHomeConfig: "/home-config",
-    uploadAsset: "/upload",
-    deleteAsset: "/upload/files",
+    uploadAsset: `https://${BUNNY.HOSTNAME}/${BUNNY.STORAGE_ZONE}`,
+    deleteAsset: `https://storage.bunnycdn.com/${BUNNY.STORAGE_ZONE}`, // add trailing PATH and FILENAME (/PATH/FILENAME) in the URL while calling the API
   },
 };

@@ -67,8 +67,6 @@ const LoginForm = () => {
 
   return (
     <>
-      <Navbar />
-      <VerticalSpacer />
       <Container maxW={"sm"} p={[4, 8]}>
         <form method="post" onSubmit={handleSubmit(handleLogin)}>
           <VStack w={"full"} justifyContent={"center"} alignItems={"center"}>

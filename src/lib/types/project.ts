@@ -98,6 +98,8 @@ export interface ProjectAssetType {
     | "pending upload"
     | "just uploaded";
   uploadProgress?: number;
+  url?: string;
+  filesCount?: number
   onRemoveFileFromStack: () => void;
 }
 

@@ -80,9 +80,7 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
                 {props?.name?.slice(0, 10) +
                   (props?.name?.length > 10 ? "..." : "")}
               </Text>
-              <Text fontSize={"10"}>
-                {calculateSize(props?.assets[0]?.size)}
-              </Text>
+              <Text fontSize={"10"}>{props.filesCount ?? ""} Files</Text>
             </Box>
           </HStack>
         </Td>
@@ -109,7 +107,15 @@ const ProjectAssetRow = (props: ProjectAssetType) => {
         </Td>
         <Td textAlign={"center"}>
           {approvalStatus == "uploading" ? (
-            <Progress value={uploadProgress} hasStripe />
+            <HStack alignItems={"center"}>
+              <Text fontSize={"xs"}>{uploadProgress}%</Text>
+              <Progress
+                value={uploadProgress}
+                hasStripe
+                rounded={"full"}
+                colorScheme="orange"
+              />
+            </HStack>
           ) : approvalStatus == "just uploaded" ? null : (
             <Button
               size={"xs"}

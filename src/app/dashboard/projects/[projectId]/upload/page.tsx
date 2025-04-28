@@ -62,7 +62,7 @@ const page = ({ params }: { params: { projectId: string } }) => {
         &nbsp;&nbsp; Files and assets
       </Text>
 
-      <ProjectAssets projectId={params.projectId} />
+      <ProjectAssets projectId={params.projectId} projectName={project.projectInfo?.name} />
 
       <InviteModal
         onClose={onClose}

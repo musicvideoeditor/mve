@@ -98,8 +98,6 @@ const SignupForm = () => {
 
   return (
     <>
-      <Navbar />
-      <VerticalSpacer />
       <Container maxW={"sm"} p={[4, 8]}>
         <form method="post" onSubmit={handleSubmit(handleRegister)}>
           <VStack justifyContent={"center"} alignItems={"center"}>

@@ -36,3 +36,9 @@ export const NAVLINKS = [
   },
 ];
 
+export const BUNNY = {
+  HOSTNAME: "sg.storage.bunnycdn.com",
+  STORAGE_ZONE: "mve-client-assets",
+  API_KEY: process.env.NEXT_PUBLIC_BUNNY_API_KEY,
+}
+

@@ -25,7 +25,7 @@ import { FaCircle, FaPlus } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import ProjectAssetRow from "./ProjectAssetRow";
-import { colors } from "@/lib/constants";
+import { BUNNY, colors } from "@/lib/constants";
 import Dropzone from "@/components/custom/Dropzone";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import {
@@ -74,7 +74,13 @@ const Filters = () => {
   );
 };
 
-const ProjectAssets = ({ projectId }: { projectId: string }) => {
+const ProjectAssets = ({
+  projectId,
+  projectName,
+}: {
+  projectId: string;
+  projectName?: string;
+}) => {
   const ref = useRef(false);
 
   const user = useAppSelector((state) => state.userReducer.user);
@@ -98,16 +104,6 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
     ref.current = true;
   }, []);
 
-  useEffect(() => {
-    console.log("Uploaded files are");
-    console.log(uploadedFilesIndex);
-  }, [uploadedFilesIndex]);
-
-  useEffect(() => {
-    console.log("Current progress is");
-    console.log(progress);
-  }, [progress]);
-
   const handleProjectAssetUpload = async () => {
     onClose();
     const session = await getSession();
@@ -116,21 +112,22 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
     for (const file of Array.from(stackedFiles)) {
       try {
         setUploadingFileIndex(file.name);
-        const res = await API.PROJECT.createProjectAsset({
-          name: file?.name,
-          project: { documentId: projectId },
+        // const assetId = res.data?.id;
+        // if (res.data.documentId) {
+        //   await uploadFile({
+        //     files: [file],
+        //     entryId: assetId,
+        //     modelId: "api::asset.asset",
+        //     field: "assets",
+        //     sessionToken: session?.accessToken,
+        //     path: projectId + "/" + user?.username + "/"
+        //   });
+        // }
+        await uploadFile({
+          file: file,
+          projectName: projectName ? encodeURI(projectName) : projectId,
+          username: user?.username ?? "",
         });
-        const assetId = res.data?.id;
-        if (res.data.documentId) {
-          await uploadFile({
-            files: [file],
-            entryId: assetId,
-            modelId: "api::asset.asset",
-            field: "assets",
-            sessionToken: session?.accessToken,
-            path: projectId + "/" + user?.username + "/"
-          });
-        }
         setUploadedFilesIndex((prev) => [...prev, file?.name]);
         setUploadingFileIndex("");
       } catch (error: any) {
@@ -140,6 +137,14 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
         });
       }
     }
+    await API.PROJECT.createProjectAsset({
+      name: projectName ?? projectId,
+      project: { documentId: projectId },
+      filesCount: stackedFiles.length,
+      url: `https://${BUNNY.HOSTNAME}/${BUNNY.STORAGE_ZONE}/${projectId}/${
+        user?.username ?? ""
+      }/`,
+    });
   };
 
   return (
@@ -163,7 +168,7 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
           border={"1px solid #666"}
           rounded={8}
         >
-          <HStack justifyContent={"space-between"} mb={4} flexWrap={'wrap'}>
+          <HStack justifyContent={"space-between"} mb={4} flexWrap={"wrap"}>
             <Box>
               <Text fontWeight={"semibold"} fontSize={"sm"}>
                 Attached files
@@ -173,7 +178,11 @@ const ProjectAssets = ({ projectId }: { projectId: string }) => {
               </Text>
             </Box>
 
-            <InputGroup w={["full", "2xs"]} border={"1px solid #DDD"} rounded={8}>
+            <InputGroup
+              w={["full", "2xs"]}
+              border={"1px solid #DDD"}
+              rounded={8}
+            >
               <InputLeftElement children={<FiSearch />} />
               <Input placeholder="Search" pl={8} fontSize={"sm"} />
             </InputGroup>

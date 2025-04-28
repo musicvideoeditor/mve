@@ -33,6 +33,20 @@ export const uploadAsset = async (data: FormData) => {
       url: ENDPOINTS.MISC.uploadAsset,
       body: data,
       hasFiles: true,
+      useAbsoluteUrl: true
+    });
+    return res;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};
+
+export const deleteAsset = async ({path, filename}: {path: string, filename: string}) => {
+  try {
+    const res = await processRequest({
+      method: "delete",
+      url: ENDPOINTS.MISC.deleteAsset + `/${path}/${filename}`,
+      useAbsoluteUrl: true
     });
     return res;
   } catch (error: any) {
