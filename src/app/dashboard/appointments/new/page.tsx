@@ -78,7 +78,7 @@ const page = () => {
     if (value) {
       // @ts-ignore
       setValue("date", new Date(value).toLocaleDateString("en-CA"));
-      getUnavailableSlots();
+      // getUnavailableSlots();
     }
   }, [value]);
 
@@ -276,8 +276,14 @@ const page = () => {
           />
         </Box>
 
-        <Box>
-          <Box mb={4}>
+        {getValues("date") && (
+          <VStack
+            h={"50vh"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            gap={0}
+          >
+            {/* <Box mb={4}>
             <Text fontSize={"md"}>Select Slot</Text>
             {errors.slots && (
               <Text fontSize={"xs"} color={"red.500"}>
@@ -318,8 +324,47 @@ const page = () => {
             >
               Book Now & Gto Upload
             </Button>
-          )}
-        </Box>
+          )} */}
+
+            <Text textAlign={"center"} fontSize={"sm"}>
+              Upload your files by{" "}
+              <span style={{ fontWeight: "bold", color: "#1552bd" }}>
+                {new Date(getValues("date")).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </span>
+            </Text>
+            <Text textAlign={"center"} fontSize={"sm"}>
+              Your <span style={{ fontWeight: "bold" }}>1st cut</span> will be
+              delivered by{" "}
+            </Text>
+            <Text
+              textAlign={"center"}
+              fontSize={"2xl"}
+              fontWeight={"semibold"}
+              color={"#1552bd"}
+            >
+              {firstCut.toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </Text>
+            <br />
+            <Button
+              w={"full"}
+              rightIcon={<FaArrowRight />}
+              colorScheme="orange"
+              bgColor={colors.orange}
+              isLoading={isLoading}
+              onClick={() => handleSubmit(onSubmit)()}
+            >
+              Book Now & Go to Upload
+            </Button>
+          </VStack>
+        )}
       </Stack>
     </>
   );
