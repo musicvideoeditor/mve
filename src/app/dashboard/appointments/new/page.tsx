@@ -159,14 +159,19 @@ const page = () => {
           </Text>
           <Text>
             Upload your files by{" "}
-            {new Date(getValues("date")).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
+            <span style={{ fontWeight: "bold", color: "#1552bd" }}>
+              {new Date(getValues("date")).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
           </Text>
           <Text>
-            You will get your first cut by{" "}
+            Your <span style={{ fontWeight: "bold" }}>1st cut</span> will be
+            delivered by{" "}
+          </Text>
+          <Text fontSize={"xl"} fontWeight={"semibold"} color={"#1552bd"}>
             {firstCut.toLocaleDateString("en-GB", {
               day: "numeric",
               month: "short",
@@ -175,7 +180,13 @@ const page = () => {
           </Text>
           <br />
           <Link href={"/dashboard/new-project"}>
-            <Button>Create New Project</Button>
+            <Button
+              rightIcon={<FaArrowRight />}
+              colorScheme="orange"
+              bgColor={colors.orange}
+            >
+              Go to Upload
+            </Button>
           </Link>
         </VStack>
       </>
@@ -305,7 +316,7 @@ const page = () => {
               isLoading={isLoading}
               onClick={() => handleSubmit(onSubmit)()}
             >
-              Book Now
+              Book Now & Gto Upload
             </Button>
           )}
         </Box>
