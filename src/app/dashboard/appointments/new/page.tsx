@@ -6,6 +6,7 @@ import {
   GridItem,
   HStack,
   Input,
+  Select,
   Stack,
   Text,
   useToast,
@@ -58,7 +59,7 @@ const page = () => {
     formState: { errors },
   } = useForm<z.infer<typeof CreateAppointmentSchema>>({
     defaultValues: {
-      purpose: "",
+      purpose: "Video Editing",
     },
     resolver: zodResolver(CreateAppointmentSchema),
   });
@@ -200,11 +201,31 @@ const page = () => {
       </Text>
       <br />
 
-      <Box>
-        <Text fontSize={"md"} mb={4}>
-          Select Service
-        </Text>
-        <Stack direction={["column", "row"]} gap={4}>
+      <VStack
+        w={["full", "sm"]}
+        alignItems={"center"}
+        justifyContent={"flex-start"}
+        mx={"auto"}
+      >
+        <Box w={"full"}>
+          <Text fontSize={"md"} mb={4}>
+            Select Service
+          </Text>
+          {services.includes(purpose) || purpose == "" ? (
+            <Select
+              {...register("purpose")}
+              placeholder="Select here"
+              bgColor={"#FFF"}
+            >
+              {services.map((s, i) => (
+                <option key={i} value={s}>
+                  {s}
+                </option>
+              ))}
+              <option value="other">Other</option>
+            </Select>
+          ) : null}
+          {/* <Stack direction={["column", "row"]} gap={4}>
           {services.map((s, i) => (
             <Button
               key={i}
@@ -227,63 +248,63 @@ const page = () => {
             border={"1px solid #DADADA"}
           >
             Other
-          </Button>
-        </Stack>
+          </Button> 
+        </Stack> */}
 
-        {services.includes(purpose) || purpose == "" ? null : (
-          <Input
-            mt={4}
-            placeholder="Type here..."
-            variant={"flushed"}
-            fontWeight={"semibold"}
-            borderBottom={"1px"}
-            {...register("purpose")}
-          />
-        )}
-        {errors.purpose && (
-          <Text fontSize={"xs"} color={"red.500"}>
-            {errors.purpose.message}
-          </Text>
-        )}
-      </Box>
-
-      <VerticalSpacer h={"10vh"} />
-
-      <Stack
-        gap={8}
-        direction={["column", "row"]}
-        alignItems={"flex-start"}
-        justifyContent={"flex-start"}
-      >
-        <Box>
-          <Box mb={4}>
-            <Text fontSize={"md"}>Select Date</Text>
-
-            {errors.date && (
-              <Text fontSize={"xs"} color={"red.500"}>
-                {errors.date.message}
-              </Text>
-            )}
-          </Box>
-
-          <Calendar
-            onChange={onChange}
-            value={value}
-            tileDisabled={({ date }) =>
-              holidays.includes(new Date(date).toLocaleDateString("en-CA")) ||
-              date < new Date()
-            }
-          />
+          {services.includes(purpose) || purpose == "" ? null : (
+            <Input
+              mt={4}
+              placeholder="Type here..."
+              variant={"flushed"}
+              fontWeight={"semibold"}
+              borderBottom={"1px"}
+              {...register("purpose")}
+            />
+          )}
+          {errors.purpose && (
+            <Text fontSize={"xs"} color={"red.500"}>
+              {errors.purpose.message}
+            </Text>
+          )}
         </Box>
 
-        {getValues("date") && (
-          <VStack
-            h={"50vh"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            gap={0}
-          >
-            {/* <Box mb={4}>
+        <VerticalSpacer h={"10vh"} />
+
+        <Stack
+          gap={8}
+          direction={["column", "row"]}
+          alignItems={"flex-start"}
+          justifyContent={"flex-start"}
+        >
+          <Box>
+            <Box mb={4}>
+              <Text fontSize={"md"}>Select Date</Text>
+
+              {errors.date && (
+                <Text fontSize={"xs"} color={"red.500"}>
+                  {errors.date.message}
+                </Text>
+              )}
+            </Box>
+
+            <Calendar
+              onChange={onChange}
+              value={value}
+              tileDisabled={({ date }) =>
+                holidays.includes(new Date(date).toLocaleDateString("en-CA")) ||
+                date < new Date()
+              }
+            />
+          </Box>
+
+          {getValues("date") && (
+            <VStack
+              h={"50vh"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              gap={0}
+            >
+              {/* <Box mb={4}>
             <Text fontSize={"md"}>Select Slot</Text>
             {errors.slots && (
               <Text fontSize={"xs"} color={"red.500"}>
@@ -326,46 +347,47 @@ const page = () => {
             </Button>
           )} */}
 
-            <Text textAlign={"center"} fontSize={"sm"}>
-              Upload your files by{" "}
-              <span style={{ fontWeight: "bold", color: "#1552bd" }}>
-                {new Date(getValues("date")).toLocaleDateString("en-GB", {
+              <Text textAlign={"center"} fontSize={"sm"}>
+                Upload your files by{" "}
+                <span style={{ fontWeight: "bold", color: "#1552bd" }}>
+                  {new Date(getValues("date")).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+              </Text>
+              <Text textAlign={"center"} fontSize={"sm"}>
+                Your <span style={{ fontWeight: "bold" }}>1st cut</span> will be
+                delivered by{" "}
+              </Text>
+              <Text
+                textAlign={"center"}
+                fontSize={"2xl"}
+                fontWeight={"semibold"}
+                color={"#1552bd"}
+              >
+                {firstCut.toLocaleDateString("en-GB", {
                   day: "numeric",
                   month: "short",
                   year: "numeric",
                 })}
-              </span>
-            </Text>
-            <Text textAlign={"center"} fontSize={"sm"}>
-              Your <span style={{ fontWeight: "bold" }}>1st cut</span> will be
-              delivered by{" "}
-            </Text>
-            <Text
-              textAlign={"center"}
-              fontSize={"2xl"}
-              fontWeight={"semibold"}
-              color={"#1552bd"}
-            >
-              {firstCut.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-            </Text>
-            <br />
-            <Button
-              w={"full"}
-              rightIcon={<FaArrowRight />}
-              colorScheme="orange"
-              bgColor={colors.orange}
-              isLoading={isLoading}
-              onClick={() => handleSubmit(onSubmit)()}
-            >
-              Book Now & Go to Upload
-            </Button>
-          </VStack>
-        )}
-      </Stack>
+              </Text>
+              <br />
+              <Button
+                w={"full"}
+                rightIcon={<FaArrowRight />}
+                colorScheme="orange"
+                bgColor={colors.orange}
+                isLoading={isLoading}
+                onClick={() => handleSubmit(onSubmit)()}
+              >
+                Book Now & Go to Upload
+              </Button>
+            </VStack>
+          )}
+        </Stack>
+      </VStack>
     </>
   );
 };
